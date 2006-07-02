@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class PHPFIT_Fixture_Column</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/Class_logo.png"
+														alt=" Class"
+														title=" Class"
+														style="vertical-align: middle"> PHPFIT_Fixture_Column</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+													<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">FIT Fixture: ColumnFixture</p>
+<p class="description"><p>A ColumnFixture maps columns in the test data to fields or methods of its  subclasses. SimpleExample and CalculatorExample use column fixtures.</p></p>
+	<ul class="tags">
+				<li><span class="field">version:</span> 0.1.0</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_PHPPlatform_PEARstylish_PHPFIT_Fixture_Column_php.html">/Fixture/Column.php</a> (line <span class="field"><a href="../..//__filesource/fsource_FIT_Fixture_FixtureColumn.php.html#a30">30</a></span>)
+		</p>
+		
+				
+		<pre><a href="../../FIT/Fixture/PHPFIT_Fixture.html">PHPFIT_Fixture</a>
+   |
+   --PHPFIT_Fixture_Column</pre>
+	
+			</div>
+</div>
+
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+								<div class="var-title">
+					<img src="../../media/images/Variable.png" alt=" " />
+					<span class="var-type">object</span>
+					<a href="#$columnBindings" title="details" class="var-name">$columnBindings</a>
+				</div>
+								<div class="var-title">
+					<img src="../../media/images/Variable.png" alt=" " />
+					<span class="var-type">bool</span>
+					<a href="#$hasExecuted" title="details" class="var-name">$hasExecuted</a>
+				</div>
+							</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+								
+				<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#bind" title="details" class="method-name">bind</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$heads</span>, <span class="var-type">Parse</span>&nbsp;<span class="var-name">$head</span>)
+									</div>
+								
+				<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">TypeAdapter</span>
+										<a href="#bindField" title="details" class="method-name">bindField</a>
+											(<span class="var-type">String</span>&nbsp;<span class="var-name">$name</span>)
+									</div>
+								
+				<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">TypeAdapter</span>
+										<a href="#bindMethod" title="details" class="method-name">bindMethod</a>
+											(<span class="var-type">String</span>&nbsp;<span class="var-name">$name</span>)
+									</div>
+								
+				<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">bool</span>
+										<a href="#checkCell" title="details" class="method-name">checkCell</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$cell</span>, <span class="var-type">TypeAdapter</span>&nbsp;<span class="var-name">$a</span>, <span class="var-type">Parse</span>&nbsp;<span class="var-name">$cell,</span>)
+									</div>
+								
+				<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#doCell" title="details" class="method-name">doCell</a>
+											(<span class="var-type">object</span>&nbsp;<span class="var-name">$cell</span>)
+									</div>
+								
+				<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#doRow" title="details" class="method-name">doRow</a>
+											(<span class="var-type">Parce</span>&nbsp;<span class="var-name">$row</span>)
+									</div>
+								
+				<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#doRows" title="details" class="method-name">doRows</a>
+											(<span class="var-type">Parce</span>&nbsp;<span class="var-name">$rows</span>)
+									</div>
+								
+				<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#execute" title="details" class="method-name">execute</a>
+										()
+									</div>
+								
+				<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#reset" title="details" class="method-name">reset</a>
+										()
+									</div>
+							</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			<a name="var$columnBindings" id="$columnBindings"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<img src="../../media/images/Variable.png" />
+		<span class="var-title">
+			<span class="var-type">object</span>
+			<span class="var-name">$columnBindings</span>
+						(line <span class="line-number"><a href="../..//__filesource/fsource_FIT_Fixture_FixtureColumn.php.html#a36">36</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">TypeAdapter</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$hasExecuted" id="$hasExecuted"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<img src="../../media/images/Variable.png" />
+		<span class="var-title">
+			<span class="var-type">bool</span>
+			<span class="var-name">$hasExecuted</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number"><a href="../..//__filesource/fsource_FIT_Fixture_FixtureColumn.php.html#a42">42</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Excecution state</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+							<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../../FIT/Fixture/PHPFIT_Fixture.html">PHPFIT_Fixture</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="var-title">
+								<span class="var-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#var$backgroundColor">PHPFIT_Fixture::$backgroundColor</a></span><br>
+							</span>
+													<img src="../../media/images/Variable.png" />
+							<span class="var-title">
+								<span class="var-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#var$counts">PHPFIT_Fixture::$counts</a></span><br>
+							</span>
+													<img src="../../media/images/Variable.png" />
+							<span class="var-title">
+								<span class="var-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#var$summary">PHPFIT_Fixture::$summary</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+														<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodbind" id="bind"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">bind</span> (line <span class="line-number"><a href="../..//__filesource/fsource_FIT_Fixture_FixtureColumn.php.html#a153">153</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">bind columns of table header to functions and properties</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			bind
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$heads</span>, <span class="var-type">Parse</span>&nbsp;<span class="var-name">$head</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Parse</span>
+				<span class="var-name">$head</span>			</li>
+				</ul>
+		
+		
+	</div>
+<a name="methodbindField" id="bindField"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">bindField</span> (line <span class="line-number"><a href="../..//__filesource/fsource_FIT_Fixture_FixtureColumn.php.html#a191">191</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">TypeAdapter</span>
+		<span class="method-name">
+			bindField
+		</span>
+					(<span class="var-type">String</span>&nbsp;<span class="var-name">$name</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$name</span><span class="var-description">: name</span>			</li>
+				</ul>
+		
+		
+	</div>
+<a name="methodbindMethod" id="bindMethod"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">bindMethod</span> (line <span class="line-number"><a href="../..//__filesource/fsource_FIT_Fixture_FixtureColumn.php.html#a182">182</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">TypeAdapter</span>
+		<span class="method-name">
+			bindMethod
+		</span>
+					(<span class="var-type">String</span>&nbsp;<span class="var-name">$name</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">String</span>
+				<span class="var-name">$name</span><span class="var-description">: name</span>			</li>
+				</ul>
+		
+		
+	</div>
+<a name="methodcheckCell" id="checkCell"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">checkCell</span> (line <span class="line-number"><a href="../..//__filesource/fsource_FIT_Fixture_FixtureColumn.php.html#a132">132</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">check whether the value of a cell matches</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> true on success, false otherwise</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			checkCell
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$cell</span>, <span class="var-type">TypeAdapter</span>&nbsp;<span class="var-name">$a</span>, <span class="var-type">Parse</span>&nbsp;<span class="var-name">$cell,</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Parse</span>
+				<span class="var-name">$cell,</span>			</li>
+					<li>
+				<span class="var-type">TypeAdapter</span>
+				<span class="var-name">$a</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methodcheckCell">PHPFIT_Fixture::checkCell()</a></dt>
+						<dd>check whether the value of a cell matches</dd>
+					</dl>
+		
+	</div>
+<a name="methoddoCell" id="doCell"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">doCell</span> (line <span class="line-number"><a href="../..//__filesource/fsource_FIT_Fixture_FixtureColumn.php.html#a86">86</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">process a single cell</p>
+<p class="description"><p>Generic processing of a table cell. Well, this function  just ignores cells.</p><p>This method may be overwritten by a subclass (ColumnFixture)</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			doCell
+		</span>
+					(<span class="var-type">object</span>&nbsp;<span class="var-name">$cell</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">object</span>
+				<span class="var-name">$cell</span><span class="var-description">: A parse object</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methoddoCell">PHPFIT_Fixture::doCell()</a></dt>
+						<dd>process a single cell</dd>
+					</dl>
+		
+	</div>
+<a name="methoddoRow" id="doRow"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">doRow</span> (line <span class="line-number"><a href="../..//__filesource/fsource_FIT_Fixture_FixtureColumn.php.html#a60">60</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Process a table's row</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			doRow
+		</span>
+					(<span class="var-type">Parce</span>&nbsp;<span class="var-name">$row</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Parce</span>
+				<span class="var-name">$row</span><span class="var-description">: rows</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methoddoRow">PHPFIT_Fixture::doRow()</a></dt>
+						<dd>iterate through cells</dd>
+					</dl>
+		
+	</div>
+<a name="methoddoRows" id="doRows"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">doRows</span> (line <span class="line-number"><a href="../..//__filesource/fsource_FIT_Fixture_FixtureColumn.php.html#a49">49</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Process a table's row</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			doRows
+		</span>
+					(<span class="var-type">Parce</span>&nbsp;<span class="var-name">$rows</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Parce</span>
+				<span class="var-name">$rows</span><span class="var-description">: rows</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methoddoRows">PHPFIT_Fixture::doRows()</a></dt>
+						<dd>iterate through rows</dd>
+					</dl>
+		
+	</div>
+<a name="methodexecute" id="execute"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">execute</span> (line <span class="line-number"><a href="../..//__filesource/fsource_FIT_Fixture_FixtureColumn.php.html#a199">199</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			execute
+		</span>
+				()
+			</div>
+	
+		
+		
+	</div>
+<a name="methodreset" id="reset"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">reset</span> (line <span class="line-number"><a href="../..//__filesource/fsource_FIT_Fixture_FixtureColumn.php.html#a195">195</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			reset
+		</span>
+				()
+			</div>
+	
+		
+		
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../FIT/Fixture/PHPFIT_Fixture.html">PHPFIT_Fixture</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#method__construct">PHPFIT_Fixture::__construct()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methodcamel">PHPFIT_Fixture::camel()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methodcheckCell">PHPFIT_Fixture::checkCell()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methoddoCell">PHPFIT_Fixture::doCell()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methoddoCells">PHPFIT_Fixture::doCells()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methoddoRow">PHPFIT_Fixture::doRow()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methoddoRows">PHPFIT_Fixture::doRows()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methoddoTable">PHPFIT_Fixture::doTable()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methoddoTables">PHPFIT_Fixture::doTables()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methoderror">PHPFIT_Fixture::error()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methodescape">PHPFIT_Fixture::escape()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methodexception">PHPFIT_Fixture::exception()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methodfixBoolToString">PHPFIT_Fixture::fixBoolToString()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methodfixtureName">PHPFIT_Fixture::fixtureName()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methodgetLinkedFixtureWithArgs">PHPFIT_Fixture::getLinkedFixtureWithArgs()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methodgetType">PHPFIT_Fixture::getType()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methodignore">PHPFIT_Fixture::ignore()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methodinfo">PHPFIT_Fixture::info()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methodinfoS">PHPFIT_Fixture::infoS()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methodlabel">PHPFIT_Fixture::label()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methodloadFixture">PHPFIT_Fixture::loadFixture()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methodparse">PHPFIT_Fixture::parse()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methodright">PHPFIT_Fixture::right()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../FIT/Fixture/PHPFIT_Fixture.html#methodwrong">PHPFIT_Fixture::wrong()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	
+	<p class="notes" id="credit">
+		Documentation generated on Sun, 02 Apr 2006 23:21:37 +0000 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.3.0RC5</a>
+	</p>
+	</div></body>
+</html>

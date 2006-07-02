@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>File Source for Fixture.php</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+						<h1>Source for file Fixture.php</h1>
+<p>Documentation is available at <a href="../FIT/Fixture/_PHPPlatform_PEARstylish_PHPFIT_Fixture_php.html">Fixture.php</a></p>
+<div class="src-code">
+<pre><ol><li><a name="a1"></a><span class="src-php">&lt;?php</span></li>
+<li><a name="a2"></a><span class="src-doc">/**</span></li>
+<li><a name="a3"></a><span class="src-doc"> * FIT Fixture</span></li>
+<li><a name="a4"></a><span class="src-doc"> * </span></li>
+<li><a name="a5"></a><span class="src-doc"> * $Id$</span></li>
+<li><a name="a6"></a><span class="src-doc"> * </span></li>
+<li><a name="a7"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@author</span><span class="src-doc"> Luis A. Floreani &lt;luis.floreani@gmail.com&gt;</span></li>
+<li><a name="a8"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@author</span><span class="src-doc"> gERD Schaufelberger &lt;gerd@php-tools.net&gt;</span></li>
+<li><a name="a9"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@package</span><span class="src-doc"> FIT</span></li>
+<li><a name="a10"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@subpackage</span><span class="src-doc"> Fixture</span></li>
+<li><a name="a11"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@license</span><span class="src-doc"> LGPL http://www.gnu.org/copyleft/lesser.html</span></li>
+<li><a name="a12"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@copyright</span><span class="src-doc"> Copyright (c) 2002-2005 Cunningham &amp; Cunningham, Inc.</span></li>
+<li><a name="a13"></a><span class="src-doc"> */</span></li>
+<li><a name="a14"></a> </li>
+<li><a name="a15"></a><span class="src-doc">/** </span></li>
+<li><a name="a16"></a><span class="src-doc"> * path to user's fixtures</span></li>
+<li><a name="a17"></a><span class="src-doc"> */</span></li>
+<li><a name="a18"></a><span class="src-key">if</span><span class="src-sym">( </span><span class="src-sym">!</span><a href="http://www.php.net/defined">defined</a><span class="src-sym">( </span><span class="src-str">'PHPFIT_FIXTURE_DIR' </span><span class="src-sym">) ) </span><span class="src-sym">{</span></li>
+<li><a name="a19"></a>    <a href="http://www.php.net/define">define</a><span class="src-sym">( </span><span class="src-str">'PHPFIT_FIXTURE_DIR'</span><span class="src-sym">, </span><span class="src-str">'.' </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a20"></a><span class="src-sym">}</span></li>
+<li><a name="a21"></a>&nbsp;</li>
+<li><a name="a22"></a><span class="src-doc">/**</span></li>
+<li><a name="a23"></a><span class="src-doc"> * load counter</span></li>
+<li><a name="a24"></a><span class="src-doc"> */</span></li>
+<li><a name="a25"></a><span class="src-inc">include_once </span><span class="src-str">'PHPFIT/Counts.php'</span><span class="src-sym">;</span></li>
+<li><a name="a26"></a>&nbsp;</li>
+<li><a name="a27"></a><span class="src-doc">/**</span></li>
+<li><a name="a28"></a><span class="src-doc"> * load scienttific double class</span></li>
+<li><a name="a29"></a><span class="src-doc"> */</span></li>
+<li><a name="a30"></a><span class="src-inc">include_once </span><span class="src-str">'PHPFIT/ScientificDouble.php'</span><span class="src-sym">;</span></li>
+<li><a name="a31"></a>&nbsp;</li>
+<li><a name="a32"></a><span class="src-doc">/**</span></li>
+<li><a name="a33"></a><span class="src-doc"> * load timer class</span></li>
+<li><a name="a34"></a><span class="src-doc"> */</span></li>
+<li><a name="a35"></a><span class="src-inc">include_once </span><span class="src-str">'PHPFIT/RunTime.php'</span><span class="src-sym">;</span></li>
+<li><a name="a36"></a>&nbsp;</li>
+<li><a name="a37"></a><span class="src-doc">/**</span></li>
+<li><a name="a38"></a><span class="src-doc"> * FIT Fixture</span></li>
+<li><a name="a39"></a><span class="src-doc"> * </span></li>
+<li><a name="a40"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@version</span><span class="src-doc"> 0.1.0</span></li>
+<li><a name="a41"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@package</span><span class="src-doc"> FIT</span></li>
+<li><a name="a42"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@subpackage</span><span class="src-doc"> Fixture</span></li>
+<li><a name="a43"></a><span class="src-doc"> */</span></li>
+<li><a name="a44"></a><span class="src-key">class </span><a href="../FIT/Fixture/PHPFIT_Fixture.html">PHPFIT_Fixture</a> <span class="src-sym">{</span></li>
+<li><a name="a45"></a>&nbsp;</li>
+<li><a name="a46"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a47"></a><span class="src-doc">    * make the include folder available for user's fixtures</span></li>
+<li><a name="a48"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@var </span><span class="src-doc-type">array </span></li>
+<li><a name="a49"></a><span class="src-doc">    */</span></li>
+<li><a name="a50"></a>    <span class="src-key">protected </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#var$backgroundColor">$backgroundColor</a>  =   <span class="src-key">array</span><span class="src-sym">(</span></li>
+<li><a name="a51"></a>                                    <span class="src-str">'passed'    </span>=&gt; <span class="src-str">'#cfffcf'</span><span class="src-sym">,</span></li>
+<li><a name="a52"></a>                                    <span class="src-str">'failed'    </span>=&gt; <span class="src-str">'#ffcfcf'</span><span class="src-sym">,</span></li>
+<li><a name="a53"></a>                                    <span class="src-str">'ignored'   </span>=&gt; <span class="src-str">'#efefef'</span><span class="src-sym">,</span></li>
+<li><a name="a54"></a>                                    <span class="src-str">'error'     </span>=&gt; <span class="src-str">'#ffffcf'</span><span class="src-sym">,</span></li>
+<li><a name="a55"></a>                                    <span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a56"></a>&nbsp;</li>
+<li><a name="a57"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a58"></a><span class="src-doc">    * collecting information of this fixture</span></li>
+<li><a name="a59"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@var </span><span class="src-doc-type">array </span></li>
+<li><a name="a60"></a><span class="src-doc">    */</span></li>
+<li><a name="a61"></a>    <span class="src-key">public </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#var$summary">$summary</a> = <span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a62"></a>    </li>
+<li><a name="a63"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a64"></a><span class="src-doc">    * count what?</span></li>
+<li><a name="a65"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@var </span><span class="src-doc-type">object </span></li>
+<li><a name="a66"></a><span class="src-doc">    */     </span></li>
+<li><a name="a67"></a>    <span class="src-key">public </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#var$counts">$counts</a><span class="src-sym">;</span></li>
+<li><a name="a68"></a>    </li>
+<li><a name="a69"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a70"></a><span class="src-doc">    * construtor</span></li>
+<li><a name="a71"></a><span class="src-doc">    * </span></li>
+<li><a name="a72"></a><span class="src-doc">    * instanciate counter</span></li>
+<li><a name="a73"></a><span class="src-doc">    */   </span></li>
+<li><a name="a74"></a>    <span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#method__construct">__construct</a><span class="src-sym">(</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a75"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#var$counts">counts</a> = <span class="src-key">new </span><span class="src-id"><a href="../FIT/PHPFIT_Counts.html">PHPFIT_Counts</a></span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a76"></a>    <span class="src-sym">}</span></li>
+<li><a name="a77"></a>&nbsp;</li>
+<li><a name="a78"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a79"></a><span class="src-doc">    * Traverse all tables</span></li>
+<li><a name="a80"></a><span class="src-doc">    * </span></li>
+<li><a name="a81"></a><span class="src-doc">    * Tables are packed in Parse-objects</span></li>
+<li><a name="a82"></a><span class="src-doc">    * </span></li>
+<li><a name="a83"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">Parse </span><span class="src-doc-var">$tables </span></li>
+<li><a name="a84"></a><span class="src-doc">    */   </span></li>
+<li><a name="a85"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methoddoTables">doTables</a><span class="src-sym">( </span><span class="src-var">$tables </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a86"></a>&nbsp;</li>
+<li><a name="a87"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#var$summary">summary</a><span class="src-sym">[</span><span class="src-str">'run date'</span><span class="src-sym">] </span>= <a href="http://www.php.net/date">date</a><span class="src-sym">( </span><span class="src-str">'F d Y H:i:s.' </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a88"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#var$summary">summary</a><span class="src-sym">[</span><span class="src-str">'run elapsed time'</span><span class="src-sym">] </span>= <span class="src-key">new </span><span class="src-id"><a href="../FIT/Fixture/PHPFIT_RunTime.html">PHPFIT_RunTime</a></span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;   </span></li>
+<li><a name="a89"></a>&nbsp;</li>
+<li><a name="a90"></a>        <span class="src-comm">// no tables left</span></li>
+<li><a name="a91"></a>        <span class="src-key">if</span><span class="src-sym">( </span><span class="src-var">$tables </span>== <span class="src-id">null </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a92"></a>            <span class="src-key">return</span><span class="src-sym">;</span></li>
+<li><a name="a93"></a>        <span class="src-sym">}</span></li>
+<li><a name="a94"></a>        </li>
+<li><a name="a95"></a>        <span class="src-comm">// iterate through all tables</span></li>
+<li><a name="a96"></a>        <span class="src-key">while</span><span class="src-sym">( </span><span class="src-var">$tables </span>!= <span class="src-id">null </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a97"></a>            <span class="src-var">$fixtureName </span>= <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodfixtureName">fixtureName</a><span class="src-sym">( </span><span class="src-var">$tables </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a98"></a>            </li>
+<li><a name="a99"></a>            <span class="src-key">if</span><span class="src-sym">( </span><span class="src-var">$fixtureName </span>== <span class="src-id">null </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a100"></a>                <span class="src-var">$tables </span>= <span class="src-var">$tables</span><span class="src-sym">-&gt;</span><span class="src-id">more</span><span class="src-sym">;</span></li>
+<li><a name="a101"></a>                <span class="src-key">continue</span><span class="src-sym">;</span></li>
+<li><a name="a102"></a>            <span class="src-sym">}</span></li>
+<li><a name="a103"></a>            </li>
+<li><a name="a104"></a>            try <span class="src-sym">{</span></li>
+<li><a name="a105"></a>                <span class="src-var">$fixture </span>= <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodgetLinkedFixtureWithArgs">getLinkedFixtureWithArgs</a><span class="src-sym">( </span><span class="src-var">$tables </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a106"></a>                <span class="src-var">$fixture</span><span class="src-sym">-&gt;</span><span class="src-id">doTable</span><span class="src-sym">( </span><span class="src-var">$tables </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a107"></a>            <span class="src-sym">}</span></li>
+<li><a name="a108"></a>            catch<span class="src-sym">( </span><span class="src-id">Exception </span><span class="src-var">$e </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a109"></a>                <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodexception">exception</a><span class="src-sym">( </span><span class="src-var">$fixtureName</span><span class="src-sym">, </span><span class="src-var">$e </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a110"></a>            <span class="src-sym">}</span></li>
+<li><a name="a111"></a>            <span class="src-var">$tables </span>= <span class="src-var">$tables</span><span class="src-sym">-&gt;</span><span class="src-id">more</span><span class="src-sym">;        </span></li>
+<li><a name="a112"></a>        <span class="src-sym">}</span></li>
+<li><a name="a113"></a>    <span class="src-sym">}</span></li>
+<li><a name="a114"></a>&nbsp;</li>
+<li><a name="a115"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a116"></a><span class="src-doc">    * iterate through table</span></li>
+<li><a name="a117"></a><span class="src-doc">    * </span></li>
+<li><a name="a118"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">Parse </span><span class="src-doc-var">$table </span></li>
+<li><a name="a119"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@see</span><span class="src-doc"> doRows()</span></li>
+<li><a name="a120"></a><span class="src-doc">    */</span></li>
+<li><a name="a121"></a>     <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methoddoTable">doTable</a><span class="src-sym">( </span><span class="src-var">$table </span><span class="src-sym">) </span></li>
+<li><a name="a122"></a>     <span class="src-sym">{</span></li>
+<li><a name="a123"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methoddoRows">doRows</a><span class="src-sym">( </span><span class="src-var">$table</span><span class="src-sym">-&gt;</span><span class="src-id">parts</span><span class="src-sym">-&gt;</span><span class="src-id">more </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a124"></a>     <span class="src-sym">}</span></li>
+<li><a name="a125"></a>&nbsp;</li>
+<li><a name="a126"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a127"></a><span class="src-doc">    * iterate through rows</span></li>
+<li><a name="a128"></a><span class="src-doc">    * </span></li>
+<li><a name="a129"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">Parse </span><span class="src-doc-var">$rows </span></li>
+<li><a name="a130"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@see</span><span class="src-doc"> doRow()</span></li>
+<li><a name="a131"></a><span class="src-doc">    */</span></li>
+<li><a name="a132"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methoddoRows">doRows</a><span class="src-sym">( </span><span class="src-var">$rows </span><span class="src-sym">) </span></li>
+<li><a name="a133"></a>    <span class="src-sym">{</span></li>
+<li><a name="a134"></a>        <span class="src-key">while</span><span class="src-sym">( </span><span class="src-var">$rows </span>!= <span class="src-id">null </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a135"></a>            <span class="src-var">$more </span>= <span class="src-var">$rows</span><span class="src-sym">-&gt;</span><span class="src-id">more</span><span class="src-sym">;</span></li>
+<li><a name="a136"></a>            <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methoddoRow">doRow</a><span class="src-sym">( </span><span class="src-var">$rows </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a137"></a>            <span class="src-var">$rows </span>= <span class="src-var">$more</span><span class="src-sym">;</span></li>
+<li><a name="a138"></a>        <span class="src-sym">}</span></li>
+<li><a name="a139"></a>     <span class="src-sym">}     </span></li>
+<li><a name="a140"></a>&nbsp;</li>
+<li><a name="a141"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a142"></a><span class="src-doc">    * iterate through cells</span></li>
+<li><a name="a143"></a><span class="src-doc">    * </span></li>
+<li><a name="a144"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">Parse </span><span class="src-doc-var">$row </span></li>
+<li><a name="a145"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@see</span><span class="src-doc"> doCells()</span></li>
+<li><a name="a146"></a><span class="src-doc">    */</span></li>
+<li><a name="a147"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methoddoRow">doRow</a><span class="src-sym">( </span><span class="src-var">$row </span><span class="src-sym">) </span></li>
+<li><a name="a148"></a>    <span class="src-sym">{</span></li>
+<li><a name="a149"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methoddoCells">doCells</a><span class="src-sym">( </span><span class="src-var">$row</span><span class="src-sym">-&gt;</span><span class="src-id">parts </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a150"></a>    <span class="src-sym">}</span></li>
+<li><a name="a151"></a>     </li>
+<li><a name="a152"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a153"></a><span class="src-doc">    * process cells</span></li>
+<li><a name="a154"></a><span class="src-doc">    *</span></li>
+<li><a name="a155"></a><span class="src-doc">    * Generic processing of all upcoming cells. Actually, this method</span></li>
+<li><a name="a156"></a><span class="src-doc">    * just iterates through them and delegates to doCell()</span></li>
+<li><a name="a157"></a><span class="src-doc">    *</span></li>
+<li><a name="a158"></a><span class="src-doc">    * This method may be overwritten by a subclass (ActionFixture)</span></li>
+<li><a name="a159"></a><span class="src-doc">    * </span></li>
+<li><a name="a160"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">object </span><span class="src-doc-var">$cells </span><span class="src-doc">A parse object</span></li>
+<li><a name="a161"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">void </span></li>
+<li><a name="a162"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@see</span><span class="src-doc"> doCell()</span></li>
+<li><a name="a163"></a><span class="src-doc">    */</span></li>
+<li><a name="a164"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methoddoCells">doCells</a><span class="src-sym">( </span><span class="src-var">$cells </span><span class="src-sym">) </span></li>
+<li><a name="a165"></a>    <span class="src-sym">{</span></li>
+<li><a name="a166"></a>        <span class="src-key">while</span><span class="src-sym">( </span><span class="src-var">$cells </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a167"></a>            try <span class="src-sym">{</span></li>
+<li><a name="a168"></a>                <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methoddoCell">doCell</a><span class="src-sym">( </span><span class="src-var">$cells </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a169"></a>            <span class="src-sym">} </span></li>
+<li><a name="a170"></a>            catch<span class="src-sym">( </span><span class="src-id">Exception </span><span class="src-var">$e </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a171"></a>                <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodexception">exception</a><span class="src-sym">( </span><span class="src-var">$cells</span><span class="src-sym">, </span><span class="src-var">$e </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a172"></a>            <span class="src-sym">}</span></li>
+<li><a name="a173"></a>            </li>
+<li><a name="a174"></a>            <span class="src-var">$cells </span>= <span class="src-var">$cells</span><span class="src-sym">-&gt;</span><span class="src-id">more</span><span class="src-sym">;</span></li>
+<li><a name="a175"></a>        <span class="src-sym">}</span></li>
+<li><a name="a176"></a>    <span class="src-sym">}     </span></li>
+<li><a name="a177"></a>     </li>
+<li><a name="a178"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a179"></a><span class="src-doc">    * process a single cell</span></li>
+<li><a name="a180"></a><span class="src-doc">    *</span></li>
+<li><a name="a181"></a><span class="src-doc">    * Generic processing of a table cell. Well, this function</span></li>
+<li><a name="a182"></a><span class="src-doc">    * just ignores cells.</span></li>
+<li><a name="a183"></a><span class="src-doc">    * </span></li>
+<li><a name="a184"></a><span class="src-doc">    * This method may be overwritten by a subclass (ColumnFixture)</span></li>
+<li><a name="a185"></a><span class="src-doc">    * </span></li>
+<li><a name="a186"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">object </span><span class="src-doc-var">$cell </span><span class="src-doc">A parse object</span></li>
+<li><a name="a187"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">void </span></li>
+<li><a name="a188"></a><span class="src-doc">    */</span></li>
+<li><a name="a189"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methoddoCell">doCell</a><span class="src-sym">( </span><span class="src-var">$cell </span><span class="src-sym">) </span></li>
+<li><a name="a190"></a>    <span class="src-sym">{</span></li>
+<li><a name="a191"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodignore">ignore</a><span class="src-sym">( </span><span class="src-var">$cell </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a192"></a>    <span class="src-sym">}</span></li>
+<li><a name="a193"></a>&nbsp;</li>
+<li><a name="a194"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a195"></a><span class="src-doc">    * find the name of the fixture to be executed</span></li>
+<li><a name="a196"></a><span class="src-doc">    *</span></li>
+<li><a name="a197"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">parse </span><span class="src-doc-var">$tables </span></li>
+<li><a name="a198"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span><span class="src-doc">$name of the fixure</span></li>
+<li><a name="a199"></a><span class="src-doc">    */</span></li>
+<li><a name="a200"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodfixtureName">fixtureName</a><span class="src-sym">( </span><span class="src-var">$tables </span><span class="src-sym">) </span></li>
+<li><a name="a201"></a>    <span class="src-sym">{</span></li>
+<li><a name="a202"></a>        <span class="src-key">return </span><span class="src-var">$tables</span><span class="src-sym">-&gt;</span><span class="src-id">at</span><span class="src-sym">( </span><span class="src-num">0</span><span class="src-sym">, </span><span class="src-num">0</span><span class="src-sym">, </span><span class="src-num">0 </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a203"></a>    <span class="src-sym">}</span></li>
+<li><a name="a204"></a>&nbsp;</li>
+<li><a name="a205"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a206"></a><span class="src-doc">    * get a fixture with arguments</span></li>
+<li><a name="a207"></a><span class="src-doc">    * </span></li>
+<li><a name="a208"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">Parse </span><span class="src-doc">tables</span></li>
+<li><a name="a209"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">object </span><span class="src-doc-type">Fixture </span></li>
+<li><a name="a210"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@see</span><span class="src-doc"> loadFixture()</span></li>
+<li><a name="a211"></a><span class="src-doc">    */</span></li>
+<li><a name="a212"></a>    <span class="src-key">protected </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodgetLinkedFixtureWithArgs">getLinkedFixtureWithArgs</a><span class="src-sym">( </span><span class="src-var">$tables </span><span class="src-sym">) </span></li>
+<li><a name="a213"></a>    <span class="src-sym">{</span></li>
+<li><a name="a214"></a>        <span class="src-var">$header           </span>= <span class="src-var">$tables</span><span class="src-sym">-&gt;</span><span class="src-id">at</span><span class="src-sym">( </span><span class="src-num">0</span><span class="src-sym">, </span><span class="src-num">0</span><span class="src-sym">, </span><span class="src-num">0 </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a215"></a>        <span class="src-var">$fixture          </span>= <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodloadFixture">loadFixture</a><span class="src-sym">( </span><span class="src-var">$header</span><span class="src-sym">-&gt;</span><span class="src-id">text</span><span class="src-sym">(</span><span class="src-sym">) )</span><span class="src-sym">;</span></li>
+<li><a name="a216"></a>        <span class="src-var">$fixture</span><span class="src-sym">-&gt;</span><span class="src-id">counts  </span>= <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#var$counts">counts</a><span class="src-sym">;</span></li>
+<li><a name="a217"></a>        <span class="src-var">$fixture</span><span class="src-sym">-&gt;</span><span class="src-id">summary </span>= <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#var$summary">summary</a><span class="src-sym">;</span></li>
+<li><a name="a218"></a>        <span class="src-key">return </span><span class="src-var">$fixture</span><span class="src-sym">;</span></li>
+<li><a name="a219"></a>    <span class="src-sym">}</span></li>
+<li><a name="a220"></a>&nbsp;</li>
+<li><a name="a221"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a222"></a><span class="src-doc">    * load a fixture by java-stylish name (dot-sparated)</span></li>
+<li><a name="a223"></a><span class="src-doc">    * </span></li>
+<li><a name="a224"></a><span class="src-doc">    * A fixture name might be something like: eg.net.Simulator. This will</span></li>
+<li><a name="a225"></a><span class="src-doc">    * load eg/net/Simulator.php and intanciates the clss eg_net_Simulator. The path name</span></li>
+<li><a name="a226"></a><span class="src-doc">    * is realtive to the basic fixture dir.</span></li>
+<li><a name="a227"></a><span class="src-doc">    *</span></li>
+<li><a name="a228"></a><span class="src-doc">    * It also supports loading standard fixtures. They are recognized by the prefix: &quot;fit.&quot;</span></li>
+<li><a name="a229"></a><span class="src-doc">    * Those fixtures are maped to the corresponding class.</span></li>
+<li><a name="a230"></a><span class="src-doc">    * </span></li>
+<li><a name="a231"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc">fixtureName</span></li>
+<li><a name="a232"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">object </span><span class="src-doc-type">Fixture </span></li>
+<li><a name="a233"></a><span class="src-doc">    */</span></li>
+<li><a name="a234"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodloadFixture">loadFixture</a><span class="src-sym">( </span><span class="src-var">$fixtureName </span><span class="src-sym">) </span></li>
+<li><a name="a235"></a>    <span class="src-sym">{</span></li>
+<li><a name="a236"></a>        <span class="src-comm">// load a FIT standard fixture</span></li>
+<li><a name="a237"></a>        <span class="src-key">if</span><span class="src-sym">( </span><a href="http://www.php.net/strncmp">strncmp</a><span class="src-sym">( </span><span class="src-str">'fit.'</span><span class="src-sym">, </span><span class="src-var">$fixtureName</span><span class="src-sym">, </span><span class="src-num">4 </span><span class="src-sym">) </span>== <span class="src-num">0 </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a238"></a>        </li>
+<li><a name="a239"></a>            <span class="src-comm">// strip leading &quot;fit.&quot;</span></li>
+<li><a name="a240"></a>            <span class="src-var">$fixtureName    </span>= <a href="http://www.php.net/substr">substr</a><span class="src-sym">( </span><span class="src-var">$fixtureName</span><span class="src-sym">, </span><span class="src-num">4 </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a241"></a>        </li>
+<li><a name="a242"></a>            <span class="src-var">$class  </span>= <span class="src-key">array</span><span class="src-sym">( </span><span class="src-str">'PHPFIT'</span><span class="src-sym">, </span><span class="src-str">'Fixture' </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a243"></a>            </li>
+<li><a name="a244"></a>            <span class="src-comm">// strip Fixture from fixtureName</span></li>
+<li><a name="a245"></a>            <a href="http://www.php.net/array_push">array_push</a><span class="src-sym">( </span><span class="src-var">$class</span><span class="src-sym">, </span><a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">( </span><span class="src-str">'Fixture'</span><span class="src-sym">, </span><span class="src-str">''</span><span class="src-sym">, </span><span class="src-var">$fixtureName </span><span class="src-sym">) )</span><span class="src-sym">;</span></li>
+<li><a name="a246"></a>            <span class="src-comm">/*</span></li>
+<li><a name="a247"></a><span class="src-comm">            $pos    = strpos( $fixtureName, 'Fixture' );</span></li>
+<li><a name="a248"></a><span class="src-comm">            if( $pos !== false ) {</span></li>
+<li><a name="a249"></a><span class="src-comm">                $fixtureName    = substr(  $fixtureName, $pos, 7 );</span></li>
+<li><a name="a250"></a><span class="src-comm">            }</span></li>
+<li><a name="a251"></a>            </li>
+<li><a name="a252"></a><span class="src-comm">            array_push( $class, $fixtureName );</span></li>
+<li><a name="a253"></a><span class="src-comm">            */</span></li>
+<li><a name="a254"></a>            <span class="src-var">$file   </span>= <a href="http://www.php.net/implode">implode</a><span class="src-sym">( </span><span class="src-str">'/'</span><span class="src-sym">, </span><span class="src-var">$class </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a255"></a>            <span class="src-var">$class  </span>= <a href="http://www.php.net/implode">implode</a><span class="src-sym">( </span><span class="src-str">'_'</span><span class="src-sym">, </span><span class="src-var">$class </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a256"></a>        <span class="src-sym">}</span></li>
+<li><a name="a257"></a>        <span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a258"></a>            <span class="src-var">$class  </span>= <a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">( </span><span class="src-str">'.'</span><span class="src-sym">, </span><span class="src-str">'_'</span><span class="src-sym">, </span><span class="src-var">$fixtureName </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a259"></a>            <span class="src-var">$file   </span>= <span class="src-id"><a href="../FIT/Fixture/_PHPPlatform_PEARstylish_PHPFIT_Fixture_php.html#definePHPFIT_FIXTURE_DIR">PHPFIT_FIXTURE_DIR</a> </span>. <span class="src-str">'/' </span>. <a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">( </span><span class="src-str">'_'</span><span class="src-sym">, </span><span class="src-str">'/'</span><span class="src-sym">, </span><span class="src-var">$class </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a260"></a>        <span class="src-sym">}</span></li>
+<li><a name="a261"></a>    </li>
+<li><a name="a262"></a>        <span class="src-comm">// load class</span></li>
+<li><a name="a263"></a>        <span class="src-key">if</span><span class="src-sym">( </span><span class="src-sym">!</span><span class="src-inc">include_once </span><span class="src-var">$file </span>. <span class="src-str">'.php'  </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a264"></a>            throw <span class="src-key">new </span><span class="src-id">Exception</span><span class="src-sym">( </span><span class="src-str">'Could not load Fixture ' </span>. <span class="src-var">$fixtureName </span>. <span class="src-str">'from ' </span>. <span class="src-var">$file </span>. <span class="src-str">'.php' </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a265"></a>        <span class="src-sym">}</span></li>
+<li><a name="a266"></a>        <span class="src-comm">// instanciate </span></li>
+<li><a name="a267"></a>        <span class="src-var">$fix </span>= <span class="src-key">new </span><span class="src-var">$class</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a268"></a>        <span class="src-key">return </span><span class="src-var">$fix</span><span class="src-sym">;</span></li>
+<li><a name="a269"></a>    <span class="src-sym">}</span></li>
+<li><a name="a270"></a>&nbsp;</li>
+<li><a name="a271"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a272"></a><span class="src-doc">    * check whether the value of a cell matches</span></li>
+<li><a name="a273"></a><span class="src-doc">    * </span></li>
+<li><a name="a274"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">Parse </span><span class="src-doc-var">$cell, </span></li>
+<li><a name="a275"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">TypeAdapter </span><span class="src-doc-var">$a </span></li>
+<li><a name="a276"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">bool </span><span class="src-doc">true on success, false otherwise</span></li>
+<li><a name="a277"></a><span class="src-doc">    */</span></li>
+<li><a name="a278"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodcheckCell">checkCell</a><span class="src-sym">( </span><span class="src-var">$cell</span><span class="src-sym">, </span><span class="src-var">$a </span><span class="src-sym">) </span></li>
+<li><a name="a279"></a>    <span class="src-sym">{</span></li>
+<li><a name="a280"></a>        <span class="src-var">$text </span>= <span class="src-var">$cell</span><span class="src-sym">-&gt;</span><span class="src-id">text</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a281"></a>        </li>
+<li><a name="a282"></a>        <span class="src-key">if</span><span class="src-sym">( </span><span class="src-var">$text </span>== <span class="src-str">'' </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a283"></a>        </li>
+<li><a name="a284"></a>            <span class="src-comm">// there is no adapter</span></li>
+<li><a name="a285"></a>            <span class="src-key">if</span><span class="src-sym">( </span><span class="src-var">$a </span>== <span class="src-id">null </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a286"></a>                <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodinfo">info</a><span class="src-sym">( </span><span class="src-var">$cell</span><span class="src-sym">, </span><span class="src-str">'error' </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a287"></a>                <span class="src-key">return </span><span class="src-id">false</span><span class="src-sym">;</span></li>
+<li><a name="a288"></a>            <span class="src-sym">}</span></li>
+<li><a name="a289"></a>            </li>
+<li><a name="a290"></a>            try <span class="src-sym">{</span></li>
+<li><a name="a291"></a>                <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodinfo">info</a><span class="src-sym">( </span><span class="src-var">$cell</span><span class="src-sym">, </span><span class="src-var">$a</span><span class="src-sym">-&gt;</span><span class="src-id">toString</span><span class="src-sym">( </span><span class="src-var">$a</span><span class="src-sym">-&gt;</span><span class="src-id">get</span><span class="src-sym">(</span><span class="src-sym">) ) )</span><span class="src-sym">;</span></li>
+<li><a name="a292"></a>            <span class="src-sym">} </span></li>
+<li><a name="a293"></a>            catch<span class="src-sym">( </span><span class="src-id">Exception </span><span class="src-var">$e </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a294"></a>                <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodinfo">info</a><span class="src-sym">( </span><span class="src-var">$cell</span><span class="src-sym">, </span><span class="src-str">'error' </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a295"></a>            <span class="src-sym">}</span></li>
+<li><a name="a296"></a>            <span class="src-key">return </span><span class="src-id">true</span><span class="src-sym">;                     </span></li>
+<li><a name="a297"></a>        <span class="src-sym">} </span></li>
+<li><a name="a298"></a>        </li>
+<li><a name="a299"></a>        <span class="src-key">if</span><span class="src-sym">( </span><span class="src-var">$a </span>== <span class="src-id">null </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a300"></a>            <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodignore">ignore</a><span class="src-sym">( </span><span class="src-var">$cell </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a301"></a>            <span class="src-key">return </span><span class="src-id">true</span><span class="src-sym">;</span></li>
+<li><a name="a302"></a>        <span class="src-sym">}</span></li>
+<li><a name="a303"></a>        </li>
+<li><a name="a304"></a>        <span class="src-key">if</span><span class="src-sym">( </span><a href="http://www.php.net/strncmp">strncmp</a><span class="src-sym">( </span><span class="src-var">$text</span><span class="src-sym">, </span><span class="src-str">'error'</span><span class="src-sym">, </span><span class="src-num">5 </span><span class="src-sym">) </span>== <span class="src-num">0 </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a305"></a>            try <span class="src-sym">{</span></li>
+<li><a name="a306"></a>                <span class="src-var">$result </span>= <span class="src-var">$a</span><span class="src-sym">-&gt;</span><span class="src-id">invoke</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a307"></a>                <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodwrong">wrong</a><span class="src-sym">( </span><span class="src-var">$cell</span><span class="src-sym">, </span><span class="src-var">$a</span><span class="src-sym">-&gt;</span><span class="src-id">toString</span><span class="src-sym">(</span><span class="src-sym">) )</span><span class="src-sym">;</span></li>
+<li><a name="a308"></a>            <span class="src-sym">}</span></li>
+<li><a name="a309"></a>            catch<span class="src-sym">( </span><span class="src-id">Exception </span><span class="src-var">$e </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a310"></a>                <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodright">right</a><span class="src-sym">( </span><span class="src-var">$cell </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a311"></a>            <span class="src-sym">}         </span></li>
+<li><a name="a312"></a>            <span class="src-key">return </span><span class="src-id">true</span><span class="src-sym">;            </span></li>
+<li><a name="a313"></a>        <span class="src-sym">} </span></li>
+<li><a name="a314"></a>        </li>
+<li><a name="a315"></a>        try <span class="src-sym">{</span></li>
+<li><a name="a316"></a>            <span class="src-comm">// the value of the attribute or the return value of the method</span></li>
+<li><a name="a317"></a>            <span class="src-var">$result </span>= <span class="src-var">$a</span><span class="src-sym">-&gt;</span><span class="src-id">get</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">; </span></li>
+<li><a name="a318"></a>            </li>
+<li><a name="a319"></a>            <span class="src-key">if</span><span class="src-sym">( </span><span class="src-var">$a</span><span class="src-sym">-&gt;</span><span class="src-id">equals</span><span class="src-sym">( </span><span class="src-var">$a</span><span class="src-sym">-&gt;</span><span class="src-id">parse</span><span class="src-sym">( </span><span class="src-var">$text </span><span class="src-sym">)</span><span class="src-sym">, </span><span class="src-var">$result </span><span class="src-sym">) ) </span><span class="src-sym">{</span></li>
+<li><a name="a320"></a>                <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodright">right</a><span class="src-sym">( </span><span class="src-var">$cell </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a321"></a>            <span class="src-sym">} </span></li>
+<li><a name="a322"></a>            <span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a323"></a>                <span class="src-var">$result </span>= <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodfixBoolToString">fixBoolToString</a><span class="src-sym">( </span><span class="src-var">$result </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a324"></a>                <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodwrong">wrong</a><span class="src-sym">( </span><span class="src-var">$cell</span><span class="src-sym">, </span><span class="src-var">$a</span><span class="src-sym">-&gt;</span><span class="src-id">toString</span><span class="src-sym">( </span><span class="src-var">$result </span><span class="src-sym">) )</span><span class="src-sym">;</span></li>
+<li><a name="a325"></a>            <span class="src-sym">}</span></li>
+<li><a name="a326"></a>        <span class="src-sym">}</span></li>
+<li><a name="a327"></a>        catch<span class="src-sym">( </span><span class="src-id">Exception </span><span class="src-var">$e </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a328"></a>            <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodexception">exception</a><span class="src-sym">(</span><span class="src-var">$cell</span><span class="src-sym">, </span><span class="src-var">$e</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a329"></a>        <span class="src-sym">}</span></li>
+<li><a name="a330"></a>        </li>
+<li><a name="a331"></a>        <span class="src-key">return </span><span class="src-id">true</span><span class="src-sym">;</span></li>
+<li><a name="a332"></a>    <span class="src-sym">}</span></li>
+<li><a name="a333"></a>    </li>
+<li><a name="a334"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a335"></a><span class="src-doc">    * convert a  boolean value to corresponding string</span></li>
+<li><a name="a336"></a><span class="src-doc">    * </span></li>
+<li><a name="a337"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">bool </span><span class="src-doc-var">$bool </span><span class="src-doc">a boolean value</span></li>
+<li><a name="a338"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span><span class="src-doc">&quot;true&quot; or &quot;false&quot;</span></li>
+<li><a name="a339"></a><span class="src-doc">    */   </span></li>
+<li><a name="a340"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodfixBoolToString">fixBoolToString</a><span class="src-sym">( </span><span class="src-var">$bool </span><span class="src-sym">) </span></li>
+<li><a name="a341"></a>    <span class="src-sym">{</span></li>
+<li><a name="a342"></a>        <span class="src-key">if</span><span class="src-sym">( </span><span class="src-sym">!</span><a href="http://www.php.net/is_bool">is_bool</a><span class="src-sym">( </span><span class="src-var">$bool </span><span class="src-sym">) ) </span><span class="src-sym">{ </span></li>
+<li><a name="a343"></a>            <span class="src-key">return </span><span class="src-var">$bool</span><span class="src-sym">;        </span></li>
+<li><a name="a344"></a>        <span class="src-sym">}</span></li>
+<li><a name="a345"></a>        </li>
+<li><a name="a346"></a>        <span class="src-key">if</span><span class="src-sym">( </span><span class="src-var">$result </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a347"></a>            <span class="src-key">return </span><span class="src-str">'true'</span><span class="src-sym">;</span></li>
+<li><a name="a348"></a>        <span class="src-sym">}</span></li>
+<li><a name="a349"></a>        </li>
+<li><a name="a350"></a>        <span class="src-key">return </span><span class="src-str">'false'</span><span class="src-sym">;</span></li>
+<li><a name="a351"></a>    <span class="src-sym">}</span></li>
+<li><a name="a352"></a>   </li>
+<li><a name="a353"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a354"></a><span class="src-doc">    * transform an exception to a cell error</span></li>
+<li><a name="a355"></a><span class="src-doc">    * </span></li>
+<li><a name="a356"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">object </span><span class="src-doc-var">$cell </span><span class="src-doc">Parse object</span></li>
+<li><a name="a357"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">object </span><span class="src-doc-var">$e </span><span class="src-doc">Exception</span></li>
+<li><a name="a358"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@see</span><span class="src-doc"> error()</span></li>
+<li><a name="a359"></a><span class="src-doc">    */</span></li>
+<li><a name="a360"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodexception">exception</a><span class="src-sym">( </span><span class="src-var">$cell</span><span class="src-sym">, </span><span class="src-var">$e </span><span class="src-sym">) </span></li>
+<li><a name="a361"></a>    <span class="src-sym">{</span></li>
+<li><a name="a362"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methoderror">error</a><span class="src-sym">( </span><span class="src-var">$cell</span><span class="src-sym">, </span><span class="src-var">$e</span><span class="src-sym">-&gt;</span><span class="src-id">getMessage</span><span class="src-sym">(</span><span class="src-sym">) )</span><span class="src-sym">;</span></li>
+<li><a name="a363"></a>    <span class="src-sym">}</span></li>
+<li><a name="a364"></a>&nbsp;</li>
+<li><a name="a365"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a366"></a><span class="src-doc">    * place an error text into a cell</span></li>
+<li><a name="a367"></a><span class="src-doc">    * </span></li>
+<li><a name="a368"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">object </span><span class="src-doc-var">$cell </span><span class="src-doc">Parse object</span></li>
+<li><a name="a369"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$message </span></li>
+<li><a name="a370"></a><span class="src-doc">    */</span></li>
+<li><a name="a371"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methoderror">error</a><span class="src-sym">( </span><span class="src-var">$cell</span><span class="src-sym">, </span><span class="src-var">$message </span><span class="src-sym">) </span></li>
+<li><a name="a372"></a>    <span class="src-sym">{</span></li>
+<li><a name="a373"></a>        <span class="src-var">$cell</span><span class="src-sym">-&gt;</span><span class="src-id">body   </span>= <span class="src-var">$cell</span><span class="src-sym">-&gt;</span><span class="src-id">text</span><span class="src-sym">(</span><span class="src-sym">) </span>. <span class="src-str">': '</span>. <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodescape">escape</a><span class="src-sym">( </span><span class="src-var">$message </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a374"></a>        <span class="src-var">$cell</span><span class="src-sym">-&gt;</span><span class="src-id">addToTag</span><span class="src-sym">( </span><span class="src-str">' bgcolor=&quot; '</span>. <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#var$backgroundColor">backgroundColor</a><span class="src-sym">[</span><span class="src-str">'error'</span><span class="src-sym">] </span>. <span class="src-str">'\&quot;' </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a375"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#var$counts">counts</a><span class="src-sym">-&gt;</span><span class="src-id">exceptions</span>++<span class="src-sym">;</span></li>
+<li><a name="a376"></a>    <span class="src-sym">}</span></li>
+<li><a name="a377"></a>&nbsp;</li>
+<li><a name="a378"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a379"></a><span class="src-doc">    * parse value from cell</span></li>
+<li><a name="a380"></a><span class="src-doc">    * </span></li>
+<li><a name="a381"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc">s</span></li>
+<li><a name="a382"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc">type</span></li>
+<li><a name="a383"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">mixed </span><span class="src-doc">(object or string)</span></li>
+<li><a name="a384"></a><span class="src-doc">    */</span></li>
+<li><a name="a385"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodparse">parse</a><span class="src-sym">( </span><span class="src-var">$s</span><span class="src-sym">, </span><span class="src-var">$type </span><span class="src-sym">) </span></li>
+<li><a name="a386"></a>    <span class="src-sym">{</span></li>
+<li><a name="a387"></a>        <span class="src-key">if</span><span class="src-sym">( </span><span class="src-var">$type </span>== <span class="src-str">'ScientificDouble' </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a388"></a>            <span class="src-key">return </span><span class="src-id"><a href="../FIT/PHPFIT_ScientificDouble.html">PHPFIT_ScientificDouble</a></span><span class="src-sym">::</span><a href="../FIT/PHPFIT_ScientificDouble.html#methodvalueOf">valueOf</a><span class="src-sym">( </span><span class="src-var">$s </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a389"></a>        <span class="src-sym">}</span></li>
+<li><a name="a390"></a>        <span class="src-key">return </span><span class="src-var">$s</span><span class="src-sym">;</span></li>
+<li><a name="a391"></a>    <span class="src-sym">}</span></li>
+<li><a name="a392"></a>    </li>
+<li><a name="a393"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a394"></a><span class="src-doc">    * Add annotation to cell: right</span></li>
+<li><a name="a395"></a><span class="src-doc">    * </span></li>
+<li><a name="a396"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">Parse </span><span class="src-doc">c$ell</span></li>
+<li><a name="a397"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc">type</span></li>
+<li><a name="a398"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">mixed </span><span class="src-doc">(object or string)</span></li>
+<li><a name="a399"></a><span class="src-doc">    */</span></li>
+<li><a name="a400"></a>     <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodright">right</a><span class="src-sym">( </span><span class="src-var">$cell </span><span class="src-sym">) </span></li>
+<li><a name="a401"></a>     <span class="src-sym">{</span></li>
+<li><a name="a402"></a>         <span class="src-var">$cell</span><span class="src-sym">-&gt;</span><span class="src-id">addToTag</span><span class="src-sym">( </span><span class="src-str">' bgcolor=&quot;' </span>. <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#var$backgroundColor">backgroundColor</a><span class="src-sym">[</span><span class="src-str">'passed'</span><span class="src-sym">] </span>. <span class="src-str">'&quot;' </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a403"></a>         <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#var$counts">counts</a><span class="src-sym">-&gt;</span><span class="src-id">right</span>++<span class="src-sym">;</span></li>
+<li><a name="a404"></a>     <span class="src-sym">}</span></li>
+<li><a name="a405"></a>&nbsp;</li>
+<li><a name="a406"></a>     <span class="src-doc">/**</span></li>
+<li><a name="a407"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">Parse </span><span class="src-doc">cell</span></li>
+<li><a name="a408"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc">actual</span></li>
+<li><a name="a409"></a><span class="src-doc">     */</span></li>
+<li><a name="a410"></a>     </li>
+<li><a name="a411"></a>     <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodwrong">wrong</a><span class="src-sym">( </span><span class="src-var">$cell</span><span class="src-sym">, </span><span class="src-var">$actual </span>= <span class="src-id">false </span><span class="src-sym">) </span></li>
+<li><a name="a412"></a>     <span class="src-sym">{</span></li>
+<li><a name="a413"></a>         <span class="src-var">$cell</span><span class="src-sym">-&gt;</span><span class="src-id">addToTag</span><span class="src-sym">( </span><span class="src-str">' bgcolor=&quot;' </span>.  <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#var$backgroundColor">backgroundColor</a><span class="src-sym">[</span><span class="src-str">'failed'</span><span class="src-sym">] </span>. <span class="src-str">'&quot;' </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a414"></a>         <span class="src-var">$cell</span><span class="src-sym">-&gt;</span><span class="src-id">body  </span>= <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodescape">escape</a><span class="src-sym">( </span><span class="src-var">$cell</span><span class="src-sym">-&gt;</span><span class="src-id">text</span><span class="src-sym">(</span><span class="src-sym">) )</span><span class="src-sym">;</span></li>
+<li><a name="a415"></a>         <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#var$counts">counts</a><span class="src-sym">-&gt;</span><span class="src-id">wrong</span>++<span class="src-sym">;</span></li>
+<li><a name="a416"></a>         </li>
+<li><a name="a417"></a>         <span class="src-key">if</span><span class="src-sym">( </span><span class="src-var">$actual </span>!== <span class="src-id">false </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a418"></a>             <span class="src-var">$cell</span><span class="src-sym">-&gt;</span><span class="src-id">addToBody</span><span class="src-sym">( </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodlabel">label</a><span class="src-sym">( </span><span class="src-str">'expected' </span><span class="src-sym">) </span>. <span class="src-str">'&lt;hr /&gt;' </span>. <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodescape">escape</a><span class="src-sym">( </span><span class="src-var">$actual </span><span class="src-sym">) </span>. <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodlabel">label</a><span class="src-sym">( </span><span class="src-str">'actual' </span><span class="src-sym">) )</span><span class="src-sym">;</span></li>
+<li><a name="a419"></a>         <span class="src-sym">}        </span></li>
+<li><a name="a420"></a>     <span class="src-sym">}     </span></li>
+<li><a name="a421"></a>     </li>
+<li><a name="a422"></a>     </li>
+<li><a name="a423"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a424"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">Parse </span><span class="src-doc">cell</span></li>
+<li><a name="a425"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc">message</span></li>
+<li><a name="a426"></a><span class="src-doc">     */</span></li>
+<li><a name="a427"></a>     </li>
+<li><a name="a428"></a>     <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodinfo">info</a><span class="src-sym">( </span><span class="src-var">$cell</span><span class="src-sym">, </span><span class="src-var">$message </span><span class="src-sym">) </span></li>
+<li><a name="a429"></a>     <span class="src-sym">{</span></li>
+<li><a name="a430"></a>         <span class="src-var">$str </span>= <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodinfoS">infoS</a><span class="src-sym">( </span><span class="src-var">$message </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a431"></a>         <span class="src-var">$cell</span><span class="src-sym">-&gt;</span><span class="src-id">addToBody</span><span class="src-sym">( </span><span class="src-var">$str </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a432"></a>     <span class="src-sym">}</span></li>
+<li><a name="a433"></a>     </li>
+<li><a name="a434"></a>     </li>
+<li><a name="a435"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a436"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc">message</span></li>
+<li><a name="a437"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span></li>
+<li><a name="a438"></a><span class="src-doc">     */</span></li>
+<li><a name="a439"></a>     </li>
+<li><a name="a440"></a>     <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodinfoS">infoS</a><span class="src-sym">( </span><span class="src-var">$message </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a441"></a>         <span class="src-key">return </span><span class="src-str">' &lt;span style=&quot;color:#808080;&quot;&gt;' </span>. <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodescape">escape</a><span class="src-sym">( </span><span class="src-var">$message </span><span class="src-sym">) </span>. <span class="src-str">'&lt;/span&gt;'</span><span class="src-sym">;</span></li>
+<li><a name="a442"></a>     <span class="src-sym">}</span></li>
+<li><a name="a443"></a>     </li>
+<li><a name="a444"></a>     <span class="src-doc">/**</span></li>
+<li><a name="a445"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">Parse </span><span class="src-doc">cell</span></li>
+<li><a name="a446"></a><span class="src-doc">     */</span></li>
+<li><a name="a447"></a>&nbsp;</li>
+<li><a name="a448"></a>     <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodignore">ignore</a> <span class="src-sym">(</span><span class="src-var">$cell</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a449"></a>         <span class="src-var">$cell</span><span class="src-sym">-&gt;</span><span class="src-id">addToTag</span><span class="src-sym">( </span><span class="src-str">' bgcolor=&quot;' </span>. <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#var$backgroundColor">backgroundColor</a><span class="src-sym">[</span><span class="src-str">'ignored'</span><span class="src-sym">] </span>. <span class="src-str">'&quot;' </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a450"></a>         <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/Fixture/PHPFIT_Fixture.html#var$counts">counts</a><span class="src-sym">-&gt;</span><span class="src-id">ignores</span>++<span class="src-sym">;</span></li>
+<li><a name="a451"></a>     <span class="src-sym">}</span></li>
+<li><a name="a452"></a>     </li>
+<li><a name="a453"></a>     </li>
+<li><a name="a454"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a455"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc">string</span></li>
+<li><a name="a456"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span></li>
+<li><a name="a457"></a><span class="src-doc">     */</span></li>
+<li><a name="a458"></a>     </li>
+<li><a name="a459"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodlabel">label</a><span class="src-sym">( </span><span class="src-var">$string </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a460"></a>        <span class="src-key">return </span><span class="src-str">' &lt;span style=&quot;color:#c08080;font-style:italic;font-size:small;&quot;&gt;' </span>. <span class="src-var">$string </span>. <span class="src-str">'&lt;/span&gt;'</span><span class="src-sym">;</span></li>
+<li><a name="a461"></a>    <span class="src-sym">}</span></li>
+<li><a name="a462"></a>        </li>
+<li><a name="a463"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a464"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc">string</span></li>
+<li><a name="a465"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span></li>
+<li><a name="a466"></a><span class="src-doc">     */</span></li>
+<li><a name="a467"></a>     </li>
+<li><a name="a468"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodescape">escape</a><span class="src-sym">(</span><span class="src-var">$string</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a469"></a>        <span class="src-var">$string </span>= <a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">(</span><span class="src-str">'&amp;'</span><span class="src-sym">, </span><span class="src-str">'&amp;amp;'</span><span class="src-sym">, </span><span class="src-var">$string</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a470"></a>        <span class="src-var">$string </span>= <a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">(</span><span class="src-str">'&lt;'</span><span class="src-sym">, </span><span class="src-str">'&amp;lt;'</span><span class="src-sym">, </span><span class="src-var">$string</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a471"></a>        <span class="src-var">$string </span>= <a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">(</span><span class="src-str">'  '</span><span class="src-sym">, </span><span class="src-str">' &amp;nbsp;'</span><span class="src-sym">, </span><span class="src-var">$string</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a472"></a>        <span class="src-var">$string </span>= <a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">(</span><span class="src-str">'\r\n'</span><span class="src-sym">, </span><span class="src-str">'&lt;br /&gt;'</span><span class="src-sym">, </span><span class="src-var">$string</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a473"></a>        <span class="src-var">$string </span>= <a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">(</span><span class="src-str">'\r'</span><span class="src-sym">, </span><span class="src-str">'&lt;br /&gt;'</span><span class="src-sym">, </span><span class="src-var">$string</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a474"></a>        <span class="src-var">$string </span>= <a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">(</span><span class="src-str">'\n'</span><span class="src-sym">, </span><span class="src-str">'&lt;br /&gt;'</span><span class="src-sym">, </span><span class="src-var">$string</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a475"></a>        <span class="src-key">return </span><span class="src-var">$string</span><span class="src-sym">;</span></li>
+<li><a name="a476"></a>    <span class="src-sym">}</span></li>
+<li><a name="a477"></a>    </li>
+<li><a name="a478"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a479"></a><span class="src-doc">    * receive member variable's type specification</span></li>
+<li><a name="a480"></a><span class="src-doc">    * </span></li>
+<li><a name="a481"></a><span class="src-doc">    * Use the helper property typeDict to figure out what type</span></li>
+<li><a name="a482"></a><span class="src-doc">    * a member variable or return value of a member function is</span></li>
+<li><a name="a483"></a><span class="src-doc">    * </span></li>
+<li><a name="a484"></a><span class="src-doc">    * Type is one of:</span></li>
+<li><a name="a485"></a><span class="src-doc">    *  - integer</span></li>
+<li><a name="a486"></a><span class="src-doc">    *  - string</span></li>
+<li><a name="a487"></a><span class="src-doc">    *  - array</span></li>
+<li><a name="a488"></a><span class="src-doc">    *  - object</span></li>
+<li><a name="a489"></a><span class="src-doc">    *  - object:CLASSNAME</span></li>
+<li><a name="a490"></a><span class="src-doc">    *  - callable</span></li>
+<li><a name="a491"></a><span class="src-doc">    * </span></li>
+<li><a name="a492"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@todo</span><span class="src-doc"> As PHP does automatica type conversation, I reckon this can be spared</span></li>
+<li><a name="a493"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$name </span><span class="src-doc">of property or method</span></li>
+<li><a name="a494"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">bool </span><span class="src-doc-var">$method </span><span class="src-doc">check for return type of method</span></li>
+<li><a name="a495"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span><span class="src-doc">$type</span></li>
+<li><a name="a496"></a><span class="src-doc">    */       </span></li>
+<li><a name="a497"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodgetType">getType</a><span class="src-sym">( </span><span class="src-var">$name</span><span class="src-sym">, </span><span class="src-var">$method </span>= <span class="src-id">false </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a498"></a>    </li>
+<li><a name="a499"></a>        <span class="src-comm">// method </span></li>
+<li><a name="a500"></a>        <span class="src-key">if</span><span class="src-sym">( </span><span class="src-var">$method </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a501"></a>            <span class="src-key">if</span><span class="src-sym">( </span><span class="src-sym">!</span><a href="http://www.php.net/method_exists">method_exists</a><span class="src-sym">( </span><span class="src-var">$this</span><span class="src-sym">, </span><span class="src-var">$name </span><span class="src-sym">) ) </span><span class="src-sym">{</span></li>
+<li><a name="a502"></a>                throw <span class="src-key">new </span><span class="src-id">Exception</span><span class="src-sym">( </span><span class="src-str">'Method does not exist! ' </span>.<a href="http://www.php.net/get_class">get_class</a><span class="src-sym">( </span><span class="src-var">$this </span><span class="src-sym">) </span>. <span class="src-str">'-&gt;' </span>. <span class="src-var">$name </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a503"></a>                <span class="src-key">return </span><span class="src-id">null</span><span class="src-sym">;</span></li>
+<li><a name="a504"></a>            <span class="src-sym">}</span></li>
+<li><a name="a505"></a>            <span class="src-var">$name </span>.= <span class="src-str">'()'</span><span class="src-sym">;</span></li>
+<li><a name="a506"></a>        <span class="src-sym">}</span></li>
+<li><a name="a507"></a>        <span class="src-comm">// property</span></li>
+<li><a name="a508"></a>        <span class="src-key">else </span><span class="src-sym">{    </span></li>
+<li><a name="a509"></a>            <span class="src-key">if</span><span class="src-sym">( </span><span class="src-sym">!</span><a href="http://www.php.net/property_exists">property_exists</a><span class="src-sym">( </span><span class="src-var">$this</span><span class="src-sym">, </span><span class="src-var">$name </span><span class="src-sym">) ) </span><span class="src-sym">{</span></li>
+<li><a name="a510"></a>                throw <span class="src-key">new </span><span class="src-id">Exception</span><span class="src-sym">( </span><span class="src-str">'Property does not exist! ' </span>.<a href="http://www.php.net/get_class">get_class</a><span class="src-sym">( </span><span class="src-var">$this </span><span class="src-sym">) </span>. <span class="src-str">'-&gt;' </span>. <span class="src-var">$name </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a511"></a>                <span class="src-key">return </span><span class="src-id">null</span><span class="src-sym">;</span></li>
+<li><a name="a512"></a>            <span class="src-sym">}</span></li>
+<li><a name="a513"></a>       <span class="src-sym">}</span></li>
+<li><a name="a514"></a>        </li>
+<li><a name="a515"></a>        <span class="src-key">if</span><span class="src-sym">( </span><span class="src-sym">!</span>isset<span class="src-sym">( </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">typeDict</span><span class="src-sym">[</span><span class="src-var">$name</span><span class="src-sym">] </span><span class="src-sym">) ) </span><span class="src-sym">{</span></li>
+<li><a name="a516"></a>            throw <span class="src-key">new </span><span class="src-id">Exception</span><span class="src-sym">( </span><span class="src-str">'Property has no definition in $typeDict! ' </span>. <a href="http://www.php.net/get_class">get_class</a><span class="src-sym">( </span><span class="src-var">$this </span><span class="src-sym">) </span>. <span class="src-str">'-&gt;' </span>. <span class="src-var">$name </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a517"></a>            <span class="src-key">return </span><span class="src-id">null</span><span class="src-sym">;</span></li>
+<li><a name="a518"></a>        <span class="src-sym">}</span></li>
+<li><a name="a519"></a>        </li>
+<li><a name="a520"></a>        <span class="src-key">return </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">typeDict</span><span class="src-sym">[</span><span class="src-var">$name</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a521"></a>    <span class="src-sym">}</span></li>
+<li><a name="a522"></a>   </li>
+<li><a name="a523"></a>   <span class="src-doc">/**</span></li>
+<li><a name="a524"></a><span class="src-doc">    * CamelCaseString auxiliary function</span></li>
+<li><a name="a525"></a><span class="src-doc">    * </span></li>
+<li><a name="a526"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@todo</span><span class="src-doc"> This looks quite fragile - consider using preg_replace</span></li>
+<li><a name="a527"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@param </span><span class="src-doc-type">string </span><span class="src-doc-var">$string </span></li>
+<li><a name="a528"></a><span class="src-doc">    * </span><span class="src-doc-coretag">@return </span><span class="src-doc-type">string </span></li>
+<li><a name="a529"></a><span class="src-doc">    */   </span></li>
+<li><a name="a530"></a>    <span class="src-key">public </span><span class="src-key">static </span><span class="src-key">function </span><a href="../FIT/Fixture/PHPFIT_Fixture.html#methodcamel">camel</a><span class="src-sym">( </span><span class="src-var">$string </span><span class="src-sym">) </span></li>
+<li><a name="a531"></a>    <span class="src-sym">{</span></li>
+<li><a name="a532"></a>        <span class="src-key">while</span><span class="src-sym">( ( </span><span class="src-var">$pos </span>= <a href="http://www.php.net/stripos">stripos</a><span class="src-sym">(</span><span class="src-var">$string</span><span class="src-sym">, </span><span class="src-str">' ' </span><span class="src-sym">) ) </span>!== <span class="src-id">false </span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a533"></a>            <span class="src-var">$characterUpper </span>= <a href="http://www.php.net/strtoupper">strtoupper</a><span class="src-sym">( </span><span class="src-var">$string</span><span class="src-sym">[</span><span class="src-var">$pos</span>+<span class="src-num">1</span><span class="src-sym">] </span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a534"></a>            <span class="src-var">$string</span><span class="src-sym">[</span><span class="src-var">$pos</span>+<span class="src-num">1</span><span class="src-sym">] </span>= <span class="src-var">$characterUpper</span><span class="src-sym">;</span></li>
+<li><a name="a535"></a>            <span class="src-var">$string</span><span class="src-sym">[</span><span class="src-var">$pos</span><span class="src-sym">] </span>= <span class="src-str">&quot;&amp;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a536"></a>        <span class="src-sym">}</span></li>
+<li><a name="a537"></a>        </li>
+<li><a name="a538"></a>        <span class="src-var">$string </span>= <a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">(</span><span class="src-str">'&amp;'</span><span class="src-sym">, </span><span class="src-str">''</span><span class="src-sym">, </span><span class="src-var">$string</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a539"></a>        <span class="src-key">return </span><span class="src-var">$string</span><span class="src-sym">;</span></li>
+<li><a name="a540"></a>    <span class="src-sym">}</span></li>
+<li><a name="a541"></a><span class="src-sym">}</span></li>
+<li><a name="a542"></a><span class="src-php">?&gt;</span></li>
+</ol></pre>
+</div>
+	<p class="notes" id="credit">
+		Documentation generated on Sun, 02 Apr 2006 23:21:38 +0000 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.3.0RC5</a>
+	</p>
+	</body>
+</html>

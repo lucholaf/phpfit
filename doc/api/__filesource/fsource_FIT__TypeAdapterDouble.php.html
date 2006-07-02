@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>File Source for Double.php</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+						<h1>Source for file Double.php</h1>
+<p>Documentation is available at <a href="../FIT/_PHPPlatform_PEARstylish_PHPFIT_TypeAdapter_Double_php.html">Double.php</a></p>
+<div class="src-code">
+<pre><ol><li><a name="a1"></a><span class="src-php">&lt;?php</span></li>
+<li><a name="a2"></a><span class="src-key">class </span><a href="../FIT/FileRunner/PHPFIT_TypeAdapter_Double.html">PHPFIT_TypeAdapter_Double</a> <span class="src-key">extends </span><a href="../FIT/FileRunner/PHPFIT_TypeAdapter.html">PHPFIT_TypeAdapter</a> <span class="src-sym">{</span></li>
+<li><a name="a3"></a>&nbsp;</li>
+<li><a name="a4"></a>    <span class="src-key">private </span><a href="../FIT/FileRunner/PHPFIT_TypeAdapter_Double.html#var$PRECISION">$PRECISION</a> = <span class="src-num">0.000001</span><span class="src-sym">;</span></li>
+<li><a name="a5"></a>&nbsp;</li>
+<li><a name="a6"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/FileRunner/PHPFIT_TypeAdapter_Double.html#methodequals">equals</a><span class="src-sym">(</span><span class="src-var">$a</span><span class="src-sym">, </span><span class="src-var">$b</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a7"></a>        <span class="src-key">return </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/FileRunner/PHPFIT_TypeAdapter_Double.html#methoddoubleEquals">doubleEquals</a><span class="src-sym">(</span><span class="src-var">$a</span><span class="src-sym">, </span><span class="src-var">$b</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a8"></a>    <span class="src-sym">}</span></li>
+<li><a name="a9"></a>&nbsp;</li>
+<li><a name="a10"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/FileRunner/PHPFIT_TypeAdapter_Double.html#methoddoubleEquals">doubleEquals</a><span class="src-sym">(</span><span class="src-var">$a</span><span class="src-sym">, </span><span class="src-var">$b</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a11"></a>        <span class="src-key">if </span><span class="src-sym">(</span><a href="http://www.php.net/abs">abs</a><span class="src-sym">(</span><span class="src-var">$b </span>- <span class="src-var">$a</span><span class="src-sym">) </span>&lt; <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../FIT/FileRunner/PHPFIT_TypeAdapter_Double.html#var$PRECISION">PRECISION</a><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a12"></a>            <span class="src-key">return </span><span class="src-id">true</span><span class="src-sym">;</span></li>
+<li><a name="a13"></a>        <span class="src-sym">}</span></li>
+<li><a name="a14"></a>        <span class="src-key">return </span><span class="src-id">false</span><span class="src-sym">;</span></li>
+<li><a name="a15"></a>    <span class="src-sym">}</span></li>
+<li><a name="a16"></a>&nbsp;</li>
+<li><a name="a17"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../FIT/FileRunner/PHPFIT_TypeAdapter_Double.html#methodparse">parse</a><span class="src-sym">(</span><span class="src-var">$s</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a18"></a>        <span class="src-key">return </span>(double) <span class="src-var">$s</span><span class="src-sym">;</span></li>
+<li><a name="a19"></a>    <span class="src-sym">}</span></li>
+<li><a name="a20"></a><span class="src-sym">}</span></li>
+<li><a name="a21"></a><span class="src-php">?&gt;</span></li>
+</ol></pre>
+</div>
+	<p class="notes" id="credit">
+		Documentation generated on Sun, 02 Apr 2006 23:21:37 +0000 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.3.0RC5</a>
+	</p>
+	</body>
+</html>

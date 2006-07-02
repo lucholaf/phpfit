@@ -1,0 +1,17 @@
+A examples/input/MusicExample.html
+A lib/fit/RunTime.php
+A run-cli.php
+A run-web.php
+A lib/fit/FileIOException.php
+M tools/simpletest/simple_test.php
+M tests/*
+M lib/eg/*
+M lib/eg/music/*
+M lib/fit/*
+M examples.php
+R run.php
+R lib/eg/config.php
+R lib/eg/music/config.php
+R lib/config.php
+R tests/config.php
+R config.php
