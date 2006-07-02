@@ -1,11 +1,6 @@
 <?php
 
-# Copyright (c) 2002-2005 Cunningham & Cunningham, Inc.
-# Released under the terms of the GNU General Public License version 2 or later.
-#
-# PHP5 translation by Luis A. Floreani <luis.floreani@gmail.com>
-
-include 'PHPFIT/Comparable.php';
+require_once 'PHPFIT/Comparable.php';
 
 class PHPFIT_ScientificDouble implements PHPFIT_Comparable {
 	protected $value = 0.0;

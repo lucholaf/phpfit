@@ -1,11 +1,5 @@
 <?php
 
-
-# Copyright (c) 2002-2005 Cunningham & Cunningham, Inc.
-# Released under the terms of the GNU General Public License version 2 or later.
-#
-# PHP5 translation by Luis A. Floreani <luis.floreani@gmail.com>
-
 class Music {
 	public static $status = "ready";
 

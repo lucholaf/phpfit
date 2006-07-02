@@ -1,27 +1,31 @@
-#!/usr/bin/php
 <?php
+
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
 /**
- * run tests
- * This script is meant to be called from CLI
+ * Run tests from the CLI
  * 
- * $Id$
- * 
- * @author Luis A. Floreani <luis.floreani@gmail.com>
- * @author gERD Schaufelberger <gerd@php-tools.net>
- * @package FIT
- * @version 0.1.0
- * @subpackage FileRunner
- * @license LGPL http://www.gnu.org/copyleft/lesser.html
- * @copyright Copyright (c) 2002-2005 Cunningham & Cunningham, Inc.
+ * PHP version 5
+ *
+ * @category    Testing
+ * @package     PHPFit
+ * @author      Luis A. Floreani <luis.floreani@gmail.com>
+ * @author      gERD Schaufelberger <gerd@php-tools.net>
+ * @copyright   Copyright (c) 2002-2005 Cunningham & Cunningham, Inc.
+ * @license     LGPL http://www.gnu.org/copyleft/lesser.html
+ * @version     0.1.0
  */
-error_reporting( E_ALL | E_STRICT );
+
+error_reporting( E_ALL );
+
+require_once 'PHPFIT/FileRunner.php';
 
 // where are my fixtures?
-define( 'PHPFIT_FIXTURE_DIR', dirname( __FILE__ ) );
+//define( 'PHPFIT_FIXTURE_DIR', dirname( __FILE__ ) );
 
 // this is a PEAR style package
 set_include_path( get_include_path()  . ':' . dirname( __FILE__ ) );
 
-include 'PHPFIT/FileRunner.php';
 PHPFIT_FileRunner::main( $_SERVER['argv'] );
+
 ?>

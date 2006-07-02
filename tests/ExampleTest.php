@@ -1,8 +1,6 @@
 <?php
 error_reporting( E_ALL );
 
-//$baseDir = realpath( dirname( __FILE__ ) . '/..' );
-
 set_include_path( get_include_path()  . ':' . dirname( __FILE__ ) . '/../' );
 
 require_once 'tools/simpletest/unit_tester.php';

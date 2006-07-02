@@ -12,10 +12,7 @@
  * @copyright Copyright (c) 2002-2005 Cunningham & Cunningham, Inc.
  */
 
-/**
- * load class TypeAdapter
- */
-include_once 'PHPFIT/TypeAdapter.php';
+require_once 'PHPFIT/TypeAdapter.php';
 
 /**
  * FIT Fixture: ActionFixture

@@ -1,13 +1,13 @@
 <?php
 
 $examplesDir = "examples" . DIRECTORY_SEPARATOR . "input";
-
 $files = scandir($examplesDir);
-
-//vardump($files);
 
 ?>
 
+<html>
+<title>PHPFIT Examples</title>
+<body>
 <table width="100%">
 	<tr><td bgcolor="#ABCDEF"><b>INPUT FILES</b></td></tr>
 	<?php foreach ($files as $key => $val): ?>
@@ -20,3 +20,5 @@ $files = scandir($examplesDir);
 	<?php endif; ?>
 	<?php endforeach; ?>
 </table>
+</body>
+</html>

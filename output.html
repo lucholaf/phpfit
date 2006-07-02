@@ -1,219 +1,46 @@
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html>
 <head>
-   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-   <meta name="Author" content="Ward Cunningham">
-   <meta name="GENERATOR" content="Mozilla/4.5 [en]C-CCK-MCD compaq  (Win98; U) [Netscape]">
-   <title>Arithmetic</title>
-</head>
-<body>
+    <title>Wiki: Network Example</title>
+<head>
+<body bgcolor=#FFFFFF link=#d06040 vlink=#806040>
+            
+<em>We will be experimenting with acceptance testing technique using radio network routing algorithms as a sufficiently complicated example. Our testbed will be a recently reincarnated simulation which we have described briefly elsewhere. <a href="//c2.com/~ward/morse/SimNet/SimView.html">http://c2.com/~ward/mors ... Net/SimView.html</a>. -- <a href=wiki.cgi?WardCunningham>WardCunningham</a></em>
+<p>The simulator starts with no nodes. The <em>new city</em> button pops up a dialog for city information.  Try <a href="run.cgi">http:run.cgi</a>.
+<p><table BORDER CELLSPACING=0 CELLPADDING=3>
+<tr><td ColSpan=3>fit.<a href=wiki.cgi?ActionFixture>ActionFixture</a></td></tr>
 
-<h1>
-Integer Arithmetic</h1>
+<tr><td>start</td><td>eg.net.Simulator</td><td>&nbsp;</td></tr>
+<tr><td>check</td><td>nodes</td><td bgcolor="#cfffcf">0</td></tr>
+<tr><td>press</td><td>new city</td><td>&nbsp;</td></tr>
+<tr><td>enter</td><td>name</td><td>Portland</td></tr>
+<tr><td>enter</td><td>zip</td><td>1,1,1</td></tr>
 
-<p>The computer relies on arithmetic. Here we test a variety of arithmetic
-operations expressed as 32 bit two's complement binary numbers (Java's
-int).
-<br>&nbsp;
-<table BORDER COLS=6 CELLSPACING=0 CELLPADDING=3 >
-<tr>
-<td COLSPAN="6">eg.ArithmeticFixture</td>
-</tr>
+<tr><td>enter</td><td>population</td><td>1.5e6</td></tr>
+<tr><td>enter</td><td>coord</td><td>45 30.0 n 122 45.0 w</td></tr>
+<tr><td>check</td><td>coord</td><td bgcolor="#ffcfcf">N45.5 W122.75 <span style="color:#c08080;font-style:italic;font-size:small;">expected</span><hr />45 30.0 n 122 45.0 w <span style="color:#c08080;font-style:italic;font-size:small;">actual</span></td></tr>
+<tr><td>press</td><td>ok</td><td>&nbsp;</td></tr>
+<tr><td>check</td><td>nodes</td><td bgcolor="#cfffcf">1</td></tr>
 
-<tr>
-<td>x</td>
+<tr><td>press</td><td>new city</td><td>&nbsp;</td></tr>
+<tr><td>enter</td><td>name</td><td>Salem</td></tr>
+<tr><td>enter</td><td>population</td><td>.6e6</td></tr>
+<tr><td>enter</td><td>zip</td><td>1,1,2</td></tr>
+<tr><td>enter</td><td>coord</td><td>44 59' 22" n 122 28' 59" w</td></tr>
 
-<td>y</td>
+<tr><td>press</td><td>ok</td><td>&nbsp;</td></tr>
+<tr><td>check</td><td>nodes</td><td bgcolor="#cfffcf">2</td></tr>
+<tr><td>press</td><td>new city</td><td>&nbsp;</td></tr>
+<tr><td>enter</td><td>name</td><td>Seattle</td></tr>
+<tr><td>press</td><td>cancel</td><td>&nbsp;</td></tr>
 
-<td>+</td>
-
-<td>-</td>
-
-<td>*</td>
-
-<td>/</td>
-</tr>
-
-<tr>
-<td>0</td>
-
-<td>0</td>
-
-<td bgcolor="#cfffcf">0</td>
-
-<td bgcolor="#cfffcf">0</td>
-
-<td bgcolor="#cfffcf">0</td>
-
-<td bgcolor=" #ffffcf\">0: ArithmeticException: / by zero</td>
-</tr>
-
-
-<tr>
-<td>1</td>
-
-<td>2</td>
-
-<td bgcolor="#cfffcf">3</td>
-
-<td bgcolor="#cfffcf">-1</td>
-
-<td bgcolor="#cfffcf">2</td>
-
-<td bgcolor="#cfffcf">0.5</td>
-</tr>
-
-<tr>
-<td>1</td>
-
-<td>-1</td>
-
-<td bgcolor="#cfffcf">0</td>
-
-<td bgcolor="#cfffcf">2</td>
-
-<td bgcolor="#cfffcf">-1</td>
-
-<td bgcolor="#cfffcf">-1</td>
-</tr>
-
-<tr>
-<td>10000</td>
-
-<td>10000</td>
-
-<td bgcolor="#cfffcf">20000</td>
-
-<td bgcolor="#cfffcf">0</td>
-
-<td bgcolor="#cfffcf">100000000</td>
-
-<td bgcolor="#cfffcf">1</td>
-</tr>
-
-<tr>
-<td>100000</td>
-
-<td>100000</td>
-
-<td bgcolor="#cfffcf">200000</td>
-
-<td bgcolor="#cfffcf">0</td>
-
-<td bgcolor="#ffcfcf">10000000000 <span style="color:#c08080;font-style:italic;font-size:small;">expected</span><hr />1410065408 <span style="color:#c08080;font-style:italic;font-size:small;">actual</span></td>
-
-<td bgcolor="#cfffcf">1</td>
-</tr>
-
-<tr>
-<td>1000000</td>
-
-<td>1000000</td>
-
-<td bgcolor="#cfffcf">2000000</td>
-
-<td bgcolor="#cfffcf">0</td>
-
-<td bgcolor="#ffcfcf">1000000000000 <span style="color:#c08080;font-style:italic;font-size:small;">expected</span><hr />-727379968 <span style="color:#c08080;font-style:italic;font-size:small;">actual</span></td>
-
-<td bgcolor="#cfffcf">1</td>
+<tr><td>check</td><td>nodes</td><td bgcolor="#cfffcf">2</td>
 </tr>
 </table>
-
-<br><br>
-Now we try something similar using automatic type conversion offered by ColumnFixtures (BFL1).
-<br><br>
-
-<table BORDER CELLSPACING=0 CELLPADDING=3>
-    <tr>
-        <td colspan=5>eg.ArithmeticColumnFixture</td>
-    </tr>
-    <tr>
-        <td>x</td>
-        <td>y</td>
-        <td>plus()</td>
-        <td>times()</td>
-        <td>divide()</td>
-        <td>floating()</td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>3</td>
-        <td bgcolor="#cfffcf">5</td>
-        <td bgcolor="#cfffcf">6</td>
-        <td bgcolor="#cfffcf">0</td>
-        <td bgcolor="#cfffcf">0.666666666667</td>
-    </tr>
-    <tr>
-        <td>0</td>
-        <td>0</td>
-        <td bgcolor="#cfffcf">0</td>
-        <td bgcolor="#cfffcf">0</td>
-        <td bgcolor="#cfffcf">error</td>
-        <td bgcolor="#cfffcf">error</td>
-    </tr>
-    <tr>
-        <td>0</td>
-        <td>0</td>
-        <td bgcolor="#cfffcf">0</td>
-        <td bgcolor="#cfffcf">0</td>
-        <td> <span style="color:#808080;">error</span></td>
-        <td> <span style="color:#808080;">error</span></td>
-    </tr>
-    <tr>
-        <td>200</td>
-        <td>300</td>
-        <td bgcolor="#cfffcf">500</td>
-        <td bgcolor="#cfffcf">60000</td>
-        <td bgcolor="#cfffcf">0</td>
-        <td bgcolor="#cfffcf">0.666666666667</td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>3</td>
-        <td bgcolor="#ffcfcf">10 <span style="color:#c08080;font-style:italic;font-size:small;">expected</span><hr />5 <span style="color:#c08080;font-style:italic;font-size:small;">actual</span></td>
-        <td bgcolor="#ffcfcf">10 <span style="color:#c08080;font-style:italic;font-size:small;">expected</span><hr />6 <span style="color:#c08080;font-style:italic;font-size:small;">actual</span></td>
-        <td bgcolor="#ffcfcf">10 <span style="color:#c08080;font-style:italic;font-size:small;">expected</span><hr />null <span style="color:#c08080;font-style:italic;font-size:small;">actual</span></td>
-    </tr>
-    <tr>
-        <td>200</td>
-        <td>3</td>
-        <td bgcolor="#ffcfcf">5 <span style="color:#c08080;font-style:italic;font-size:small;">expected</span><hr />203 <span style="color:#c08080;font-style:italic;font-size:small;">actual</span></td>
-        <td bgcolor="#ffcfcf">6 <span style="color:#c08080;font-style:italic;font-size:small;">expected</span><hr />600 <span style="color:#c08080;font-style:italic;font-size:small;">actual</span></td>
-        <td bgcolor="#ffcfcf">0 <span style="color:#c08080;font-style:italic;font-size:small;">expected</span><hr />66 <span style="color:#c08080;font-style:italic;font-size:small;">actual</span></td>
-        <td bgcolor="#ffcfcf">0.6666667 <span style="color:#c08080;font-style:italic;font-size:small;">expected</span><hr />66.6666666667 <span style="color:#c08080;font-style:italic;font-size:small;">actual</span></td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>-3</td>
-        <td bgcolor="#cfffcf">-1</td>
-        <td bgcolor="#cfffcf">-6</td>
-        <td bgcolor="#cfffcf">0</td>
-        <td bgcolor="#cfffcf">-0.666666666667</td>
-    </tr>
-</table>
-
-<br><br>
-
-
-<table BORDER CELLSPACING=0 CELLPADDING=3>
-<tr>
-<td COLSPAN="2">fit.Summary</td>
-</tr>
-<tr>
-<td> <span style="color:#808080;">counts</span></td>
-<td bgcolor="#ffcfcf">39 right, 9 wrong, 0 ignored, 1 exceptions</td></tr>
-<tr>
-<td> <span style="color:#808080;">run date</span></td>
-<td> <span style="color:#808080;">July 02 2006 18:29:50.</span></td></tr>
-<tr>
-<td> <span style="color:#808080;">run elapsed time</span></td>
-<td> <span style="color:#808080;">0.0113990306854 seconds</span></td></tr></table>
-
-
 
 <p>Document prepaired by Ward Cunningham
 <br>First Version July 11, 2002
 <br>Last Update August 17, 2002
 </body>
 </html>
+
+

@@ -1,29 +1,26 @@
 <?php
-/**
- * FIT FileRunner
- * 
- * $Id$
- * 
- * @author Luis A. Floreani <luis.floreani@gmail.com>
- * @author gERD Schaufelberger <gerd@php-tools.net>
- * @package FIT
- * @subpackage FileRunner
- * @license LGPL http://www.gnu.org/copyleft/lesser.html
- * @copyright Copyright (c) 2002-2005 Cunningham & Cunningham, Inc.
- */
- 
-/**
- * load exception clas: FileIO
- */
-include_once 'PHPFIT/Exception/FileIO.php';
+
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
- * load exception clas: Parse
+ * PHPFit entry point to run tests
+ * 
+ * PHP version 5
+ *
+ * @category    Testing
+ * @package     PHPFit
+ * @author      Luis A. Floreani <luis.floreani@gmail.com>
+ * @author      gERD Schaufelberger <gerd@php-tools.net>
+ * @copyright   Copyright (c) 2002-2005 Cunningham & Cunningham, Inc.
+ * @license     LGPL http://www.gnu.org/copyleft/lesser.html
+ * @version     0.1.0
  */
-include_once 'PHPFIT/Exception/Parse.php';
+
+require_once 'PHPFIT/Exception/FileIO.php';
+require_once 'PHPFIT/Exception/Parse.php';
 
 /**
- * FIT FileRunner
+ * Run tests
  *
  * Run fit-tests from tables stored in HTML files.  
  * FileRunner provides a simple interface to process tests from CLI or 

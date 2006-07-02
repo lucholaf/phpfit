@@ -12,16 +12,8 @@
  * @copyright Copyright (c) 2002-2005 Cunningham & Cunningham, Inc.
  */
 
-/**
- * load class TypeAdapter
- */
-include_once 'PHPFIT/TypeAdapter.php';
-
-
-/**
- * load class Fixture
- */ 
-include_once 'PHPFIT/Fixture.php';
+require_once 'PHPFIT/TypeAdapter.php';
+require_once 'PHPFIT/Fixture.php';
 
 /**
  * FIT Fixture: ColumnFixture

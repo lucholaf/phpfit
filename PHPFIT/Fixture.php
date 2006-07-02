@@ -1,7 +1,12 @@
 <?php
+
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
 /**
  * FIT Fixture
  * 
+ * PHP version 5
+ *
  * $Id$
  * 
  * @author Luis A. Floreani <luis.floreani@gmail.com>
@@ -19,20 +24,9 @@ if( !defined( 'PHPFIT_FIXTURE_DIR' ) ) {
     define( 'PHPFIT_FIXTURE_DIR', '.' );
 }
 
-/**
- * load counter
- */
-include_once 'PHPFIT/Counts.php';
-
-/**
- * load scienttific double class
- */
-include_once 'PHPFIT/ScientificDouble.php';
-
-/**
- * load timer class
- */
-include_once 'PHPFIT/RunTime.php';
+require_once 'PHPFIT/Counts.php';
+require_once 'PHPFIT/ScientificDouble.php';
+require_once 'PHPFIT/RunTime.php';
 
 /**
  * FIT Fixture

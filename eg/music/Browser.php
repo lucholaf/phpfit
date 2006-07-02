@@ -1,16 +1,9 @@
 <?php
 
+require_once 'PHPFIT/Fixture.php';
+require_once 'MusicLibrary.php';
 
-# Copyright (c) 2002-2005 Cunningham & Cunningham, Inc.
-# Released under the terms of the GNU General Public License version 2 or later.
-#
-# PHP5 translation by Luis A. Floreani <luis.floreani@gmail.com>
-
-require_once ("config.php");
-require_once (PHPFIT_DIR.LIB_FIT_DIR."Fixture.php");
-require_once ("MusicLibrary.php");
-
-class Browser extends Fixture {
+class eg_music_Browser extends PHPFIT_Fixture {
 
 	// Library //////////////////////////////////	
 
