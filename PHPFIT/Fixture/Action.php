@@ -46,7 +46,7 @@ class PHPFIT_Fixture_Action extends PHPFIT_Fixture {
     * @var Fixture
     * @see start()
     */
-	private $actor = null;
+	private static $actor = null;
 	
    /**
     * Implements start fixture 
@@ -58,7 +58,7 @@ class PHPFIT_Fixture_Action extends PHPFIT_Fixture {
     */       
     public function start() {
         $aClass         = $this->cells->more->text();
-        $this->actor    = $this->loadFixture( $aClass );
+        self::$actor    = $this->loadFixture( $aClass );
     }
     
    /**
@@ -72,7 +72,7 @@ class PHPFIT_Fixture_Action extends PHPFIT_Fixture {
     public function enter() {
         $aMethod    = $this->camel( $this->cells->more->text() );
         $anArgument = $this->cells->more->more->text();
-        $this->actor->$aMethod( $anArgument );
+        self::$actor->$aMethod( $anArgument );
     }
     
    /**
@@ -85,7 +85,7 @@ class PHPFIT_Fixture_Action extends PHPFIT_Fixture {
     */       
     public function press() {
         $aMethod    = $this->camel( $this->cells->more->text() );
-        $this->actor->$aMethod();
+        self::$actor->$aMethod();
     }
 
    /**
@@ -98,11 +98,14 @@ class PHPFIT_Fixture_Action extends PHPFIT_Fixture {
     * @return void
     */       
     public function check() {
+        
         $aMethod    = $this->camel( $this->cells->more->text() );
         $aValue     = $this->cells->more->more;
         
-        $adapter    = PHPFIT_TypeAdapter::onMethod( $this->actor, $aMethod );  
+        //echo "<br>$aMethod";
+        $adapter    = PHPFIT_TypeAdapter::onMethod( self::$actor, $aMethod );  
         $this->checkCell( $aValue, $adapter );
+        
     }
     
    /**

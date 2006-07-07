@@ -22,7 +22,7 @@ class eg_music_Browser extends PHPFIT_Fixture {
 	// Select Detail ////////////////////////////
 
 	public function select($i) {
-		MusicLibrary :: select(MusicLibrary :: $library[$i -1]);
+		MusicLibrary :: select(MusicLibrary :: $library[$i-1]);
 	}
 
 	public function title() {
@@ -50,13 +50,13 @@ class eg_music_Browser extends PHPFIT_Fixture {
 	}
 			
 	public $typeDict = array (
-		"totalSongs" => "integer",
-		"title" => "string",
-		"artist" => "string",
-		"album" => "string",	
-		"year" => "string",	
-		"time" => "double",	
-		"track" => "string",	
+		"totalSongs()" => "integer",
+		"title()" => "string",
+		"artist()" => "string",
+		"album()" => "string",	
+		"year()" => "string",	
+		"time()" => "double",	
+		"track()" => "string",	
 	);
 }
 ?>

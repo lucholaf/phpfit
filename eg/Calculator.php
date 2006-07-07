@@ -13,7 +13,7 @@ class eg_Calculator extends PHPFIT_Fixture_Column
 	public $volts = 0.0;
 	public $key = "";
 	
-	public static $hp;
+	public $hp;
 	
 	function __construct() {
 		$this->hp = new HP35();

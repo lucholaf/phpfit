@@ -11,19 +11,18 @@ require_once 'PHPFIT/Parse.php';
 require_once 'PHPFIT/ScientificDouble.php';
 require_once 'PHPFIT/Fixture/Column.php';
 
-
 class FrameworkTest extends UnitTestCase {
 	public function testRuns() {
 		$this->doRun("arithmetic", 39, 9, 0, 1);
 		$this->doRun("compensation", 24, 0, 0, 0);
 		$this->doRun("CalculatorExample", 75, 9, 0, 0);
-		//$this->doRun("MusicExample", 95, 0, 0, 0);
+		//$this->doRun("MusicExample", 9, 0, 0, 5);
 	}
 	
 	public function doRun($file, $right, $wrong, $ignores, $exceptions) {
-		$cont= $GLOBALS['baseDir'] . "/examples/input/" . $file . ".html";
-		$tables = new PHPFIT_Parse(file_get_contents($cont));
-		$fixture = new PHPFIT_Fixture();
+		$input = $GLOBALS['baseDir'] . "/examples/input/" . $file . ".html";
+		$tables = new PHPFIT_Parse(file_get_contents($input));
+		$fixture = new PHPFIT_Fixture($GLOBALS['baseDir'] . '/');
 		$fixture->doTables($tables);
 		$this->assertEqual($right, $fixture->counts->right);
 		$this->assertEqual($wrong, $fixture->counts->wrong);

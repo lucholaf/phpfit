@@ -11,20 +11,6 @@ require_once $baseDir . '/PHPFIT/FileRunner.php';
 
 
 class FileRunnerTest extends UnitTestCase {
-	public function testArgsFail() {
-		try {
-            // define fake output
-            if( !defined( 'STDERR' ) )  {
-                define( 'STDERR', fopen( 'php://stderr', 'w' ) );
-            }
-            
-            $argv = array();
-			$result = PHPFIT_FileRunner::main($argv);
-            $this->assertNotEqual( 0, $result );
-		} catch (Exception $e) {
-            $this->fail('expected error did not happen');   
-		}
-	}
 	
 	public function testDoInputException() {
 		$inputFilename = "noexist-input.no";
@@ -48,7 +34,7 @@ class FileRunnerTest extends UnitTestCase {
 			$fr = new PHPFIT_FileRunner();
             $fr->run($inputFilename, $outputFilename);
 		} catch (PHPFIT_Exception_FileIO $e) {
-			$this->assertEqual('Cannot create output file in given folder. (probably a problem of file permissions)', $e->getMessage());
+			$this->assertEqual('Output file is not writable (probably a problem of file permissions)', $e->getMessage());
 			return;
 		}
 		$this->fail("exptected exception not thrown");

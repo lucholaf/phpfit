@@ -6,13 +6,21 @@ class PHPFIT_TypeAdapter_Boolean extends PHPFIT_TypeAdapter {
 	}
 
 	public function parse($s) {
-		if ($s == "false")
+		if ($s == "false") {
 			return false;
-		else
-			if ($s == "true")
-				return true;
+        } else if ($s == "true") {
+            return true;
+        }
 		return "not a boolean";
 	}
+    
+    public function toString($value) {
+        if ($value) {
+            return  'true';
+        } else {
+            return 'false';
+        }
+    }
 }
 
 ?>
