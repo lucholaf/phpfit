@@ -7,7 +7,7 @@
 
 require_once 'PHPFIT/Fixture/Primitive.php';
 
-class eg_ArithmeticFixture extends PHPFIT_Fixture_Primitive {
+class ArithmeticFixture extends PHPFIT_Fixture_Primitive {
 	public $x = 0;
 	public $y = 0;
 	

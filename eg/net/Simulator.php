@@ -19,7 +19,7 @@
  * @package FIT
  * @subpackage Fixture
  */
-class eg_net_Simulator extends PHPFIT_Fixture_Action {
+class Simulator extends PHPFIT_Fixture_Action {
 
    /**
     * dictionary of variable types

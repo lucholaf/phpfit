@@ -3,7 +3,7 @@
 require_once 'PHPFIT/Fixture.php';
 require_once 'MusicLibrary.php';
 
-class eg_music_Browser extends PHPFIT_Fixture {
+class Browser extends PHPFIT_Fixture {
 
 	// Library //////////////////////////////////	
 

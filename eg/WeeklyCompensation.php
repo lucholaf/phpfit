@@ -3,7 +3,7 @@ require_once 'PHPFIT/Fixture/Column.php';
 
 require_once "eg/WeeklyTimesheet.php";
 
-class eg_WeeklyCompensation extends PHPFIT_Fixture_Column {
+class WeeklyCompensation extends PHPFIT_Fixture_Column {
 	public $StandardHoras = 0;
 	public $VacacionesHoras = 0;
 	public $SalarioHora = 0;

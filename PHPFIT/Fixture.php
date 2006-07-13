@@ -235,38 +235,16 @@ class PHPFIT_Fixture {
     * It also supports loading standard fixtures. They are recognized by the prefix: "fit."
     * Those fixtures are maped to the corresponding class.
     * 
-    * @param string fixtureName
+    * @param string $fixtureName
     * @return object Fixture
     */
 	public function loadFixture( $fixtureName ) 
     {
-        // load a FIT standard fixture
-        if( strncmp( 'fit.', $fixtureName, 4 ) == 0 ) {            
-            // strip leading "fit."
-            $fixtureName    = substr( $fixtureName, 4 );
-            
-            //$fixtureName  = str_replace( 'Fixture', '', $fixtureName );
-            
-            $class  = array( 'PHPFIT', 'Fixture', $fixtureName);
-            
-            $file   = implode( '/', $class );
-            $class  = implode( '_', $class );
-        }
-        else {
-            $class  = str_replace( '.', '_', $fixtureName );
-            $file   = str_replace( '.', '/', $fixtureName );
-        }
+        require_once 'FixtureLoader.php';
         
-        $realFile = $this->fixturesDirectory . $file . '.php';
+        return FixtureLoader::load($fixtureName, $this->fixturesDirectory);
         
-        if (is_readable($realFile)) {
-            include_once $realFile;
-        } else {
-            throw new Exception( 'Could not load Fixture ' . $fixtureName . ' from ' . $realFile );
-        }
-        return new $class();
-;
-    }
+   }
     
     /**
     * check whether the value of a cell matches

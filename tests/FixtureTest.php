@@ -19,7 +19,7 @@ class FixtureTest extends UnitTestCase {
 	public function testCamelTwoSpace() {
 		$string = "my string two";
 		$this->assertEqual("myStringTwo", PHPFIT_Fixture::camel($string));
-	}	
+	}
 }
 
 $test = &new FixtureTest();

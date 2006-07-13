@@ -7,7 +7,7 @@
 
 require_once 'PHPFIT/Fixture/Column.php';
 
-class eg_ArithmeticColumnFixture extends PHPFIT_Fixture_Column 
+class ArithmeticColumnFixture extends PHPFIT_Fixture_Column 
 {
 	public $x = 0;
 	public $y = 0; // not 0 to avoid that getReturnType (for floating() and divide()) throws an Exception

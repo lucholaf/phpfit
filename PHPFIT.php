@@ -6,6 +6,11 @@ require_once 'PHPFIT/FileRunner.php';
 
 class PHPFIT {
     
+    /**
+    * @param string $inputFilename
+    * @param string $outputFilename
+    * @param string $fixturesDirectory
+    */
     public static function run($inputFilename, $outputFilename, $fixturesDirectory = null) {
         $fr = new PHPFIT_FileRunner();
         try {
