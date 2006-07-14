@@ -1,20 +1,25 @@
-PHPFIT version 0.01a
-====================
+PHPFIT version 0.1
+==================
 
 PHPFIT is a PHP5 port of the FIT acceptance test framework.
 FIT was originally developed for Java by Ward Cunningham.
 
 SYNOPSYS
 
-php lib/fit/FileRunner.php input.html output.html
+From the CLI:
 
-e.g: php lib/fit/FileRunner.php examples/input/arithmetic.html output.html
+php run-cli.php input.html output.html
 
-or you can adapt the Makefile with the desire input an output and then execute run.php from a webserver to see instant results.
+e.g: php run-cli.php examples/input/arithmetic.html output.html
+
+From a Browser:
+
+e.g: http://domain/phpfit/run-web.php?file=examples/input/arithmetic.html
+
 
 LIMITATIONS
 
-Just work with arithmetic.html as the input. But could work with others ColumnFixtures.
+It doesn't pass the FIT specification tests yet.
 
 
 AUTHOR
@@ -26,4 +31,3 @@ COPYRIGHT AND LICENCE
 
 Copyright (c) 2002-2005 Cunningham & Cunningham, Inc.
 Released under the terms of the GNU General Public License version 2 or later.
-
