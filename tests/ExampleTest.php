@@ -1,10 +1,5 @@
 <?php
-error_reporting( E_ALL );
 
-set_include_path( get_include_path()  . ':' . dirname( __FILE__ ) . '/../' );
-
-require_once 'tools/simpletest/unit_tester.php';
-require_once 'tools/simpletest/reporter.php';
 require_once 'PHPFIT/Parse.php';
 require_once 'PHPFIT/Fixture.php';
 require_once 'PHPFIT/FileRunner.php';
@@ -28,8 +23,8 @@ class ExampleTest extends UnitTestCase {
 		
 		FileRunner::main($args);
 		
-		$must = file_get_contents($this->mustFilename);
-		$is = file_get_contents($this->isFilename);
+		$must = file_get_contents($this->mustFilename, true);
+		$is = file_get_contents($this->isFilename, true);
 
 		$this->assertEqual($is, $must);
 	}
@@ -45,9 +40,5 @@ class ExampleTest extends UnitTestCase {
 	}
 
 }
-
-$test = &new ExampleTest();
-$test->run(new HtmlReporter());	
-
 
 ?>

@@ -15,5 +15,5 @@ $output = 'output.html';
 
 PHPFIT::run( $file, $output, $fixturesDirectory);
 
-echo file_get_contents( $output );
+echo file_get_contents( $output, true );
 ?>

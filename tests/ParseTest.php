@@ -1,12 +1,5 @@
 <?php
-error_reporting( E_ALL );
 
-$baseDir = realpath( dirname( __FILE__ ) . '/..' );
-
-set_include_path( get_include_path()  . ':' . realpath(dirname( __FILE__ )) . '/../' );
-
-require_once 'tools/simpletest/unit_tester.php';
-require_once 'tools/simpletest/reporter.php';
 require_once 'PHPFIT/Parse.php';
 
 class ParseTest extends UnitTestCase {
@@ -69,12 +62,15 @@ class ParseTest extends UnitTestCase {
 	
 	public function testArithmeticFromFile() {
         try{   
-            $cont = file_get_contents( $GLOBALS['baseDir']. "/examples/input/arithmetic.html");
+            $cont = file_get_contents('examples/input/arithmetic.html', true);
+            if (!$cont) {
+                throw new Exception("Can't read file");
+            }
             $p = new PHPFIT_Parse($cont);	
             $this->assertEqual($cont, $p->toString());
         }
         catch( Exception $e ) {
-            die( 'testArithmeticFromFile' . $e->getMessage() );
+            die( 'testArithmeticFromFile: ' . $e->getMessage() );
         }
 	}
 	
@@ -205,7 +201,5 @@ class ParseTest extends UnitTestCase {
 
 }
 
-$test = new ParseTest();
-$test->run(new HtmlReporter());
 
 ?>

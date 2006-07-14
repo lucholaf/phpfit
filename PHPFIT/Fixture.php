@@ -462,5 +462,23 @@ class PHPFIT_Fixture {
         $string = str_replace('&', '', $string);
         return $string;
     }
+
+    /**
+    * @param function $function
+    * @param string $file
+    * @return return mixed 
+    */    
+    public static function fc_incpath($function, $file) {
+        $paths = explode(PATH_SEPARATOR, get_include_path());
+        
+        foreach ($paths as $path) {
+            $fullpath = $path . DIRECTORY_SEPARATOR . $file;
+            if ($function($fullpath)) {
+                return $fullpath;
+            }
+        }
+        
+        return false;
+    }    
 }
 ?>

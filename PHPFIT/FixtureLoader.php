@@ -16,10 +16,10 @@ class FixtureLoader {
         
         $filename = $fixturesDirectory . $fixtureInfo['filename'];
         
-        if (is_readable($filename)) {
+        if (PHPFIT_Fixture::fc_incpath('is_readable', $fixtureInfo['filename'])) {
             include_once $filename;
         } else {
-            throw new Exception( 'Could not load Fixture ' . $fixtureName . ' from ' . $filename );
+            throw new Exception( 'Could not load Fixture ' . $fixtureInfo['classname'] . ' from ' . $filename );
         }
         return new $fixtureInfo['classname'];
     }
