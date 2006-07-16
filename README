@@ -5,12 +5,13 @@ PHPFIT is a PHP5 port of the FIT acceptance test framework.
 FIT was originally developed for Java by Ward Cunningham.
 
 SYNOPSYS
+--------
 
-1) The PHPFIT installation directory must be in the PHP include path directory. 
+1) PHPFIT.php and PHPFIT/ must be in the PHP include path directory (as any PEAR package). 
 
 2) Check the file 'phpfit' and change the first line according to your PHP path installation.
 
-3) Create a symbolic link to 'phpfit' or put it in the path.
+3) (optional) Create a symbolic link to 'phpfit'. e.g: ln -s /path/to/phpfit /usr/local/bin So you can run phpfit from anywhere.
 
 4) Run it:
 
@@ -31,25 +32,29 @@ e.g: http://domain/path/to/phpfit/examples/run-web.php?input_filename=input/arit
 <?php
 require_once 'PHPFIT.php';
 
-PHPFIT::run(input.html, output.html, [fixturesDirectory]);
+PHPFIT::run(input.html, output.html [, fixturesDirectory]);
 
 echo file_get_contents(output.html);
 ?>
 
 
 TODO
+----
 
-- PHPFIT::run() a way to specify the output. eg: to a file, to the screen, etc.
+- PHPFIT::run(). Allow way to specify the output. eg: to a file, to stdout, etc.
 - Achieve more tests coverage.
 - It doesn't pass the FIT specification tests yet.
-
+- Check Windows compatibility.
 
 AUTHOR
+------
 
 Luis Floreani <luis.floreani@gmail.com>
+gERD Schaufelberger <gerd@php-tools.net>
 
 
 COPYRIGHT AND LICENCE
+---------------------
 
 Copyright (c) 2002-2005 Cunningham & Cunningham, Inc.
 Released under the terms of the GNU General Public License version 2 or later.
