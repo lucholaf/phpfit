@@ -1,0 +1,20 @@
+#!/usr/local/bin/php5
+<?php
+	
+error_reporting( E_ALL | E_STRICT );
+
+require_once 'PHPFIT.php';
+
+$fixturesDirectory = '';
+
+if (isset($argv[3])) {
+	$fixturesDirectory = $argv[3];
+}
+
+if( count( $argv ) < 3 ) {
+	fwrite( STDERR, "Invalid number of arguments!!!\nUsage: phpfit path/to/input.html path/to/output.html [path/to/fixtures]\n" );
+	return 1;
+}
+
+PHPFIT::run($argv[1], $argv[2], $fixturesDirectory);
+?>

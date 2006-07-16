@@ -469,7 +469,7 @@ class PHPFIT_Fixture {
     * @return return mixed 
     */    
     public static function fc_incpath($function, $file) {
-        $paths = explode(PATH_SEPARATOR, get_include_path());
+        $paths = explode(PATH_SEPARATOR, get_include_path() . ':');
         
         foreach ($paths as $path) {
             $fullpath = $path . DIRECTORY_SEPARATOR . $file;
@@ -477,7 +477,6 @@ class PHPFIT_Fixture {
                 return $fullpath;
             }
         }
-        
         return false;
     }    
 }

@@ -1,9 +1,7 @@
 <?php
 
-set_include_path( get_include_path()  . ':' . dirname( __FILE__ ) . '/..' );
-
-require_once 'simpletest/unit_tester.php';
-require_once 'simpletest/reporter.php';
+require_once 'tools/simpletest/unit_tester.php';
+require_once 'tools/simpletest/reporter.php';
 
 $test = &new GroupTest('FIT tests');
 

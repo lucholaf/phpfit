@@ -1,6 +1,6 @@
 <?php
 
-$examplesDir = "examples" . DIRECTORY_SEPARATOR . "input";
+$examplesDir = "input";
 $files = scandir($examplesDir);
 
 ?>
@@ -14,7 +14,7 @@ $files = scandir($examplesDir);
 	<?php if (strstr($val, ".html")): ?>
 	<tr>
 		<td>
-			<a href="run-web.php?file=<?php echo $examplesDir . DIRECTORY_SEPARATOR . $val; ?> "> <?php echo $val; ?> </a>
+			<a href="run-web.php?input_filename=<?php echo $examplesDir . DIRECTORY_SEPARATOR . $val; ?> "> <?php echo $val; ?> </a>
 		</td>
 	</tr>
 	<?php endif; ?>

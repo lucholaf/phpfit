@@ -69,12 +69,12 @@ class PHPFIT_FileRunner {
         date_default_timezone_set('UTC');
         
         // check input file
-        if (!PHPFIT_Fixture::fc_incpath('file_exists', $in ) || !PHPFIT_Fixture::fc_incpath('is_readable', $in )) {
+        if (!PHPFIT_Fixture::fc_incpath('file_exists', $in ) || !PHPFIT_Fixture::fc_incpath('is_readable', $in ) || !$in) {
             throw new PHPFIT_Exception_FileIO( 'Input file does not exist!', $in );
         }
         
         // check output file
-        if( !is_writable( realpath($out) ) ) {
+        if(!is_writable(realpath($out)) || !$out ) {
             throw new PHPFIT_Exception_FileIO( 'Output file is not writable (probably a problem of file permissions)', realpath($out) );
         }
         

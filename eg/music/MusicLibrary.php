@@ -13,7 +13,7 @@ class MusicLibrary {
 	
 		
 	public static function load($path) {
-		$fp = fopen($path, "r");
+		$fp = fopen($path, "r", true);
 		
 		fgets($fp); // skip column headings
 		

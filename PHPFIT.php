@@ -1,7 +1,5 @@
 <?php
 
-set_include_path( get_include_path()  . ':' . dirname( __FILE__ ) );
-
 require_once 'PHPFIT/FileRunner.php';
 
 class PHPFIT {
