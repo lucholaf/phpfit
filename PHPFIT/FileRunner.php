@@ -1,50 +1,19 @@
 <?php
 
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
-
-/**
-* PHPFit entry point to run tests
-* 
-* PHP version 5
-*
-* @category    Testing
-* @package     PHPFit
-* @author      Luis A. Floreani <luis.floreani@gmail.com>
-* @author      gERD Schaufelberger <gerd@php-tools.net>
-* @copyright   Copyright (c) 2002-2005 Cunningham & Cunningham, Inc.
-* @license     LGPL http://www.gnu.org/copyleft/lesser.html
-* @version     0.1.0
-*/
-
 require_once 'PHPFIT/Exception/FileIO.php';
 require_once 'PHPFIT/Fixture.php';
 
-
-/**
-* Run tests
-*
-* Run fit-tests from tables stored in HTML files.  
-* FileRunner provides a simple interface to process tests from CLI or 
-* "remote controlled" from anther application. 
-* 
-* @see run()
-* 
-* @version 0.1.0
-* @package FIT
-* @subpackage FileRunner
-*/
 class PHPFIT_FileRunner {
     
     /**
     * running fixture object
-    * @var Fixture
+    * @var PHPFIT_FileRunner
     */
 	private $fixture;
     
 	/**
     * @var string
-    */
-    
+    */    
 	private $input;
     
     
@@ -61,7 +30,7 @@ class PHPFIT_FileRunner {
     * 
     * @param string $in path to input file
     * @param string $out path to output file
-    * @return bool always true
+    * @param string $fixturesDirectory path to fixtures
     */
 	public function run( $in, $out, $fixturesDirectory = null) 
     {
@@ -90,15 +59,16 @@ class PHPFIT_FileRunner {
 		
         // save output
         file_put_contents($out, $this->fixture->toString());
-        
-        return true;
 	}
     
+    /**
+    * @param string $fixturesDirectory
+    */
 	public function process($fixturesDirectory) 
     {        
         $this->fixture  = new PHPFIT_Fixture($fixturesDirectory);
         $this->fixture->doInput($this->input);        
 	}
-
+    
 }
 ?>

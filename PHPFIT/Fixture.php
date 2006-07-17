@@ -1,38 +1,10 @@
 <?php
 
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
-
-/**
-* FIT Fixture
-* 
-* PHP version 5
-*
-* $Id$
-* 
-* @author Luis A. Floreani <luis.floreani@gmail.com>
-* @author gERD Schaufelberger <gerd@php-tools.net>
-* @package FIT
-* @subpackage Fixture
-* @license LGPL http://www.gnu.org/copyleft/lesser.html
-* @copyright Copyright (c) 2002-2005 Cunningham & Cunningham, Inc.
-*/
-
-/** 
-* path to user's fixtures
-*/
-
 require_once 'PHPFIT/Counts.php';
 require_once 'PHPFIT/ScientificDouble.php';
 require_once 'PHPFIT/RunTime.php';
 require_once 'PHPFIT/Parse.php';
 
-/**
-* FIT Fixture
-* 
-* @version 0.1.0
-* @package FIT
-* @subpackage Fixture
-*/
 class PHPFIT_Fixture {
     
     /**

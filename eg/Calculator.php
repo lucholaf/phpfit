@@ -1,15 +1,9 @@
 <?php
 
-# Copyright (c) 2002-2005 Cunningham & Cunningham, Inc.
-# Released under the terms of the GNU General Public License version 2 or later.
-#
-# PHP5 translation by Luis A. Floreani <luis.floreani@gmail.com>
-
 require_once 'PHPFIT/Fixture/Column.php';
 require_once 'PHPFIT/ScientificDouble.php';
 
-class Calculator extends PHPFIT_Fixture_Column 
-{
+class Calculator extends PHPFIT_Fixture_Column {
 	public $volts = 0.0;
 	public $key = "";
 	
@@ -18,12 +12,12 @@ class Calculator extends PHPFIT_Fixture_Column
 	function __construct() {
 		$this->hp = new HP35();
 	}
-
+    
 	public function execute() {
 		if ($this->key != "")
-			$this->hp->key($this->key);
+        $this->hp->key($this->key);
 	}
-
+    
 	public function points() {
 		return false;
 	}
@@ -51,17 +45,17 @@ class Calculator extends PHPFIT_Fixture_Column
 	public function t() {
 		return new PHPFIT_ScientificDouble($this->hp->r[3]);
 	}
-
+    
 	public $typeDict = array(
-        "key" => "string",
-		"volts" => "double",
-		"points()" => "boolean",
-		"flash()" => "boolean",
-		"watts()" => "double",
-		"x()" => "ScientificDouble",
-		"y()" => "ScientificDouble",
-		"z()" => "ScientificDouble",
-		"t()" => "ScientificDouble"
+    "key" => "string",
+    "volts" => "double",
+    "points()" => "boolean",
+    "flash()" => "boolean",
+    "watts()" => "double",
+    "x()" => "ScientificDouble",
+    "y()" => "ScientificDouble",
+    "z()" => "ScientificDouble",
+    "t()" => "ScientificDouble"
 	);	
 	
 }
@@ -85,7 +79,7 @@ class HP35 {
 		else if ($key == "/") {
 			$t = $this->pop();
 			if ($t != 0)
-				$this->pushValue($this->pop()/$t);
+            $this->pushValue($this->pop()/$t);
 		}
 		else if ($key == "x^y") {$this->pushValue(exp(log($this->pop())*$this->pop()));}
 		else if ($key == "clr") {$this->r[0] = 0;$this->r[1] = 0;$this->r[2] = 0;$this->r[3] = 0;}
@@ -93,8 +87,8 @@ class HP35 {
 		else if ($key == "sin") {$this->pushValue(sin(deg2rad($this->pop())));}
 		else if ($key == "chs") {$this->r[0] = -$this->r[0];}
 		else 
-			throw new Exception("can't do key: " . $key);
-            
+        throw new Exception("can't do key: " . $key);
+        
 	}
 	
 	public function numeric($key) {

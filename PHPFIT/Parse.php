@@ -6,8 +6,7 @@ class PHPFIT_Parse {
     
 	/**
     * @var string
-    */
-    
+    */    
 	public $leader;
 	public $tag;
 	public $body;
@@ -17,9 +16,8 @@ class PHPFIT_Parse {
     
 	
 	/**
-    * @var Parse
-    */
-    
+    * @var PHPFIT_Parse
+    */    
 	public $parts;
 	public $more;
     
@@ -42,10 +40,10 @@ class PHPFIT_Parse {
     );
 	
 	/**
-    * @param string text
-    * @param array tags
-    * @param int level
-    * @param int offset
+    * @param string $text
+    * @param array $tags
+    * @param int $level
+    * @param int $offset
     */
     public function __construct( $text, $tags = null, $level = 0, $offset = 0, $simple = false ) {
         
@@ -118,26 +116,23 @@ class PHPFIT_Parse {
     
 	/**
     * @return int
-    */
-    
+    */  
     public function size() {
         return ($this->more==null) ? 1 : $this->more->size()+1;
     }
     
     
 	/**
-    * @return Parse
-    */
-    
+    * @return PHPFIT_Parse
+    */   
     public function last() {
         return ($this->more==null) ? $this : $this->more->last();
     }
     
 	
 	/**
-    * @return Parse
+    * @return PHPFIT_Parse
     */
-    
     public function leaf() {
         return ($this->parts==null) ? $this : $this->parts->leaf();
     }
@@ -145,12 +140,11 @@ class PHPFIT_Parse {
     
     
 	/**
-    * @param int i
-    * @param int j
-    * @param int k
-    * @return Parse
-    */
-    
+    * @param int $i
+    * @param int $j
+    * @param int $k
+    * @return PHPFIT_Parse
+    */    
 	public function at($i, $j = null, $k = null) {
 		if ($j === null) {
 			return ($i == 0 || $this->more == null) ? $this : $this->more->at($i-1);
@@ -163,34 +157,29 @@ class PHPFIT_Parse {
     
 	/**
     * @return string
-    */
-    
+    */    
 	public function text() {
 		return PHPFIT_Parse::htmlToText($this->body);		
 	}
     
     
 	/**
-    * @param string
+    * @param string $s
     * @return string
-    */
-    
-	public static function htmlToText($s) {
-		
+    */   
+	public static function htmlToText($s) {	
 		$s = PHPFIT_Parse::normalizeLineBreaks($s);
 		$s = PHPFIT_Parse::removeNonBreakTags($s);
 		$s = PHPFIT_Parse::condenseWhitespace($s);
 		$s = PHPFIT_Parse::unescape($s);
 		
 		return $s;
-	} 
-    
+	}     
 	
 	/**
-    * @param string
+    * @param string $s
     * @return string
-    */
-    
+    */    
 	public static function unescape($s) {
 		$s = str_replace("<br />", "\n", $s);
 		$s = PHPFIT_Parse::unescapeEntities($s);
@@ -200,10 +189,9 @@ class PHPFIT_Parse {
     
     
 	/**
-    * @param string
+    * @param string $s
     * @return string
     */
-    
 	private static function unescapeEntities($s) {
         $s = str_replace('&lt;', '<', $s);
         $s = str_replace('&gt;', '>', $s);
@@ -215,10 +203,9 @@ class PHPFIT_Parse {
     
     
 	/**
-    * @param string
+    * @param string $s
     * @return string
     */
-	
 	public static function unescapeSmartQuotes($s) {
         /* NOT SURE */
 		$s = ereg_replace('<93>', '"', $s);
@@ -238,10 +225,9 @@ class PHPFIT_Parse {
     
 	
 	/**
-    * @param string
+    * @param string $s
     * @return string
-    */
-    
+    */   
 	private static function normalizeLineBreaks($s) {
 		$s = preg_replace('|<\s*br\s*/?\s*>|s', '<br />', $s);
 		$s = preg_replace('|<\s*/\s*p\s*>\s*<\s*p( .*?)?>|s', '<br />', $s);
@@ -250,10 +236,9 @@ class PHPFIT_Parse {
     
 	
 	/**
-    * @param string
+    * @param string $s
     * @return string
     */
-    
     public static function condenseWhitespace($s) {
         $NON_BREAKING_SPACE = chr(160);
         
@@ -268,10 +253,9 @@ class PHPFIT_Parse {
     
     
 	/**
-    * @param string
+    * @param string $s
     * @return string
     */
-    
 	private static function removeNonBreakTags($s) {
         $i=0;
 		$i = strpos($s,'<',$i);
@@ -294,9 +278,8 @@ class PHPFIT_Parse {
     
     
 	/**
-    * @param string text
+    * @param string $text
     */
-    
 	public function addToTag($text) {
         $last = strlen($this->tag)-1;
         $this->tag = substr($this->tag, 0, $last) . $text . '>';
@@ -304,9 +287,8 @@ class PHPFIT_Parse {
     
     
 	/**
-    * @param string text
-    */
-    
+    * @param string $text
+    */    
 	public function addToBody($text) {
         $this->body = $this->body . $text;
 	}	
@@ -314,8 +296,7 @@ class PHPFIT_Parse {
 	
 	/**
     * @return string
-    */
-	
+    */	
 	public function toString() {
 		$out = $this->leader;
 		$out .= $this->tag;

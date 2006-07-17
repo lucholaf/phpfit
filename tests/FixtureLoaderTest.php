@@ -17,8 +17,7 @@ class FixtureLoaderTest extends UnitTestCase {
         $this->assertEqual('eg/Arith.php', $fixtureInfo['filename']);        
         $this->assertEqual('Arith', $fixtureInfo['classname']);
     }
-    
-	
 }
 
 ?>
+

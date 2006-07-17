@@ -1,35 +1,14 @@
-<?PHP
-/**
- * FIT RunTime
- * 
- * $Id$
- * 
- * @author Luis A. Floreani <luis.floreani@gmail.com>
- * @author gERD Schaufelberger <gerd@php-tools.net>
- * @package FIT
- * @subpackage FileRunner
- * @license LGPL http://www.gnu.org/copyleft/lesser.html
- * @copyright Copyright (c) 2002-2005 Cunningham & Cunningham, Inc.
- */
+<?php
 
-/**
- * FIT RunTIme
- * 
- * A simple timer class for minor benchmarks
- * 
- * @version 0.1.0
- * @package FIT
- * @subpackage Fixture
- */
-class PHPFIT_RunTime 
-{
-   /**
+class PHPFIT_RunTime {
+    
+    /**
     * start time
-    * @var float
+    * @var double
     */
     private $start;
     
-   /**
+    /**
     * construtor 
     *
     * start timer
@@ -38,17 +17,17 @@ class PHPFIT_RunTime
     {
         $this->start = microtime( true );
     }
-
-   /**
+    
+    /**
     * receive elapsed time as seconds
-    * @return float $elap
+    * @return string
     */
     public function toString() 
     {
         return microtime( true ) - $this->start . ' seconds';
     }
     
-   /**
+    /**
     * interface to ask for current timer state
     * 
     * Supports the following properties
@@ -62,15 +41,15 @@ class PHPFIT_RunTime
     {
         switch( $name ) {
             case 'start':
-                return $this->start; 
-                break;
-                
+            return $this->start; 
+            break;
+            
             case 'elapsed':
-                return microtime( true ) - $this->start;
-                break;
-                
+            return microtime( true ) - $this->start;
+            break;
+            
             default: 
-                break;
+            break;
         }
         
         throw new Exception( 'Property ' . $name . ' is not defined' );

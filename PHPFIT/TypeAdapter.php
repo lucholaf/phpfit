@@ -1,51 +1,27 @@
 <?php
-/**
-* FIT TypeAdapter
-* 
-* $Id$
-* 
-* @author Luis A. Floreani <luis.floreani@gmail.com>
-* @author gERD Schaufelberger <gerd@php-tools.net>
-* @package FIT
-* @subpackage FileRunner
-* @license LGPL http://www.gnu.org/copyleft/lesser.html
-* @copyright Copyright (c) 2002-2005 Cunningham & Cunningham, Inc.
-*/
 
-
-/**
-* FIT TypeAdapter
-*
-* The type adapter makes it possible to "cast" from HTML input into PHP variables.
-* Even if PHP is sort of type-free and does automatic casts, this class makes it
-* possible to check and validate variables including their types.
-* 
-* @version 0.1.0
-* @package FIT
-* @subpackage FileRunner
-*/
-class PHPFIT_TypeAdapter 
-{
+class PHPFIT_TypeAdapter {
     /**
-    * target fixture object
-    * @var object
+    * @var string
+    */
+    private static $fitTypeAdaptersDirectory = 'PHPFIT/TypeAdapter/';
+    
+    /**
+    * @var PHPFIT_Fixture
     */
     public $target;
     
     /**
-    * fixture object
-    * @var object
+    * @var PHPFIT_Fixture
     */
 	public $fixture;
     
     /**
-    * named field
     * @var string
     */
 	public $field;
 	
     /**
-    * named method
     * @var string
     */
     public $method;
@@ -59,11 +35,10 @@ class PHPFIT_TypeAdapter
     /**
     * Create adapter for fixture's method
     * 
-    * @param Fixture target
-    * @param string variable name
+    * @param PHPFIT_Fixture $fixture
+    * @param string $name
     */
-	public static function onMethod( $fixture, $name ) 
-    {
+	public static function onMethod(PHPFIT_Fixture $fixture, $name ) {
         $type               = $fixture->getType( $name, true );
         $adapter            = self::on( $fixture, $type );
         $adapter->method    = $name;
@@ -73,11 +48,10 @@ class PHPFIT_TypeAdapter
     /**
     * Create adapter for fixture's field
     * 
-    * @param Fixture target
-    * @param string variable name
+    * @param PHPFIT_Fixture $fixture
+    * @param string $name
     */
-	public static function onField( $fixture, $name ) 
-    {
+	public static function onField(PHPFIT_Fixture $fixture, $name ) {
         $type           = $fixture->getType( $name );
         $adapter        = self::on( $fixture, $type );
         $adapter->field = $name;
@@ -87,10 +61,10 @@ class PHPFIT_TypeAdapter
     /**
     * Create generic adapter for fixture
     * 
-    * @param Fixture target
-    * @param string type of variables
+    * @param PHPFIT_Fixture $fixture
+    * @param string $type of variables
     */
-	public static function on( $fixture, $type ) {
+	public static function on(PHPFIT_Fixture $fixture, $type ) {
 		$adapter          = self::adapterFor( $type );
 		$adapter->init( $fixture, $type );
 		$adapter->target  = $fixture;
@@ -101,25 +75,23 @@ class PHPFIT_TypeAdapter
     * auxiliary function to include requested adapter
     * 
     * @param string $type
-    * @return object an instance of PHPFIT_TypeAdapter
+    * @return PHPFIT_TypeAdapter
     */   
-    private static function loadAdapter( $name ) 
-    {
+    private static function loadAdapter( $name ) {
         // already loaded
         if( class_exists( 'PHPFIT_TypeAdapter_' . $name ) ) {
             return true;
         }
-        return include_once 'PHPFIT/TypeAdapter/' . $name . '.php';
+        return include_once self::$fitTypeAdaptersDirectory . $name . '.php';
     }
     
     /**
-    * load actual adaptor for a specified type
+    * load actual adapter for a specified type
     * 
     * @param string $type
-    * @return object an instance of PHPFIT_TypeAdapter
+    * @return PHPFIT_TypeAdapter
     */   
-    public static function adapterFor( $type ) 
-    {
+    public static function adapterFor( $type ) {
         if( self::is_bool( $type ) ) {
             self::loadAdapter( 'Boolean' );
             return new PHPFIT_TypeAdapter_Boolean();
@@ -153,8 +125,7 @@ class PHPFIT_TypeAdapter
     * @param string $type
     * @return true if type matches, false otherwise
     */
-	public static function is_bool( $type ) 
-    {
+	public static function is_bool( $type ) {
         if( $type == 'boolean' || $type == 'bool' ) {
             return true;
         }
@@ -180,8 +151,7 @@ class PHPFIT_TypeAdapter
     * @param string $type
     * @return true if type matches, false otherwise
     */
-	public static function is_double( $type ) 
-    {
+	public static function is_double( $type ) {
 		return $type == 'double';
 	}
     
@@ -191,29 +161,33 @@ class PHPFIT_TypeAdapter
     * @param string $type
     * @return true if type matches, false otherwise
     */
-	public static function is_string($type) 
-    {
+	public static function is_string($type) {
 		return $type == 'string';
 	}
     
-	public function init( $fixture, $type ) 
-    {
+
+    /**
+    * @param PHPFIT_Fixture $fixture
+    * @param string $type
+    */
+	public function init( $fixture, $type ) {
 		$this->fixture = $fixture;
 		$this->type = $type;
 	}
     
-	public function set( $value ) 
-    {
+    /**
+    * @param mixed $value
+    */
+	public function set( $value ) {
         // suggested by Julian Harris
         $object = $this->target;
         $field = $this->field;
         $object->{$field} = $value;
-        
-		//$r = new ReflectionClass($this->target);
-		//$prop = $r->getProperty($this->field);
-		//$prop->setValue($this->target, $value);
 	}
     
+    /**
+    * @return mixed
+    */
 	public function get() {
 		if ($this->field != null) {
 			return $this->field->get($this->target);
@@ -223,27 +197,20 @@ class PHPFIT_TypeAdapter
 			return $this->invoke();
 		}
 	}
-    
+
+    /**
+    * @return mixed return value of a method
+    */    
 	public function invoke() {
-		$r = new ReflectionClass($this->target);
-		$method = $r->getMethod($this->method);
-		return $method->invoke($this->target);
+        $method = $this->method;
+        return $this->target->$method();
 	}
-    
-	/**
-    * @return boolean
-    */
-	public function equals( $a, $b ) {
-		if ($a instanceof PHPFIT_ScientificDouble )
-        return $this->scientificEquals( $a, $b );
-	}
-    
-	public static function scientificEquals( $a, $b ) {
-		return $a->equals( $b->toString() );
-	}
-    
-	public function toString( $o ) 
-    {
+
+    /**
+    * @param mixed $o
+    * @return string
+    */    
+	public function toString( $o ) {
 		if( $o == null ) {
 			return 'null';
         }

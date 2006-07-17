@@ -15,5 +15,5 @@ class FixtureTest extends UnitTestCase {
 	}
 }
 
-
 ?>
+

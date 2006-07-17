@@ -1,9 +1,6 @@
 <?php
 
-require_once 'PHPFIT/Parse.php';
-require_once 'PHPFIT/Fixture.php';
-require_once 'PHPFIT/FileRunner.php';
-
+require_once 'PHPFIT.php';
 
 class ExampleTest extends UnitTestCase {
 	public $mustFilename;
@@ -11,17 +8,13 @@ class ExampleTest extends UnitTestCase {
 	public $runFilename;
 	
 	public function setUp() {
-		$this->isFilename = PHPFIT_DIR . "output.html";
+		$this->isFilename = "examples/output.html";
 		if (!@unlink($this->isFilename))
 			echo "could not clean output! (permission problem?)<br>";
 	}
 	
 	public function tearDown() {
-		$args[]=3;
-		$args[]=$this->runFilename;
-		$args[]=$this->isFilename;
-		
-		FileRunner::main($args);
+		PHPFIT::run($this->runFilename, $this->isFilename);
 		
 		$must = file_get_contents($this->mustFilename, true);
 		$is = file_get_contents($this->isFilename, true);
@@ -30,15 +23,16 @@ class ExampleTest extends UnitTestCase {
 	}
 	
 	public function xtestArithmeticExample() {
-		$this->mustFilename = PHPFIT_DIR . EXAMPLES_DIR . "output/arithmetic.html";
-		$this->runFilename = PHPFIT_DIR . EXAMPLES_DIR . "input/arithmetic.html";
+		$this->mustFilename = "examples/output/arithmetic.html";
+		$this->runFilename = "examples/input/arithmetic.html";
 	}
 	
 	public function xtestCompensationExample() {
-		$this->mustFilename = PHPFIT_DIR . EXAMPLES_DIR . "output/compensation.html";
-		$this->runFilename = PHPFIT_DIR . EXAMPLES_DIR . "input/compensation.html";
+		$this->mustFilename = "examples/output/compensation.html";
+		$this->runFilename = "examples/input/compensation.html";
 	}
 
 }
 
 ?>
+

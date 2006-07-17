@@ -1,8 +1,9 @@
 <?php
 
 class Music {
+    
 	public static $status = "ready";
-
+    
     public $title;
     public $artist;
     public $album;
@@ -14,16 +15,16 @@ class Music {
     public $year;
     public $date;
     public $selected = false;
-
-
+    
+    
     public function track() {
         return $this->trackNumber . " of " . $this->trackCount;
     }
-
+    
     public function time() {
         return round($this->seconds / 0.6) / 100.0;
     }
-
+    
 	public static function parse($string) {
 		$m = new Music();
 		$t = split("\t", $string);
@@ -40,7 +41,7 @@ class Music {
 		$m->date = $t[9];
 		
 		return $m;
-		 	
+        
 	}
 }
 ?>

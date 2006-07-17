@@ -8,7 +8,7 @@ class FixtureLoader {
     /**
     * @param string $fixtureName
     * @param string $fixturesDirectory
-    * @return object Fixture
+    * @return PHPFIT_Fixture
     */
     public static function load($fixtureName, $fixturesDirectory) {
         

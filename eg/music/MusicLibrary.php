@@ -5,13 +5,12 @@ require_once 'Music.php';
 class MusicLibrary {
 	
 	/**
-	 * @var Music 
-	 */
-	 
+    * @var Music 
+    */
 	public static $library = array();
 	public static $looking = null;
 	
-		
+    
 	public static function load($path) {
 		$fp = fopen($path, "r", true);
 		
@@ -20,15 +19,13 @@ class MusicLibrary {
 		while ($line = fgets($fp)) {
 			self::$library[] = Music::parse($line);
 		}
-		//var_dump(self::$library);
 		fclose($fp);
 	}
 	
 	
 	/**
-	 * @param Music m 
-	 */
-	 	
+    * @param Music $m 
+    */	
     static function select($m) {
         self::$looking = $m;
     }	

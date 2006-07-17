@@ -3,6 +3,7 @@
 require_once 'PHPFIT/Comparable.php';
 
 class PHPFIT_ScientificDouble implements PHPFIT_Comparable {
+    
 	protected $value = 0.0;
 	protected $precsion = 0.0;
 	
@@ -12,18 +13,16 @@ class PHPFIT_ScientificDouble implements PHPFIT_Comparable {
 	
 	
 	/**
-	 * @param object o
-	 * @return boolean
-	 */
-	
-	function equals($o) {
-		return $this->compareTo($o) == 0;
+    * @param mixed $other
+    * @return boolean
+    */	
+	function equals($other) {
+		return $this->compareTo($other) == 0;
 	}
-
+    
 	/**
-	 * look at interface Comparable
-	 */
-	 
+    * look at interface Comparable
+    */	 
 	public function compareTo($other) {
 		$other = floatval($other);
 		$diff = $this->value - $other;
@@ -33,10 +32,9 @@ class PHPFIT_ScientificDouble implements PHPFIT_Comparable {
 	}
 	
 	/**
-	 * @param string s
-	 * @return ScientificDouble
-	 */
-	 
+    * @param string $s
+    * @return PHPFIT_ScientificDouble
+    */	 
 	public static function valueOf($s) {
 		$result = new PHPFIT_ScientificDouble(floatval($s));
 		$result->precision = self::precision($s);
@@ -44,22 +42,20 @@ class PHPFIT_ScientificDouble implements PHPFIT_Comparable {
 	}
 	
 	/**
-	 * @param string s
-	 * @return double
-	 */
-	
+    * @param string $s
+    * @return double
+    */	
 	public static function precision($s) {
 		$value = floatval($s);
 		$bound = floatval(self::tweak($s));
 		return abs($bound - $value);
 	}
-
-
+    
+    
 	/**
-	 * @param string s
-	 * @return string
-	 */
-	 	
+    * @param string $s
+    * @return string
+    */	 	
 	public static function tweak($s) {
 		$pos = strpos(strtolower($s), 'e');
 		
@@ -70,10 +66,13 @@ class PHPFIT_ScientificDouble implements PHPFIT_Comparable {
 		}
 		
 		if (strpos($s, '.') !== false)
-			return $s . "5";
+        return $s . "5";
 		return $s . ".5";
 	}
-	
+
+	/**
+    * @return string
+    */	
 	public function toString() {
 		return strval( $this->value );
 	}

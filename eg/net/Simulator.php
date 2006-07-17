@@ -1,58 +1,39 @@
 <?php
-/**
- * FIT Fixture
- * 
- * $Id$
- * 
- * @author Luis A. Floreani <luis.floreani@gmail.com>
- * @author gERD Schaufelberger <gerd@php-tools.net>
- * @package FIT
- * @subpackage Fixture
- * @license LGPL http://www.gnu.org/copyleft/lesser.html
- * @copyright Copyright (c) 2002-2005 Cunningham & Cunningham, Inc.
- */
- 
-/**
- * FIT Fixture
- * 
- * @version 0.1.0
- * @package FIT
- * @subpackage Fixture
- */
-class Simulator extends PHPFIT_Fixture_Action {
 
-   /**
+class Simulator extends PHPFIT_Fixture_Action {
+    
+    /**
     * dictionary of variable types
     * @var int 
     */
     protected $typeDict = array(
-                                'nodes' => 'integer',
-                                'zip'   => 'integer',
-                                'coord' => 'string',
-                                'coord()' => 'integer',
-                                'nodes()' => 'integer'
-                            );
+    'nodes' => 'integer',
+    'zip'   => 'integer',
+    'coord' => 'string',
+    'coord()' => 'integer',
+    'nodes()' => 'integer'
+    );
     
-
-   /**
+    
+    /**
     * counts current nodes
     * @var int 
     */
     public $nodes = 0;
     
-   /**
+    /**
     * zip code
     * @var string 
     */
     public $zip;
     
-   /**
+    /**
     * geo coordinates
     * @var object 
     */
     public $coord;
     
-   /**
+    /**
     * new City
     * 
     * @return void
@@ -61,7 +42,7 @@ class Simulator extends PHPFIT_Fixture_Action {
         //echo "net.Simulator->". __FUNCTION__ ."() \n";
     }
     
-   /**
+    /**
     * ok
     * 
     * @return void
@@ -70,8 +51,8 @@ class Simulator extends PHPFIT_Fixture_Action {
         //echo "net.Simulator->". __FUNCTION__ ."() \n";
         ++$this->nodes;
     }
-   
-   /**
+    
+    /**
     * nodes
     * 
     * @return void
@@ -80,7 +61,7 @@ class Simulator extends PHPFIT_Fixture_Action {
         //echo "net.Simulator->". __FUNCTION__ ."() \n";
     }
     
-   /**
+    /**
     * name
     * 
     * @return void
@@ -89,7 +70,7 @@ class Simulator extends PHPFIT_Fixture_Action {
         //echo "net.Simulator->". __FUNCTION__ ."() \n";
     }
     
-   /**
+    /**
     * zip
     * 
     * Update current zip or receive zip
@@ -104,8 +85,8 @@ class Simulator extends PHPFIT_Fixture_Action {
         
         $this->zip  =   $z;
     }
-   
-   /**
+    
+    /**
     * population
     * 
     * @return void
@@ -113,8 +94,8 @@ class Simulator extends PHPFIT_Fixture_Action {
     public function population( $p ) {
         //echo "net.Simulator->". __FUNCTION__ ."() \n";
     }
-       
-   /**
+    
+    /**
     * coord
     * 
     * @return void
@@ -126,8 +107,8 @@ class Simulator extends PHPFIT_Fixture_Action {
         }
         $this->geo = $c;
     }
-   
-   /**
+    
+    /**
     * nodes
     * 
     * @return void
@@ -136,10 +117,10 @@ class Simulator extends PHPFIT_Fixture_Action {
         //echo "net.Simulator->". __FUNCTION__ ."() \n";
         return $this->nodes;
     }
-/*
+    /*
     public Object parse (String string, Class type) throws Exception {
         if (type.equals(GeoCoordinate.class)) {return GeoCoordinate.parse(string);}
         return super.parse (string, type);
     }
-*/
+    */
 }

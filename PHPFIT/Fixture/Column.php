@@ -1,62 +1,37 @@
 <?php
-/**
- * FIT Fixture ColumnFixture
- * 
- * $Id$
- * 
- * @author Luis A. Floreani <luis.floreani@gmail.com>
- * @author gERD Schaufelberger <gerd@php-tools.net>
- * @package FIT
- * @subpackage Fixture
- * @license LGPL http://www.gnu.org/copyleft/lesser.html
- * @copyright Copyright (c) 2002-2005 Cunningham & Cunningham, Inc.
- */
 
 require_once 'PHPFIT/TypeAdapter.php';
 require_once 'PHPFIT/Fixture.php';
 
-/**
- * FIT Fixture: ColumnFixture
- *
- * A ColumnFixture maps columns in the test data to fields or methods of its 
- * subclasses. SimpleExample and CalculatorExample use column fixtures.
- * 
- * @version 0.1.0
- * @package FIT
- * @subpackage Fixture
- */
 class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
-
-   /**
-    * TypeAdapter
-    * @var object
+    
+    /**
+    * @var PHPFIT_TypeAdapter
     */
 	protected $columnBindings;
     
-   /**
+    /**
     * Excecution state
-    * @var bool
+    * @var boolean
     */
 	protected $hasExecuted = false;
 	
-   /**
+    /**
     * Process a table's row
     * 
-    * @param Parce rows
+    * @param PHPFIT_Parse $rows
     */	
-    public function doRows( $rows ) 
-    {
+    public function doRows( $rows ) {
         $this->bind( $rows->parts );
         parent::doRows( $rows->more );
     }
 	
-   /**
+    /**
     * Process a table's row
     * 
-    * @param Parce rows
+    * @param PHPFIT_Parse $row
     */  
-    public function doRow( $row ) 
-    {
+    public function doRow( $row ) {
         $this->hasExecuted = false;
         try {
             $this->reset();
@@ -70,7 +45,7 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
         }
     }
 	
-   /**
+    /**
     * process a single cell
     *
     * Generic processing of a table cell. Well, this function 
@@ -78,11 +53,9 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
     * 
     * This method may be overwritten by a subclass (ColumnFixture)
     * 
-    * @param object $cell A parse object 
-    * @return void
+    * @param PHPFIT_Parse $cell
     */
-    public function doCell( $cell ) 
-    {
+    public function doCell( $cell ) {
         $adapter    = null;
         if( isset( $this->columnBindings[$cell->count] ) ) {
             $adapter    = $this->columnBindings[$cell->count];
@@ -117,18 +90,17 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
         catch( Exception $e ) {
             $this->exception( $cell, $e );
         }
-    
+        
     }
-
-   /**
+    
+    /**
     * check whether the value of a cell matches
     * 
-    * @param Parse $cell,
-    * @param TypeAdapter $a
+    * @param PHPFIT_Parse $cell,
+    * @param PHPFIT_TypeAdapter $a
     * @return bool true on success, false otherwise
     */
-    public function checkCell( $cell, $a ) 
-    {
+    public function checkCell( $cell, $a ) {
         if( !$this->hasExecuted ) {
             try {
                 $this->execute();
@@ -141,15 +113,14 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
         
         parent::checkCell( $cell, $a ); 
     }
-	 
-	 
-   /**
+    
+    
+    /**
     * bind columns of table header to functions and properties
     * 
-    * @param Parse $head 
+    * @param PHPFIT_Parse $head 
     */
-	protected function bind( $heads ) 
-    { 
+	protected function bind( $heads ) { 
 		$this->columnBindings = array( $heads->size() );
         
 		for( $i=0; $heads != null; $heads = $heads->more ) {
@@ -173,30 +144,31 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
 	
 	
 	/**
-	 * @param String name
-	 * @return TypeAdapter
-	 */
-	 
+    * @param String $name
+    * @return PHPFIT_TypeAdapter
+    */
+    
 	protected function bindMethod($name) {
 		return PHPFIT_TypeAdapter::onMethod($this, $name);
 	}
-
+    
 	/**
-	 * @param String name
-	 * @return TypeAdapter
-	 */
-	 
+    * @param String $name
+    * @return PHPFIT_TypeAdapter
+    */
+    
 	protected function bindField($name) {
 		return PHPFIT_TypeAdapter::onField($this, $name);
 	}
 	
 	public function reset() {
-	
+        
 	}
 	
 	public function execute() {
-	
+        
 	}
-
+    
 }
+
 ?>

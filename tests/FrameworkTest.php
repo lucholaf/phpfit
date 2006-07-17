@@ -5,10 +5,11 @@ require_once 'PHPFIT/ScientificDouble.php';
 require_once 'PHPFIT/Fixture/Column.php';
 
 class FrameworkTest extends UnitTestCase {
+    
 	public function testRuns() {
 		$this->doRun("arithmetic", 39, 9, 0, 1);
-		//$this->doRun("compensation", 24, 0, 0, 0);
-		//$this->doRun("CalculatorExample", 75, 9, 0, 0);
+		$this->doRun("compensation", 24, 0, 0, 0);
+		$this->doRun("CalculatorExample", 75, 9, 0, 0);
 		//$this->doRun("MusicExample", 9, 0, 0, 5);
 	}
 	
@@ -111,5 +112,5 @@ class TestFixture extends PHPFIT_Fixture_Column { // used in testTypeAdapter
 	);	
 }
 
-
 ?>
+
