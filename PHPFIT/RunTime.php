@@ -13,8 +13,7 @@ class PHPFIT_RunTime {
     *
     * start timer
     */
-    function __construct() 
-    {
+    function __construct() {
         $this->start = microtime( true );
     }
     
@@ -22,8 +21,7 @@ class PHPFIT_RunTime {
     * receive elapsed time as seconds
     * @return string
     */
-    public function toString() 
-    {
+    public function toString() {
         return microtime( true ) - $this->start . ' seconds';
     }
     
@@ -37,8 +35,7 @@ class PHPFIT_RunTime {
     * @param string $name of property
     * @return mixed
     */
-    public function __get( $name ) 
-    {
+    public function __get( $name ) {
         switch( $name ) {
             case 'start':
             return $this->start; 

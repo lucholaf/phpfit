@@ -44,6 +44,7 @@ class PHPFIT_Parse {
     * @param array $tags
     * @param int $level
     * @param int $offset
+    * @param boolean $simple
     */
     public function __construct( $text, $tags = null, $level = 0, $offset = 0, $simple = false ) {
         
@@ -74,7 +75,7 @@ class PHPFIT_Parse {
         
         $this->leader   = substr( $text, 0, $startTag );
         $this->tag      = substr( $text, $startTag, $endTag - $startTag );
-        $this->body     = substr( $text, $endTag, $startEnd - $endTag ); 
+        $this->body     = substr( $text, $endTag, $startEnd - $endTag );
         $this->end      = substr( $text, $startEnd, $endEnd - $startEnd );
         $this->trailer  = substr( $text, $endEnd );
         
@@ -246,8 +247,7 @@ class PHPFIT_Parse {
         $s = ereg_replace($NON_BREAKING_SPACE, ' ', $s);
         $s = ereg_replace('&nbsp;', ' ', $s);
         
-		$s = trim($s, "\t\n\r\ "); // GUARDA! PUEDE QUE FALLE!
-        //$s = trim($s, "\t.\n.\r.\0.\x0B.\ "); // GUARDA! PUEDE QUE FALLE!
+		$s = trim($s, "\t\n\r\ ");
         return $s;
     }
     

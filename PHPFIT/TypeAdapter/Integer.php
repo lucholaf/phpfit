@@ -1,4 +1,5 @@
 <?php
+
 class PHPFIT_TypeAdapter_Integer extends PHPFIT_TypeAdapter {
     
     public function equals($a, $b) {

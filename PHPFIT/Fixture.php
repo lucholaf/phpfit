@@ -25,13 +25,18 @@ class PHPFIT_Fixture {
 	public $summary = array();
 	
     /**
-    * count what?
-    * @var object
+    * @var PHPFIT_Counts
     */	 
 	public $counts;
     
+    /**
+    * @var PHPFIT_Parser
+    */	    
     private $parser;
     
+    /**
+    * @var string
+    */    
     private $fixturesDirectory = null;
 	
     /**
@@ -40,23 +45,19 @@ class PHPFIT_Fixture {
     * instanciate counter
     */
     
-    function __construct($fixturesDirectory = null) 
-    {
+    function __construct($fixturesDirectory = null) {
         if ($fixturesDirectory) {
             $this->fixturesDirectory = $fixturesDirectory;
-        }
-        
+        }      
         $this->counts = new PHPFIT_Counts();
     }
     
-    public function doInput( $input ) 
-    {
+    public function doInput( $input ) {
         $this->parser = new PHPFIT_Parse( $input );
         $this->doTables( $this->parser );
     }
     
-    public function toString() 
-    {
+    public function toString() {
         return $this->parser->toString();
     }
     
@@ -65,10 +66,9 @@ class PHPFIT_Fixture {
     * 
     * Tables are packed in Parse-objects
     * 
-    * @param Parse $tables
+    * @param PHPFIT_Parser $tables
     */   
-    public function doTables( $tables ) 
-    {
+    public function doTables( $tables ) {
         $this->summary['run date'] = date( 'F d Y H:i:s.' );
         $this->summary['run elapsed time'] = new PHPFIT_RunTime();   
         
@@ -94,22 +94,20 @@ class PHPFIT_Fixture {
     /**
     * iterate through table 
     * 
-    * @param Parse $table
+    * @param PHPFIT_Parser $table
     * @see doRows()
     */
-    public function doTable( $table ) 
-    {
+    public function doTable( $table ) {
 		$this->doRows( $table->parts->more );
     }
     
     /**
     * iterate through rows
     * 
-    * @param Parse $rows
+    * @param PHPFIT_Parser $rows
     * @see doRow()
     */
-    public function doRows( $rows ) 
-    {
+    public function doRows( $rows ) {
         while( $rows != null ) {
             $more = $rows->more;
             $this->doRow( $rows );
@@ -120,11 +118,10 @@ class PHPFIT_Fixture {
     /**
     * iterate through cells
     * 
-    * @param Parse $row
+    * @param PHPFIT_Parser $row
     * @see doCells()
     */
-    public function doRow( $row ) 
-    {
+    public function doRow( $row ) {
         $this->doCells( $row->parts );
     }
     
@@ -136,12 +133,10 @@ class PHPFIT_Fixture {
     *
     * This method may be overwritten by a subclass (ActionFixture)
     * 
-    * @param object $cells A parse object 
-    * @return void
+    * @param PHPFIT_Parser $cells
     * @see doCell()
     */
-    public function doCells( $cells ) 
-    {
+    public function doCells( $cells ) {
         while( $cells != null) {
             try {
                 $this->doCell( $cells );
@@ -162,34 +157,31 @@ class PHPFIT_Fixture {
     * 
     * This method may be overwritten by a subclass (ColumnFixture)
     * 
-    * @param object $cell A parse object 
+    * @param PHPFIT_Parser $cell
     * @return void
     */
-    public function doCell( $cell ) 
-    {
+    public function doCell( $cell ) {
         $this->ignore( $cell );
     }
     
     /**
     * find the name of the fixture to be executed
     *
-    * @param parse $tables
+    * @param PHPFIT_Parser $tables
     * @return string $name of the fixure
     */
-	public function fixtureName( $tables ) 
-    {
+	public function fixtureName( $tables ) {
 		return $tables->at( 0, 0, 0 );
 	}
     
     /**
     * get a fixture with arguments
     * 
-    * @param Parse tables
-    * @return object Fixture
+    * @param PHPFIT_Parser $tables
+    * @return PHPFIT_Fixture
     * @see loadFixture()
     */
-	protected function getLinkedFixtureWithArgs( $tables ) 
-    {
+	protected function getLinkedFixtureWithArgs( $tables ) {
 		$header           = $tables->at( 0, 0, 0 );
 		$fixture          = $this->loadFixture( $header->text() );
 		$fixture->counts  = $this->counts;
@@ -208,24 +200,22 @@ class PHPFIT_Fixture {
     * Those fixtures are maped to the corresponding class.
     * 
     * @param string $fixtureName
-    * @return object Fixture
+    * @return PHPFIT_Fixture
     */
-	public function loadFixture( $fixtureName ) 
-    {
+	public function loadFixture( $fixtureName ) {
         require_once 'FixtureLoader.php';
         
         return FixtureLoader::load($fixtureName, $this->fixturesDirectory);
         
-   }
+    }
     
     /**
     * check whether the value of a cell matches
     * 
-    * @param Parse $cell,
-    * @param TypeAdapter $a
+    * @param PHPFIT_Parser $cell,
+    * @param PHPFIT_TypeAdapter $adapter
     */
-    public function checkCell( $cell, $adapter ) 
-    {
+    public function checkCell( $cell, $adapter ) {
         $text = $cell->text();
         
         if( $text == '' ) {
@@ -264,23 +254,21 @@ class PHPFIT_Fixture {
     /**
     * transform an exception to a cell error 
     * 
-    * @param object $cell Parse object
-    * @param object $e Exception
+    * @param PHPFIT_Parser $cell
+    * @param Exception $e 
     * @see error()
     */
-    public function exception( $cell, $e ) 
-    {
+    public function exception( $cell, $e ) {
         $this->error( $cell, $e->getMessage() );
     }
     
     /**
     * place an error text into a cell 
     * 
-    * @param object $cell Parse object
+    * @param PHPFIT_Parser $cell
     * @param string $message 
     */
-    public function error( $cell, $message ) 
-    {
+    public function error( $cell, $message ) {
         $cell->body   = $cell->text() . ': '. $this->escape( $message );
         $cell->addToTag( ' bgcolor=" '. $this->backgroundColor['error'] . '\"' );
         $this->counts->exceptions++;
@@ -289,23 +277,18 @@ class PHPFIT_Fixture {
     /**
     * Add annotation to cell: right
     * 
-    * @param Parse c$ell
-    * @param string type
-    * @return mixed (object or string)
+    * @param PHPFIT_Parser $cell
     */
-    public function right( $cell ) 
-    {
+    public function right( $cell ) {
         $cell->addToTag( ' bgcolor="' . $this->backgroundColor['passed'] . '"' );
         $this->counts->right++;
     }
     
     /**
-    * @param Parse cell
-    * @param string actual
-    */
-    
-    public function wrong( $cell, $actual = false ) 
-    {
+    * @param PHPFIT_Parser $cell
+    * @param string $actual
+    */  
+    public function wrong( $cell, $actual = false ) {
         $cell->addToTag( ' bgcolor="' .  $this->backgroundColor['failed'] . '"' );
         $cell->body  = $this->escape( $cell->text() );
         $this->counts->wrong++;
@@ -317,10 +300,9 @@ class PHPFIT_Fixture {
     
     
     /**
-    * @param Parse cell
-    * @param string message
+    * @param PHPFIT_Parser $cell
+    * @param string $message
     */
-    
     public function info( $cell, $message ) 
     {
         $str = $this->infoS( $message );
@@ -329,18 +311,16 @@ class PHPFIT_Fixture {
     
     
     /**
-    * @param string message
+    * @param string $message
     * @return string
-    */
-    
+    */   
     public function infoS( $message ) {
         return ' <span style="color:#808080;">' . $this->escape( $message ) . '</span>';
     }
     
     /**
-    * @param Parse cell
+    * @param PHPFIT_Parser $cell
     */
-    
     public function ignore ($cell) {
         $cell->addToTag( ' bgcolor="' . $this->backgroundColor['ignored'] . '"' );
         $this->counts->ignores++;
@@ -348,19 +328,17 @@ class PHPFIT_Fixture {
     
     
     /**
-    * @param string string
+    * @param string $string
     * @return string
     */
-    
     public function label( $string ) {
         return ' <span style="color:#c08080;font-style:italic;font-size:small;">' . $string . '</span>';
     }
     
     /**
-    * @param string string
+    * @param string $string
     * @return string
     */
-    
     public function escape($string) {
         $string = str_replace('&', '&amp;', $string);
         $string = str_replace('<', '&lt;', $string);
@@ -388,7 +366,7 @@ class PHPFIT_Fixture {
     * @todo As PHP does automatica type conversation, I reckon this can be spared
     * @param string $name of property or method
     * @param bool $method check for return type of method
-    * @return string $type
+    * @return string
     */       
     public function getType( $name, $method = false ) {
         
@@ -421,10 +399,9 @@ class PHPFIT_Fixture {
     * 
     * @todo This looks quite fragile - consider using preg_replace
     * @param string $string
-    * @return string 
+    * @return string
     */   
-    public static function camel( $string ) 
-    {
+    public static function camel( $string ) {
         while( ( $pos = stripos($string, ' ' ) ) !== false ) {
             $characterUpper = strtoupper( $string[$pos+1] );
             $string[$pos+1] = $characterUpper;
@@ -434,7 +411,7 @@ class PHPFIT_Fixture {
         $string = str_replace('&', '', $string);
         return $string;
     }
-
+    
     /**
     * @param function $function
     * @param string $file

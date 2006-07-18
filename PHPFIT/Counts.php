@@ -3,7 +3,7 @@
 class PHPFIT_Counts {
     
     /**
-    * var int
+    * @var int
     */
 	public $right = 0;
 	public $wrong = 0;

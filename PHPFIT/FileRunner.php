@@ -32,8 +32,7 @@ class PHPFIT_FileRunner {
     * @param string $out path to output file
     * @param string $fixturesDirectory path to fixtures
     */
-	public function run( $in, $out, $fixturesDirectory = null) 
-    {
+	public function run( $in, $out, $fixturesDirectory = null) {
         
         date_default_timezone_set('UTC');
         

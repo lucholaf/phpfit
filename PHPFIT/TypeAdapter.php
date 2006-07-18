@@ -1,6 +1,7 @@
 <?php
 
 class PHPFIT_TypeAdapter {
+    
     /**
     * @var string
     */

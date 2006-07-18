@@ -9,8 +9,7 @@ class PHPFIT_ScientificDouble implements PHPFIT_Comparable {
 	
 	function __construct($value) {
 		$this->value = $value;
-	}
-	
+	}	
 	
 	/**
     * @param mixed $other
@@ -65,11 +64,12 @@ class PHPFIT_ScientificDouble implements PHPFIT_Comparable {
 			return self::tweak($start) . $end;
 		}
 		
-		if (strpos($s, '.') !== false)
-        return $s . "5";
+		if (strpos($s, '.') !== false) {
+            return $s . "5";
+        }
 		return $s . ".5";
 	}
-
+    
 	/**
     * @return string
     */	
