@@ -10,7 +10,7 @@ export TMPDIR=/tmp
 
 # real work happens in next two lines
 lynx -source $HTTP_REFERER >Documents/$$
-php ../../lib/fit/FileRunner.php  Documents/$$ Reports/$$
+phpfit Documents/$$ Reports/output.html
 
-cat Reports/$$
-rm Documents/$$ Reports/$$) 2>run.log
+cat Reports/output.html
+rm Documents/$$) 2>run.log

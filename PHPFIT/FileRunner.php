@@ -1,5 +1,6 @@
 <?php
 
+require_once 'PHPFIT.php';
 require_once 'PHPFIT/Exception/FileIO.php';
 require_once 'PHPFIT/Fixture.php';
 
@@ -42,7 +43,7 @@ class PHPFIT_FileRunner {
         }
         
         // check output file
-        if(!is_writable(realpath($out)) || !$out ) {
+        if (!self::isWritable($out)) {
             throw new PHPFIT_Exception_FileIO( 'Output file is not writable (probably a problem of file permissions)', realpath($out) );
         }
         
@@ -68,6 +69,21 @@ class PHPFIT_FileRunner {
         $this->fixture  = new PHPFIT_Fixture($fixturesDirectory);
         $this->fixture->doInput($this->input);        
 	}
+    
+    /**
+    * @param string $filename
+    */
+    static public function isWritable($filename) {
+        $fp = @fopen($filename, 'wb', true);
+        $writable = is_resource($fp);
+        
+        if ($writable) {
+            fclose($fp);
+            return true;
+        }
+        
+        return false;
+    }
     
 }
 ?>
