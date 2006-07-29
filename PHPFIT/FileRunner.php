@@ -32,6 +32,7 @@ class PHPFIT_FileRunner {
     * @param string $in path to input file
     * @param string $out path to output file
     * @param string $fixturesDirectory path to fixtures
+    * @return string results
     */
 	public function run( $in, $out, $fixturesDirectory = null) {
         
@@ -55,19 +56,22 @@ class PHPFIT_FileRunner {
         // load input data
         $this->input = file_get_contents($in, true);
         
-        $this->process($fixturesDirectory);
+        $result = $this->process($fixturesDirectory);
 		
         // save output
         file_put_contents($out, $this->fixture->toString());
+        
+        return $result;
 	}
     
     /**
     * @param string $fixturesDirectory
+    * @return string results
     */
 	public function process($fixturesDirectory) 
     {        
         $this->fixture  = new PHPFIT_Fixture($fixturesDirectory);
-        $this->fixture->doInput($this->input);        
+        return $this->fixture->doInput($this->input);      
 	}
     
     /**

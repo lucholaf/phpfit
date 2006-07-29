@@ -52,9 +52,14 @@ class PHPFIT_Fixture {
         $this->counts = new PHPFIT_Counts();
     }
     
-    public function doInput( $input ) {
-        $this->parser = new PHPFIT_Parse( $input );
+    /**
+    * @param string $content
+    * @return string results
+    */
+    public function doInput( $content ) {
+        $this->parser = new PHPFIT_Parse( $content );
         $this->doTables( $this->parser );
+        return $this->counts->toString();
     }
     
     public function toString() {
