@@ -77,7 +77,7 @@ class PHPFIT_FileRunner {
     /**
     * @param string $filename
     */
-    static public function isWritable($filename) {
+    public static function isWritable($filename) {
         $fp = @fopen($filename, 'wb', true);
         $writable = is_resource($fp);
         
