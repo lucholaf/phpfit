@@ -1,5 +1,5 @@
-PHPFIT version 0.1
-==================
+PHPFIT
+======
 
 PHPFIT is a PHP5 port of the FIT acceptance test framework.
 FIT was originally developed for Java by Ward Cunningham.
@@ -44,7 +44,7 @@ TODO
 - PHPFIT::run(). Allow way to specify the output. eg: to a file, to stdout, etc.
 - Achieve more tests coverage.
 - It doesn't pass the FIT specification tests yet.
-- Check Windows compatibility.
+- Now works in Windows! (a phpfit.bat would be nice too)
 - Document the code according to the PEAR standard!
 
 AUTHOR
