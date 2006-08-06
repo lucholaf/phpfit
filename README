@@ -9,19 +9,19 @@ SYNOPSYS
 
 1) PHPFIT.php and PHPFIT/ must be in the PHP include path directory (as any PEAR package). 
 
-2) Check the file 'phpfit' and change the first line according to the path of your PHP command-line interpreter (usually /usr/bin/php).
+2) Check the file 'phpfit-run' and change the first line according to the path of your PHP command-line interpreter (usually /usr/bin/php).
 
-3) (optional) Create a symbolic link to 'phpfit'. e.g: ln -s /path/to/phpfit /usr/local/bin So you can run 'phpfit' from anywhere.
+3) (optional) Create a symbolic link to 'phpfit-run'. e.g: ln -s /path/to/phpfit-run /usr/local/bin So you can run 'phpfit-run' from anywhere.
 
 4) Run it:
 
 4a) From the CLI:
 
-phpfit path/to/input.html path/to/output.html [path/to/fixtures]
+phpfit-run path/to/input.html path/to/output.html [path/to/fixtures]
 
-NOTE: [path/to/fixtures] is optional, by default it will check for fixtures in the include path and also relative to where you run 'phpfit'.
+NOTE: [path/to/fixtures] is optional, by default it will check for fixtures in the include path and also relative to where you run 'phpfit-run'.
 
-e.g: phpfit examples/input/arithmetic.html output.html
+e.g: phpfit-run examples/input/arithmetic.html output.html
 
 4b) From a Browser:
 
@@ -44,7 +44,7 @@ TODO
 - PHPFIT::run(). Allow way to specify the output. eg: to a file, to stdout, etc.
 - Achieve more tests coverage.
 - It doesn't pass the FIT specification tests yet.
-- Now works in Windows! (a phpfit.bat would be nice too)
+- Now works in Windows! (a phpfit-run.bat would be nice too)
 - Document the code according to the PEAR standard!
 
 AUTHOR
