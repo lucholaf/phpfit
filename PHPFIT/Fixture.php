@@ -74,8 +74,10 @@ class PHPFIT_Fixture {
     * @param PHPFIT_Parser $tables
     */   
     public function doTables( $tables ) {
-        $this->summary['run date'] = date( 'F d Y H:i:s.' );
-        $this->summary['run elapsed time'] = new PHPFIT_RunTime();   
+        if (!isset($GLOBALS['SIMPLE_SUMMARY'])) {
+            $this->summary['run date'] = date( 'F d Y H:i:s.' );
+            $this->summary['run elapsed time'] = new PHPFIT_RunTime();
+        }
         
         // iterate through all tables
         while( $tables != null ) {

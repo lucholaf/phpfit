@@ -51,7 +51,7 @@ class PHPFIT_FileRunner {
         // summary data
         $this->fixture->summary['input file']   = $in;
         $this->fixture->summary['output file']  = $out;
-        $this->fixture->summary['input update'] = date( 'F d Y H:i:s.', filemtime( $in ) );
+        $this->fixture->summary['input update'] = date( 'F d Y H:i:s.', filemtime( realpath($in) ) );
         
         // load input data
         $this->input = file_get_contents($in, true);
@@ -59,7 +59,7 @@ class PHPFIT_FileRunner {
         $result = $this->process($fixturesDirectory);
 		
         // save output
-        file_put_contents($out, $this->fixture->toString());
+        file_put_contents($out, $this->fixture->toString(), true);
         
         return $result;
 	}

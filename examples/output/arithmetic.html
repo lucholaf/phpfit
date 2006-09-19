@@ -45,7 +45,7 @@ int).
 
 <td bgcolor="#cfffcf">0</td>
 
-<td bgcolor="#ffffcf">ArithmeticException: &nbsp;/ &nbsp;by &nbsp;zero</td>
+<td bgcolor=" #ffffcf\">0: ArithmeticException: / by zero</td>
 </tr>
 
 
@@ -60,7 +60,7 @@ int).
 
 <td bgcolor="#cfffcf">2</td>
 
-<td bgcolor="#ffffcf">NumberFormatException: &nbsp;For &nbsp;input &nbsp;string: &nbsp;"0.5"</td>
+<td bgcolor="#cfffcf">0.5</td>
 </tr>
 
 <tr>
@@ -100,7 +100,7 @@ int).
 
 <td bgcolor="#cfffcf">0</td>
 
-<td bgcolor="#ffcfcf">10000000000 <font size=-1 color="#c08080"><i>expected</i></font><hr>1410065408 <font size=-1 color="#c08080"><i>actual</i></font></td>
+<td bgcolor="#ffcfcf">10000000000 <span style="color:#c08080;font-style:italic;font-size:small;">expected</span><hr />1410065408 <span style="color:#c08080;font-style:italic;font-size:small;">actual</span></td>
 
 <td bgcolor="#cfffcf">1</td>
 </tr>
@@ -114,7 +114,7 @@ int).
 
 <td bgcolor="#cfffcf">0</td>
 
-<td bgcolor="#ffcfcf">1000000000000 <font size=-1 color="#c08080"><i>expected</i></font><hr>-727379968 <font size=-1 color="#c08080"><i>actual</i></font></td>
+<td bgcolor="#ffcfcf">1000000000000 <span style="color:#c08080;font-style:italic;font-size:small;">expected</span><hr />-727379968 <span style="color:#c08080;font-style:italic;font-size:small;">actual</span></td>
 
 <td bgcolor="#cfffcf">1</td>
 </tr>
@@ -157,8 +157,8 @@ Now we try something similar using automatic type conversion offered by ColumnFi
         <td>0</td>
         <td bgcolor="#cfffcf">0</td>
         <td bgcolor="#cfffcf">0</td>
-        <td> <font color="#808080">error</font></td>
-        <td> <font color="#808080">error</font></td>
+        <td> <span style="color:#808080;">error</span></td>
+        <td> <span style="color:#808080;">error</span></td>
     </tr>
     <tr>
         <td>200</td>
@@ -171,17 +171,17 @@ Now we try something similar using automatic type conversion offered by ColumnFi
     <tr>
         <td>2</td>
         <td>3</td>
-        <td bgcolor="#ffcfcf">10 <font size=-1 color="#c08080"><i>expected</i></font><hr>5 <font size=-1 color="#c08080"><i>actual</i></font></td>
-        <td bgcolor="#ffcfcf">10 <font size=-1 color="#c08080"><i>expected</i></font><hr>6 <font size=-1 color="#c08080"><i>actual</i></font></td>
-        <td bgcolor="#ffcfcf">10 <font size=-1 color="#c08080"><i>expected</i></font><hr>0 <font size=-1 color="#c08080"><i>actual</i></font></td>
+        <td bgcolor="#ffcfcf">10 <span style="color:#c08080;font-style:italic;font-size:small;">expected</span><hr />5 <span style="color:#c08080;font-style:italic;font-size:small;">actual</span></td>
+        <td bgcolor="#ffcfcf">10 <span style="color:#c08080;font-style:italic;font-size:small;">expected</span><hr />6 <span style="color:#c08080;font-style:italic;font-size:small;">actual</span></td>
+        <td bgcolor="#ffcfcf">10 <span style="color:#c08080;font-style:italic;font-size:small;">expected</span><hr />null <span style="color:#c08080;font-style:italic;font-size:small;">actual</span></td>
     </tr>
     <tr>
         <td>200</td>
         <td>3</td>
-        <td bgcolor="#ffcfcf">5 <font size=-1 color="#c08080"><i>expected</i></font><hr>203 <font size=-1 color="#c08080"><i>actual</i></font></td>
-        <td bgcolor="#ffcfcf">6 <font size=-1 color="#c08080"><i>expected</i></font><hr>600 <font size=-1 color="#c08080"><i>actual</i></font></td>
-        <td bgcolor="#ffcfcf">0 <font size=-1 color="#c08080"><i>expected</i></font><hr>66 <font size=-1 color="#c08080"><i>actual</i></font></td>
-        <td bgcolor="#ffcfcf">0.6666667 <font size=-1 color="#c08080"><i>expected</i></font><hr>66.6666666667 <font size=-1 color="#c08080"><i>actual</i></font></td>
+        <td bgcolor="#ffcfcf">5 <span style="color:#c08080;font-style:italic;font-size:small;">expected</span><hr />203 <span style="color:#c08080;font-style:italic;font-size:small;">actual</span></td>
+        <td bgcolor="#ffcfcf">6 <span style="color:#c08080;font-style:italic;font-size:small;">expected</span><hr />600 <span style="color:#c08080;font-style:italic;font-size:small;">actual</span></td>
+        <td bgcolor="#ffcfcf">0 <span style="color:#c08080;font-style:italic;font-size:small;">expected</span><hr />66 <span style="color:#c08080;font-style:italic;font-size:small;">actual</span></td>
+        <td bgcolor="#ffcfcf">0.6666667 <span style="color:#c08080;font-style:italic;font-size:small;">expected</span><hr />66.6666666667 <span style="color:#c08080;font-style:italic;font-size:small;">actual</span></td>
     </tr>
     <tr>
         <td>2</td>
@@ -201,8 +201,8 @@ Now we try something similar using automatic type conversion offered by ColumnFi
 <td COLSPAN="2">fit.Summary</td>
 </tr>
 <tr>
-<td> <font color="#808080">counts</font></td>
-<td bgcolor="#ffcfcf">38 &nbsp; &nbsp;right, &nbsp; &nbsp;9 &nbsp; &nbsp;wrong, &nbsp; &nbsp;0 &nbsp; &nbsp;ignored, &nbsp; &nbsp;2 &nbsp; &nbsp;exceptions</td></tr></table>
+<td> <span style="color:#808080;">counts</span></td>
+<td bgcolor="#ffcfcf">39 right, 9 wrong, 0 ignored, 1 exceptions</td></tr></table>
 
 
 
