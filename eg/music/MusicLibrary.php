@@ -32,6 +32,15 @@ class MusicLibrary {
     
     
     public static function displayContents() {
+        $displayed = array();
+        $j=0;
+        for ($i=0; $i < count(self::$library); $i++) {
+            if (self::$library[$i]->selected) {
+                $displayed[$j++] = self::$library[$i];
+            }
+        }
+        return $displayed;
+
     }
 }
 ?>

@@ -15,6 +15,8 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
     public function doRows( $rows ) {
         // bind the first row (heads) to function and properties
         $this->bind( $rows->parts );
+        
+        $results = $this->query();
     }
 }
 

@@ -20,6 +20,9 @@ class Browser extends PHPFIT_Fixture {
 	}
     
 	// Select Detail ////////////////////////////
+
+    public function playing() {
+    }
     
 	public function select($i) {
 		MusicLibrary :: select(MusicLibrary :: $library[$i-1]);
@@ -49,6 +52,33 @@ class Browser extends PHPFIT_Fixture {
 		return MusicLibrary :: $looking->track();
 	}
     
+    // Play Buttons /////////////////////////////
+    
+    public function play() {
+    }
+    
+    public function status() {
+    }
+    
+    public function pause() {
+    }
+    
+    public function remaining() {
+    }
+    
+    //sacar!
+    public function ok() {
+    }
+    
+    public function sameAlbum() {
+    }    
+    
+    public function sameArtist() {
+    }
+    
+    public function showAll() {
+    }
+    
 	public $typeDict = array (
     "totalSongs()" => "integer",
     "title()" => "string",
@@ -57,6 +87,9 @@ class Browser extends PHPFIT_Fixture {
     "year()" => "string",	
     "time()" => "double",	
     "track()" => "string",	
+    "status()" => "string",	
+    "remaining()" => "string",	
+    "playing()" => "string",	
 	);
 }
 ?>
