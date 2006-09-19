@@ -4,9 +4,16 @@ require_once 'PHPFIT/Fixture/TimedAction.php';
 
 class Realtime extends PHPFIT_Fixture_ActionTimed {
     
-    public function pause() {
+/*    public function pause() {
         //
     }
+    
+    public function await() {
+    }
+    
+    public function fail() {
+    }
+    */
 }
 
 ?>
