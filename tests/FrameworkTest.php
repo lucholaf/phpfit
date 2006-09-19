@@ -27,28 +27,28 @@ class FrameworkTest extends UnitTestCase {
 	public function testTypeAdapter() {
         $f = new TestFixture();
         
-        $a = PHPFIT_TypeAdapter::onField($f, "sampleInt");
+        $a = PHPFIT_TypeAdapter::onField($f, "sampleInt", $f);
         $a->set($a->parse("123456"));
         $this->assertTrue(is_int($a->parse("123456")));
         $this->assertEqual(123456, $f->sampleInt);
         $this->assertEqual("-234567", strval($a->parse("-234567")));
         
-        $a = PHPFIT_TypeAdapter::onField($f, "sampleFloat");
+        $a = PHPFIT_TypeAdapter::onField($f, "sampleFloat", $f);
         $a->set($a->parse("2.34"));
         $this->assertTrue(is_float($a->parse("2.34")));
         $this->assertTrue(abs(2.34 - $f->sampleFloat) < 0.00001);
         
         
-        $a = PHPFIT_TypeAdapter::onMethod($f, "pi");
+        $a = PHPFIT_TypeAdapter::onMethod($f, "pi", $f);
         $this->assertTrue(is_float($a->invoke()));
         $this->assertTrue(abs(3.14159 - $a->invoke()) < 0.00001);
         
-        $a = PHPFIT_TypeAdapter::onField($f, "name");
+        $a = PHPFIT_TypeAdapter::onField($f, "name", $f);
         $a->set($a->parse("xyzzy"));
         $this->assertTrue(is_string($a->parse("xyzzy")));
         $this->assertEqual("xyzzy", $f->name);
         
-        $a = PHPFIT_TypeAdapter::onField($f, "sampleBoolean");
+        $a = PHPFIT_TypeAdapter::onField($f, "sampleBoolean", $f);
         $a->set($a->parse("true"));
         $this->assertTrue(is_bool($a->parse("true")));
         $this->assertEqual(true, $f->name);

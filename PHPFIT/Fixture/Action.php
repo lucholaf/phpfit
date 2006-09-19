@@ -74,7 +74,7 @@ class PHPFIT_Fixture_Action extends PHPFIT_Fixture {
         $aValue     = $this->cells->more->more;
         
         //echo "<br>$aMethod";
-        $adapter    = PHPFIT_TypeAdapter::onMethod( self::$actor, $aMethod );  
+        $adapter    = PHPFIT_TypeAdapter::onMethod( self::$actor, $aMethod, self::$actor);  
         $this->checkCell( $aValue, $adapter );
         
     }

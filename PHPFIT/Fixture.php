@@ -375,30 +375,30 @@ class PHPFIT_Fixture {
     * @param bool $method check for return type of method
     * @return string
     */       
-    public function getType( $name, $method = false ) {
+    public function getType( $object, $name, $method = false ) {
         
         // method 
         if( $method ) {
-            if( !method_exists( $this, $name ) ) {
-                throw new Exception( 'Method does not exist! ' .get_class( $this ) . '->' . $name );
+            if( !method_exists( $object, $name ) ) {
+                throw new Exception( 'Method does not exist! ' .get_class( $object ) . '->' . $name );
                 return null;
             }
             $name .= '()';
         }
         // property
         else {    
-            if( !property_exists( $this, $name ) ) {
-                throw new Exception( 'Property does not exist! ' .get_class( $this ) . '->' . $name );
+            if( !property_exists( $object, $name ) ) {
+                throw new Exception( 'Property does not exist! ' .get_class( $object ) . '->' . $name );
                 return null;
             }
         }
         
-        if( !isset( $this->typeDict[$name] ) ) {
-            throw new Exception( 'Property has no definition in $typeDict! ' . get_class( $this ) . '->' . $name );
+        if( !isset( $object->typeDict[$name] ) ) {
+            throw new Exception( 'Property has no definition in $typeDict! ' . get_class( $object ) . '->' . $name );
             return null;
         }
         
-        return $this->typeDict[$name];
+        return $object->typeDict[$name];
     }
     
     /**

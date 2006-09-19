@@ -43,5 +43,17 @@ class Music {
 		return $m;
         
 	}
+
+	public $typeDict = array(
+    "title" => "string",
+    "artist" => "string",
+    "album" => "string",
+    "year" => "string",
+    "genre" => "string",
+    "size" => "string",
+    "date" => "string",
+    "time()" => "string",
+    "track()" => "string"
+	);    
 }
 ?>

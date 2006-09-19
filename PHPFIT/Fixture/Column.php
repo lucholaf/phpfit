@@ -149,7 +149,7 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
     */
     
 	protected function bindMethod($name) {
-		return PHPFIT_TypeAdapter::onMethod($this, $name);
+		return PHPFIT_TypeAdapter::onMethod($this, $name, $this->getTargetClass());
 	}
     
 	/**
@@ -158,9 +158,13 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
     */
     
 	protected function bindField($name) {
-		return PHPFIT_TypeAdapter::onField($this, $name);
+		return PHPFIT_TypeAdapter::onField($this, $name, $this->getTargetClass());
 	}
 	
+    protected function getTargetClass() {
+        return $this;
+    }
+    
 	public function reset() {
         
 	}

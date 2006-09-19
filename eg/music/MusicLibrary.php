@@ -26,8 +26,12 @@ class MusicLibrary {
 	/**
     * @param Music $m 
     */	
-    static function select($m) {
+    public static function select($m) {
         self::$looking = $m;
-    }	
+    }
+    
+    
+    public static function displayContents() {
+    }
 }
 ?>
