@@ -2,6 +2,7 @@
 
 require_once 'PHPFIT/Fixture.php';
 require_once 'MusicLibrary.php';
+require_once 'MusicPlayer.php';
 
 class Browser extends PHPFIT_Fixture {
     
@@ -55,9 +56,11 @@ class Browser extends PHPFIT_Fixture {
     // Play Buttons /////////////////////////////
     
     public function play() {
+        MusicPlayer::play(MusicLibrary::$looking);
     }
     
     public function status() {
+        return Music::$status;
     }
     
     public function pause() {
