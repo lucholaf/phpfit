@@ -5,7 +5,7 @@ require_once 'PHPFIT/Comparable.php';
 class PHPFIT_ScientificDouble implements PHPFIT_Comparable {
     
 	protected $value = 0.0;
-	protected $precsion = 0.0;
+	protected $precisionValue = 0.0;
 	
 	function __construct($value) {
 		$this->value = $value;
@@ -25,8 +25,8 @@ class PHPFIT_ScientificDouble implements PHPFIT_Comparable {
 	public function compareTo($other) {
 		$other = floatval($other);
 		$diff = $this->value - $other;
-		if ($diff < -$this->precision) return -1;
-        if ($diff > $this->precision) return 1;
+		if ($diff < -$this->precisionValue) return -1;
+        if ($diff > $this->precisionValue) return 1;
         return 0;
 	}
 	
@@ -36,7 +36,7 @@ class PHPFIT_ScientificDouble implements PHPFIT_Comparable {
     */	 
 	public static function valueOf($s) {
 		$result = new PHPFIT_ScientificDouble(floatval($s));
-		$result->precision = self::precision($s);
+		$result->precisionValue = self::precision($s);
 		return $result;
 	}
 	
