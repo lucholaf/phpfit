@@ -33,17 +33,17 @@ class MockSocket {
         return 0;
     }
     
-    public function connect($socket, $hostip, $port) {
+    public function connect($hostip, $port) {
         $this->connected = true;
         return 0;
     }
     
-    public function read($socket, $len) {
+    public function read($len) {
         $this->read_len = $len;
         return 1;
     }
     
-    public function write($socket, $data, $len) {
+    public function write($data, $len) {
         $this->written = $data;
         return 1;
     }
