@@ -56,8 +56,8 @@ class FitServer {
     }
     
     public function run($args) {
-        $socket = $this->connect($args[1], $args[2], $args[3]);
-        $this->process($socket);
+        $this->connect($args[1], $args[2], $args[3]);
+        $this->process();
         return $this->close();
     }
     
@@ -76,14 +76,13 @@ class FitServer {
         $this->socketObject->read(self::FITNESSE_INTEGER);
     }
     
-    
-    public function process($socket) {
+    public function process() {
         
-        $output = $this->processDocument($this->getDocument($socket));
+        $output = $this->processDocument($this->getDocument());
         
-        $this->putDocument($socket, $output);
+        $this->putDocument($output);
         
-        $this->putSummary($socket);        
+        $this->putSummary();        
         
         $status = $this->socketObject->read(self::FITNESSE_INTEGER);
         
@@ -95,7 +94,6 @@ class FitServer {
         return $this->fixture->counts->wrong + $this->fixture->counts->exceptions;        
     }
 
-
     
     private function processDocument($input) {
         $this->fixture = new PHPFIT_Fixture();
@@ -103,25 +101,25 @@ class FitServer {
         return $this->fixture->toString();
     }
     
-    private function getDocument($socket) {
+    private function getDocument() {
         $msgLen = $this->socketObject->read(self::FITNESSE_INTEGER);        
         return $this->socketObject->read($msgLen);
     }
     
-    private function putDocument($socket, $output) {
-        $this->putInteger($socket, strlen($output));        
+    private function putDocument($output) {
+        $this->putInteger(strlen($output));        
         $this->socketObject->write($output, strlen($output));
-        $this->putInteger($socket, 0);
+        $this->putInteger(0);
     }
     
-    private function putSummary($socket) {
-        $this->putInteger($socket, $this->fixture->counts->right);
-        $this->putInteger($socket, $this->fixture->counts->wrong);
-        $this->putInteger($socket, $this->fixture->counts->ignores);
-        $this->putInteger($socket, $this->fixture->counts->exceptions);
+    private function putSummary() {
+        $this->putInteger($this->fixture->counts->right);
+        $this->putInteger($this->fixture->counts->wrong);
+        $this->putInteger($this->fixture->counts->ignores);
+        $this->putInteger($this->fixture->counts->exceptions);
     }
     
-    private function putInteger($socket, $value) {
+    private function putInteger($value) {
         $intValue = sprintf("%0" . self::FITNESSE_INTEGER . "d", $value);
         $this->socketObject->write($intValue, strlen($intValue));        
     }
