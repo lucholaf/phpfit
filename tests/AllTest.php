@@ -12,7 +12,6 @@ $test->addTestFile('tests/FixtureLoaderTest.php');
 $test->addTestFile('tests/FileRunnerTest.php');
 $test->addTestFile('tests/FrameworkTest.php');
 $test->addTestFile('tests/RowFixtureTest.php');
-$test->addTestFile('tests/FitServerTest.php');
 
 if (TextReporter::inCli()) {
     exit($test->run(new TextReporter()) ? 0 : 1);

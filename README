@@ -37,6 +37,11 @@ PHPFIT::run(input.html, output.html [, fixturesDirectory]);
 echo file_get_contents(output.html);
 ?>
 
+4d) From Fitnesse! ;)
+
+put this in your wiki pages:
+!define COMMAND_PATTERN {php /path/to/PHPFIT/FitServer.php
+
 
 TODO
 ----
