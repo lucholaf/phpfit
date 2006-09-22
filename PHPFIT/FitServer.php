@@ -5,6 +5,8 @@ http://fitnesse.org/FitNesse.FitServerProtocol
 
 put this in your wiki pages:
 !define COMMAND_PATTERN {php /path/to/PHPFIT/FitServer.php}
+
+TODO: complete the "Transaction Error in the Protocol spec.
 */
 
 error_reporting(E_ALL);
@@ -73,7 +75,6 @@ class FitServer {
             echo "Usage: php FitServer.php <host> <port> <test_ticket>";
             return -1;
         }
-
         try {
             $this->init($args[1], $args[2], $args[3]);
             $this->process();
@@ -92,19 +93,17 @@ class FitServer {
     * @param string $port
     * @param string $ticket
     */
-    public function init($host, $port, $ticket) {
+    public function init($host, $port, $ticket) {        
+        $httpRequest = $this->buildRequest($ticket);
         
-        $httpRequest = $this->buildRequest($ticket); 
-        
-        $this->socket->create(AF_INET, SOCK_STREAM, SOL_TCP);            
-
+        $this->socket->create(AF_INET, SOCK_STREAM, SOL_TCP);
         $this->socket->connect(gethostbyname($host), $port);
-        
         $this->socket->write($httpRequest, strlen($httpRequest));
         
-        if ($this->socket->read(self::FITNESSE_INTEGER) != 0) {
-            $this->socket->close(); 
-            throw new Exception("init() failed: " . socket_strerror($this->socket) . "\n");
+        if (($status = $this->socket->read(self::FITNESSE_INTEGER)) != 0) {
+            $errorMsg = $this->socket->read($status);
+            $this->socket->close();
+            throw new Exception("init() failed: " . $errorMsg . "\n");
         }
     }    
     
