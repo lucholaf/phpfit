@@ -97,14 +97,8 @@ class PHPFIT_Parse {
             $instance->parts = PHPFIT_Parse::create( $instance->body, $tags, $level+1, $offset + $endTag );
             $instance->body  = null;
         }
-        else {
-            $index = stripos( $instance->body, '<'.$tags[0] );
-            if( $index !== false ) {
-                $parts      = PHPFIT_Parse::create( $instance->body, $tags, 0, $offset + $endTag );
-                $instance->body = '';
-            }
-        }
         
+        // if you have more of the same
         if( $startMore !== false ) {
             $instance->more      = PHPFIT_Parse::create( $instance->trailer, $tags, $level, $offset + $endEnd );
             $instance->trailer   = null; 
@@ -113,7 +107,7 @@ class PHPFIT_Parse {
         return $instance;
     }
     
-    public static function createSimple($tag, $body = null, $parts = 0, $more = 0) {
+    public static function createSimple($tag, $body = null, $parts = null, $more = null) {
         $instance = new PHPFIT_Parse();
         
         $instance->leader = "\n";
@@ -152,18 +146,19 @@ class PHPFIT_Parse {
     
     
 	/**
-    * @param int $i
-    * @param int $j
-    * @param int $k
+    * @param int $i: table
+    * @param int $j: row
+    * @param int $k: column
     * @return PHPFIT_Parse
     */    
 	public function at($i, $j = null, $k = null) {
 		if ($j === null) {
 			return ($i == 0 || $this->more == null) ? $this : $this->more->at($i-1);
-		} else if ($k === null)
-        return $this->at($i)->parts->at($j);
-		else
-        return $this->at($i, $j)->parts->at($k);
+		} else if ($k === null) {
+            return $this->at($i)->parts->at($j);
+		} else{
+            return $this->at($i, $j)->parts->at($k);
+        }
 	}
     
     

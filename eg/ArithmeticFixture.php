@@ -28,7 +28,7 @@ class ArithmeticFixture extends PHPFIT_Fixture_Primitive {
             if( $this->y == 0 ) {
                 throw new Exception( 'ArithmeticException: / by zero' );
             }               
-            $this->check($cell, intval($this->x / $this->y));
+            $this->check($cell, $this->parseInteger($this->x / $this->y));
             break;
 			default: break;
 		}
