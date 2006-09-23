@@ -48,7 +48,7 @@ class PHPFIT_Fixture_Summary extends PHPFIT_Fixture {
     * @return PHPFIT_Parse
     */
 	protected function tr($parts, $more) {
-		return new PHPFIT_Parse("tr", null, $parts, $more, true);
+		return PHPFIT_Parse::createSimple("tr", null, $parts, $more);
 	}
 	
 	
@@ -58,7 +58,7 @@ class PHPFIT_Fixture_Summary extends PHPFIT_Fixture {
     * @return PHPFIT_Parse
     */
 	protected function td($body, $more) {
-		return new PHPFIT_Parse("td", $this->infoS($body), null, $more, true);
+		return PHPFIT_Parse::createSimple("td", $this->infoS($body), null, $more);
 	}
 	
 	

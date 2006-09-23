@@ -39,6 +39,11 @@ class PHPFIT_Parse {
     'td'    => 0,
     );
 	
+    /**
+    * If you want a parser, use PHPFIT_Parse::create...
+    */
+    private function __construct() {}
+    
 	/**
     * @param string $text
     * @param array $tags
@@ -46,18 +51,9 @@ class PHPFIT_Parse {
     * @param int $offset
     * @param boolean $simple
     */
-    public function __construct( $text, $tags = null, $level = 0, $offset = 0, $simple = false ) {
+    public static function create( $text, $tags = null, $level = 0, $offset = 0) {
         
-        if( $simple === true ) {
-            $this->leader = "\n";
-            $this->tag = "<".$text.">";
-            $this->body = $tags;
-            $this->end = "</".$text.">";
-            $this->trailer = "";
-            $this->parts = $level;
-            $this->more = $offset;
-            return;
-        }
+        $instance = new PHPFIT_Parse();
         
         if( $tags == null ) {
             $tags = PHPFIT_Parse::$tags;
@@ -73,15 +69,15 @@ class PHPFIT_Parse {
             throw new PHPFIT_Exception_Parse( 'Can\'t find tag: ' . $tags[$level], $offset );
         }
         
-        $this->leader   = substr( $text, 0, $startTag );
-        $this->tag      = substr( $text, $startTag, $endTag - $startTag );
-        $this->body     = substr( $text, $endTag, $startEnd - $endTag );
-        $this->end      = substr( $text, $startEnd, $endEnd - $startEnd );
-        $this->trailer  = substr( $text, $endEnd );
+        $instance->leader   = substr( $text, 0, $startTag );
+        $instance->tag      = substr( $text, $startTag, $endTag - $startTag );
+        $instance->body     = substr( $text, $endTag, $startEnd - $endTag );
+        $instance->end      = substr( $text, $startEnd, $endEnd - $startEnd );
+        $instance->trailer  = substr( $text, $endEnd );
         
         // add counter
         if( isset( self::$tagCount[$tags[$level]] ) ) {
-            $this->count    = self::$tagCount[$tags[$level]]++;
+            $instance->count    = self::$tagCount[$tags[$level]]++;
             switch( $tags[$level] ) {
                 case 'table':
                 self::$tagCount['tr']   =   0;
@@ -98,21 +94,36 @@ class PHPFIT_Parse {
         
         // we are not at cell-level - dig further down
         if( ( $level + 1 ) < count( $tags ) ) {
-            $this->parts = new PHPFIT_Parse( $this->body, $tags, $level+1, $offset + $endTag );
-            $this->body  = null;
+            $instance->parts = PHPFIT_Parse::create( $instance->body, $tags, $level+1, $offset + $endTag );
+            $instance->body  = null;
         }
         else {
-            $index = stripos( $this->body, '<'.$tags[0] );
+            $index = stripos( $instance->body, '<'.$tags[0] );
             if( $index !== false ) {
-                $parts      = new PHPFIT_Parse( $this->body, $tags, 0, $offset + $endTag );
-                $this->body = '';
+                $parts      = PHPFIT_Parse::create( $instance->body, $tags, 0, $offset + $endTag );
+                $instance->body = '';
             }
         }
         
         if( $startMore !== false ) {
-            $this->more      = new PHPFIT_Parse( $this->trailer, $tags, $level, $offset + $endEnd );
-            $this->trailer   = null; 
+            $instance->more      = PHPFIT_Parse::create( $instance->trailer, $tags, $level, $offset + $endEnd );
+            $instance->trailer   = null; 
         }
+        
+        return $instance;
+    }
+    
+    public static function createSimple($tag, $body = null, $parts = 0, $more = 0) {
+        $instance = new PHPFIT_Parse();
+        
+        $instance->leader = "\n";
+        $instance->tag = "<".$tag.">";
+        $instance->body = $body;
+        $instance->end = "</".$tag.">";
+        $instance->trailer = "";
+        $instance->parts = $parts;
+        $instance->more = $more;
+        return $instance;
     }
     
 	/**

@@ -15,7 +15,7 @@ class FrameworkTest extends UnitTestCase {
 	
 	public function doRun($file, $right, $wrong, $ignores, $exceptions) {
 		$input = 'examples/input/' . $file . '.html';
-		$tables = new PHPFIT_Parse(file_get_contents($input, true));
+		$tables = PHPFIT_Parse::create(file_get_contents($input, true));
 		$fixture = new PHPFIT_Fixture();
 		$fixture->doTables($tables);
 		$this->assertEqual($right, $fixture->counts->right);

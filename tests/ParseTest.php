@@ -6,7 +6,7 @@ class ParseTest extends UnitTestCase {
     
 	public function testParsing() {
         try{   
-            $p = new PHPFIT_Parse('leader<Table foo=2>body</table>trailer', array('table'));
+            $p = PHPFIT_Parse::create('leader<Table foo=2>body</table>trailer', array('table'));
             $this->assertEqual('leader', $p->leader);
             $this->assertEqual('<Table foo=2>', $p->tag);
             $this->assertEqual('body', $p->body);
@@ -23,7 +23,7 @@ class ParseTest extends UnitTestCase {
     
     public function testRecursing () {
         try{   
-        	$p = new PHPFIT_Parse('leader	<table>
+        	$p = PHPFIT_Parse::create('leader	<table>
             <TR>
             <Td>body</tD>
             </TR>
@@ -44,7 +44,7 @@ class ParseTest extends UnitTestCase {
     
     public function testIterating () {
         try{   
-        	$p = new PHPFIT_Parse('leader	<table>
+        	$p = PHPFIT_Parse::create('leader	<table>
             <tr>
             <td>one</td>
             <td>two</td>
@@ -67,7 +67,7 @@ class ParseTest extends UnitTestCase {
             if (!$cont) {
                 throw new Exception("Can't read file");
             }
-            $p = new PHPFIT_Parse($cont);	
+            $p = PHPFIT_Parse::create($cont);	
             $this->assertEqual($cont, $p->toString());
         }
         catch( Exception $e ) {
@@ -77,7 +77,7 @@ class ParseTest extends UnitTestCase {
 	
 	public function testIndexing() { 
         try{   
-            $p = new PHPFIT_Parse('leader<table><tr><td>one</td><td>two</td><td>three</td></tr><tr><td>four</td></tr></table>trailer');
+            $p = PHPFIT_Parse::create('leader<table><tr><td>one</td><td>two</td><td>three</td></tr><tr><td>four</td></tr></table>trailer');
             $this->assertEqual("one", $p->at(0,0,0)->body);
             $this->assertEqual("two", $p->at(0,0,1)->body);
             $this->assertEqual("three", $p->at(0,0,2)->body);
@@ -99,7 +99,7 @@ class ParseTest extends UnitTestCase {
 	
     public function testParseException () {
         try {
-            $p = new PHPFIT_Parse('leader<table><tr><th>one</th><th>two</th><th>three</th></tr><tr><td>four</td></tr></table>trailer');
+            $p = PHPFIT_Parse::create('leader<table><tr><th>one</th><th>two</th><th>three</th></tr><tr><td>four</td></tr></table>trailer');
         } catch (PHPFIT_Exception_Parse $e) {
             $this->assertEqual(17, $e->getOffset());
             $this->assertEqual("Can't find tag: td", $e->getMessage());
@@ -112,14 +112,14 @@ class ParseTest extends UnitTestCase {
 	public function testText() {
         try{   
             $tags = array('td');
-            $p = new PHPFIT_Parse('<td>a&lt;b</td>', $tags);
+            $p = PHPFIT_Parse::create('<td>a&lt;b</td>', $tags);
             $this->assertEqual('a&lt;b', $p->body);
             $this->assertEqual('a<b', $p->text());
-            $p = new PHPFIT_Parse("<td>\ta&gt;b&nbsp;&amp;&nbsp;b>c &&&lt;</td>", $tags);
+            $p = PHPFIT_Parse::create("<td>\ta&gt;b&nbsp;&amp;&nbsp;b>c &&&lt;</td>", $tags);
             $this->assertEqual('a>b & b>c &&<', $p->text());
-            $p = new PHPFIT_Parse("<td>\ta&gt;b&nbsp;&amp;&nbsp;b>c &&lt;</td>", $tags);
+            $p = PHPFIT_Parse::create("<td>\ta&gt;b&nbsp;&amp;&nbsp;b>c &&lt;</td>", $tags);
             $this->assertEqual('a>b & b>c &<', $p->text());
-            $p = new PHPFIT_Parse('<TD><P><FONT FACE="Arial" SIZE=2>GroupTestFixture</FONT></TD>', $tags);
+            $p = PHPFIT_Parse::create('<TD><P><FONT FACE="Arial" SIZE=2>GroupTestFixture</FONT></TD>', $tags);
             $this->assertEqual("GroupTestFixture",$p->text());
             
             $this->assertEqual("", PHPFIT_Parse::htmlToText("&nbsp;"));
@@ -178,7 +178,7 @@ class ParseTest extends UnitTestCase {
     
 	public function testAddToTag() {
         try{   
-            $p = new PHPFIT_Parse('leader<Table foo=2>body</table>trailer', array('table'));
+            $p = PHPFIT_Parse::create('leader<Table foo=2>body</table>trailer', array('table'));
             $p->addToTag(" bgcolor=\"#cfffcf\"");
             $this->assertEqual("<Table foo=2 bgcolor=\"#cfffcf\">", $p->tag);
         }
@@ -189,7 +189,7 @@ class ParseTest extends UnitTestCase {
 	
 	public function testFractBody() {
         try{   
-            $p = new PHPFIT_Parse('leader<Table foo=2>0.5</table>trailer', array('table'));
+            $p = PHPFIT_Parse::create('leader<Table foo=2>0.5</table>trailer', array('table'));
             $this->assertEqual('leader', $p->leader);
             $this->assertEqual('<Table foo=2>', $p->tag);
             $this->assertEqual('0.5', $p->text());

@@ -57,7 +57,7 @@ class PHPFIT_Fixture {
     * @return string results
     */
     public function doInput( $content ) {
-        $this->parser = new PHPFIT_Parse( $content );
+        $this->parser = PHPFIT_Parse::create( $content );
         $this->doTables( $this->parser );
         return $this->counts->toString();
     }
