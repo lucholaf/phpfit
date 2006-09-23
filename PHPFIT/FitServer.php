@@ -17,7 +17,7 @@ require_once 'PHPFIT/Fixture.php';
 /**
 * a socket wrapper
 */
-class Socket {
+class PHPFIT_Socket {
     
     private $socket_resource;
     
@@ -48,7 +48,7 @@ class Socket {
     }
 }
 
-class FitServer {
+class PHPFIT_FitServer {
     
     /**
     * @var PHPFIT_Counts
@@ -168,7 +168,7 @@ class FitServer {
 
 /* If this is the script executed, run the fitserver */
 if ($_SERVER['SCRIPT_NAME'] == __FILE__ ) {
-    $fitserver = new FitServer(new Socket());
+    $fitserver = new PHPFIT_FitServer(new PHPFIT_Socket());
     $out = $fitserver->run($argv);
     exit($out);
 }

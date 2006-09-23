@@ -1,6 +1,6 @@
 <?php
 
-class FixtureLoader {
+class PHPFIT_FixtureLoader {
     
     private static $fitPrefix = 'fit.';
     private static $fitFixturesDirectory = 'PHPFIT/Fixture/';

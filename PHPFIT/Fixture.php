@@ -212,7 +212,7 @@ class PHPFIT_Fixture {
 	public function loadFixture( $fixtureName ) {
         require_once 'FixtureLoader.php';
         
-        return FixtureLoader::load($fixtureName, $this->fixturesDirectory);
+        return PHPFIT_FixtureLoader::load($fixtureName, $this->fixturesDirectory);
         
     }
     
