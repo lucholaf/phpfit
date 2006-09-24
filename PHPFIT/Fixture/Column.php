@@ -65,11 +65,6 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
         try {
             $text   = $cell->text();
             
-            if( $text === '' ) {
-                $this->checkCell( $cell, $adapter );
-                return;
-            }
-            
             // skip the rest if there is no adapter
             if( $adapter == null ) {
                 $this->ignore( $cell );

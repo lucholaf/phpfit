@@ -17,7 +17,7 @@ class PHPFIT_Fixture_Action extends PHPFIT_Fixture {
     protected $cells;
     
     /**
-    * actor that has been startet
+    * actor that has been started
     * @var PHPFIT_Fixture
     * @see start()
     */

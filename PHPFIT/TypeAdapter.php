@@ -163,7 +163,7 @@ class PHPFIT_TypeAdapter {
         // suggested by Julian Harris
         $object = $this->target;
         $field = $this->field;
-        $object->{$field} = $value;
+        $object->$field = $value;
 	}
     
     /**
