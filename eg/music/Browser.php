@@ -23,6 +23,7 @@ class Browser extends PHPFIT_Fixture {
 	// Select Detail ////////////////////////////
 
     public function playing() {
+        return MusicPlayer::$playing->title;
     }
     
 	public function select($i) {
@@ -68,6 +69,7 @@ class Browser extends PHPFIT_Fixture {
     }
     
     public function remaining() {
+         return MusicPlayer::minutesRemaining();
     }
     
     //sacar!

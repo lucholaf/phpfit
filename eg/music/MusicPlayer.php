@@ -40,6 +40,10 @@ class MusicPlayer {
         self::$playing = null;
     }
     
+    public static function minutesRemaining() {
+        return 3.666;
+    }
+    
 }
 
 ?>
