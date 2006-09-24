@@ -85,7 +85,7 @@ class PHPFIT_Fixture {
             
             if( $fixtureName != null ) {
                 try {
-                    $fixture = $this->getLinkedFixtureWithArgs( $tables );
+                    $fixture = $this->getFixture( $tables );
                     $fixture->doTable( $tables );
                 } catch( Exception $e ) {
                     $this->exception( $fixtureName, $e );
@@ -183,7 +183,7 @@ class PHPFIT_Fixture {
     * @return PHPFIT_Fixture
     * @see loadFixture()
     */
-	protected function getLinkedFixtureWithArgs( $tables ) {
+	protected function getFixture( $tables ) {
 		$header           = $tables->at( 0, 0, 0 );
 		$fixture          = $this->loadFixture( $header->text() );
 		$fixture->counts  = $this->counts;
@@ -363,25 +363,24 @@ class PHPFIT_Fixture {
     * 
     * @todo As PHP does automatica type conversation, I reckon this can be spared
     * @param string $name of property or method
-    * @param bool $method check for return type of method
+    * @param bool $property: 'method' or 'field'
     * @return string
     */       
-    public function getType( $object, $name, $method = false ) {
-        
-        // method 
-        if( $method ) {
+    public function getType( $object, $name, $property) {
+         
+        if( $property == 'method' ) {
             if( !method_exists( $object, $name ) ) {
                 throw new Exception( 'Method does not exist! ' .get_class( $object ) . '->' . $name );
                 return null;
             }
             $name .= '()';
-        }
-        // property
-        else {    
+        } else if ($property == 'field'){    
             if( !property_exists( $object, $name ) ) {
                 throw new Exception( 'Property does not exist! ' .get_class( $object ) . '->' . $name );
                 return null;
             }
+        } else {
+            throw new Exception( 'getType(): No property Method or Field defined! ');
         }
         
         if( !isset( $object->typeDict[$name] ) ) {

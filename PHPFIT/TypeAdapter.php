@@ -32,43 +32,23 @@ class PHPFIT_TypeAdapter {
     * @var string
     */
     public $type = null;
-    
+
+
     /**
-    * Create adapter for fixture's method
+    * Create adapter for fixture method or field
     * 
     * @param PHPFIT_Fixture $fixture
     * @param string $name
+    * @param object $object
+    * @param string $property: 'field' or 'method'
     */
-	public static function onMethod(PHPFIT_Fixture $fixture, $name, $object) {
-        $type               = $fixture->getType($object, $name, true );
-        $adapter            = self::on( $fixture, $type );
-        $adapter->method    = $name;
-        return $adapter;
-	}
-    
-    /**
-    * Create adapter for fixture's field
-    * 
-    * @param PHPFIT_Fixture $fixture
-    * @param string $name
-    */
-	public static function onField(PHPFIT_Fixture $fixture, $name, $object) {
-        $type           = $fixture->getType($object, $name );
-        $adapter        = self::on( $fixture, $type );
-        $adapter->field = $name;
-        return $adapter;       
-    }
-    
-    /**
-    * Create generic adapter for fixture
-    * 
-    * @param PHPFIT_Fixture $fixture
-    * @param string $type of variables
-    */
-	public static function on(PHPFIT_Fixture $fixture, $type) {
+	public static function on(PHPFIT_Fixture $fixture, $name, $object, $property) {
+        $type           = $fixture->getType($object, $name, $property);        
 		$adapter          = self::adapterFor( $type );
 		$adapter->init( $fixture, $type );
-		$adapter->target  = $fixture;
+		$adapter->target  = $fixture;        
+        $adapter->$property = $name;
+
 		return $adapter;
 	}
     

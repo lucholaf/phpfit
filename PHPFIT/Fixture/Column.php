@@ -22,8 +22,8 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
     * @param PHPFIT_Parse $rows
     */	
     public function doRows( $rows ) {
-        $this->bind( $rows->parts );
-        parent::doRows( $rows->more );
+        $this->bind( $rows->parts ); // bind the first row
+        parent::doRows( $rows->more ); // process the other rows
     }
 	
     /**
@@ -57,6 +57,7 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
     */
     public function doCell( $cell ) {
         $adapter    = null;
+        
         if( isset( $this->columnBindings[$cell->count] ) ) {
             $adapter    = $this->columnBindings[$cell->count];
         }
@@ -149,7 +150,7 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
     */
     
 	protected function bindMethod($name) {
-		return PHPFIT_TypeAdapter::onMethod($this, $name, $this->getTargetClass());
+		return PHPFIT_TypeAdapter::on($this, $name, $this->getTargetClass(), 'method');
 	}
     
 	/**
@@ -158,7 +159,7 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
     */
     
 	protected function bindField($name) {
-		return PHPFIT_TypeAdapter::onField($this, $name, $this->getTargetClass());
+        return PHPFIT_TypeAdapter::on($this, $name, $this->getTargetClass(), 'field');
 	}
 	
     protected function getTargetClass() {
