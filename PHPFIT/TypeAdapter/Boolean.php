@@ -15,7 +15,10 @@ class PHPFIT_TypeAdapter_Boolean extends PHPFIT_TypeAdapter {
 		return "not a boolean";
 	}
     
-    public function toString($value) {
+    public function toString() {
+        
+        $value = $this->get();
+        
         if ($value) {
             return  'true';
         } else {

@@ -211,7 +211,10 @@ class PHPFIT_TypeAdapter {
     * @param mixed $o
     * @return string
     */    
-	public function toString( $o ) {
+	public function toString() {
+        
+        $o = $this->get();
+        
 		if( $o == null ) {
 			return 'null';
         }
@@ -222,5 +225,13 @@ class PHPFIT_TypeAdapter {
         
 		return strval( $o );
 	}
+
+    /**
+    * @param string $text
+    * @return true if same, false otherwise
+    */
+    public function equal($text) {        
+        return $this->equals( $this->parse( $text ), $this->get());
+    }    
 }
 ?>

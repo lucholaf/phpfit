@@ -29,7 +29,7 @@ class PHPFIT_Fixture_ActionTimed extends PHPFIT_Fixture_Action {
         return date('H:m:s');
     }
     public function td($body) {
-        return PHPFIT_Parse::createSimple("td", $this->infoS($body), null, null);
+        return PHPFIT_Parse::createSimple("td", $this->infoInColor($body), null, null);
     }
 }
 

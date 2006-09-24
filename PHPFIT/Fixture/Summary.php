@@ -58,7 +58,7 @@ class PHPFIT_Fixture_Summary extends PHPFIT_Fixture {
     * @return PHPFIT_Parse
     */
 	protected function td($body, $more) {
-		return PHPFIT_Parse::createSimple("td", $this->infoS($body), null, $more);
+		return PHPFIT_Parse::createSimple("td", $this->infoInColor($body), null, $more);
 	}
 	
 	

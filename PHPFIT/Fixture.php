@@ -83,16 +83,13 @@ class PHPFIT_Fixture {
         while( $tables != null ) {
             $fixtureName = $this->fixtureName( $tables );
             
-            if( $fixtureName == null ) {
-                $tables = $tables->more;
-                continue;
-            }
-            
-            try {
-                $fixture = $this->getLinkedFixtureWithArgs( $tables );
-                $fixture->doTable( $tables );
-            } catch( Exception $e ) {
-                $this->exception( $fixtureName, $e );
+            if( $fixtureName != null ) {
+                try {
+                    $fixture = $this->getLinkedFixtureWithArgs( $tables );
+                    $fixture->doTable( $tables );
+                } catch( Exception $e ) {
+                    $this->exception( $fixtureName, $e );
+                }
             }
             $tables = $tables->more;        
         }
@@ -116,9 +113,8 @@ class PHPFIT_Fixture {
     */
     public function doRows( $rows ) {
         while( $rows != null ) {
-            $more = $rows->more;
             $this->doRow( $rows );
-            $rows = $more;
+            $rows = $rows->more;
 		}
     }	 
     
@@ -151,7 +147,6 @@ class PHPFIT_Fixture {
             catch( Exception $e ) {
                 $this->exception( $cells, $e );
             }
-            
             $cells = $cells->more;
         }
     }	 
@@ -162,7 +157,7 @@ class PHPFIT_Fixture {
     * Generic processing of a table cell. Well, this function 
     * just ignores cells. 
     * 
-    * This method may be overwritten by a subclass (ColumnFixture)
+    * This method may be overwritten by a subclass (e.g: ColumnFixture)
     * 
     * @param PHPFIT_Parser $cell
     * @return void
@@ -227,7 +222,7 @@ class PHPFIT_Fixture {
         
         if( $text == '' ) {
             try {
-                $this->info( $cell, $adapter->toString( $adapter->get() ) );
+                $this->info( $cell, $adapter->toString() );
             } catch( Exception $e ) {
                 $this->info( $cell, 'error' );
             }
@@ -242,14 +237,10 @@ class PHPFIT_Fixture {
             }         
         } else {          
             try {
-                // the value of the attribute or the return value of the method
-                $result = $adapter->get();
-                
-                if( $adapter->equals( $adapter->parse( $text ), $result ) ) {
+                if ($adapter->equal($text)) {
                     $this->right( $cell );
-                } 
-                else {
-                    $this->wrong( $cell, $adapter->toString( $result ) );
+                } else {
+                    $this->wrong( $cell, $adapter->toString() );
                 }
             }
             catch( Exception $e ) {
@@ -312,7 +303,7 @@ class PHPFIT_Fixture {
     */
     public function info( $cell, $message ) 
     {
-        $str = $this->infoS( $message );
+        $str = $this->infoInColor( $message );
         $cell->addToBody( $str );
     }
     
@@ -321,7 +312,7 @@ class PHPFIT_Fixture {
     * @param string $message
     * @return string
     */   
-    public function infoS( $message ) {
+    public function infoInColor( $message ) {
         return ' <span style="color:#808080;">' . $this->escape( $message ) . '</span>';
     }
     
