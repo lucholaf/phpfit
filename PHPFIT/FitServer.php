@@ -105,7 +105,7 @@ class PHPFIT_FitServer {
             $this->socket->close();
             throw new Exception("init() failed: " . $errorMsg . "\n");
         }
-    }    
+    }
     
     public function process() {        
         $output = $this->processDocument($this->getDocument());
@@ -114,7 +114,6 @@ class PHPFIT_FitServer {
     }
     
     public function finish() {
-        $this->socket->read(self::FITNESSE_INTEGER); // should read 0        
         $this->socket->close();       
         return $this->counts->wrong + $this->counts->exceptions;        
     }
@@ -135,13 +134,15 @@ class PHPFIT_FitServer {
     }
     
     private function getDocument() {
-        $docSize = $this->socket->read(self::FITNESSE_INTEGER);
-        return $this->socket->read($docSize);
+        while (($docSize = $this->socket->read(self::FITNESSE_INTEGER)) != 0) {        
+            $document .= $this->socket->read($docSize);
+        }
+        return $document;
     }
 
     /**
     * @param string $output
-    */    
+    */
     private function putDocument($output) {
         $this->putInteger(strlen($output));        
         $this->socket->write($output, strlen($output));

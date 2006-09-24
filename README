@@ -15,7 +15,13 @@ SYNOPSYS
 
 4) Run it:
 
-4a) From the CLI:
+4a) From Fitnesse! (http://fitnesse.org/) ;)
+
+put this in your wiki pages:
+!define COMMAND_PATTERN {php /path/to/PHPFIT/FitServer.php}
+
+
+4b) From the CLI:
 
 phpfit-run path/to/input.html path/to/output.html [path/to/fixtures]
 
@@ -23,11 +29,11 @@ NOTE: [path/to/fixtures] is optional, by default it will check for fixtures in t
 
 e.g: phpfit-run examples/input/arithmetic.html output.html
 
-4b) From a Browser:
+4c) From a Browser:
 
 e.g: http://domain/path/to/phpfit/examples/run-web.php?input_filename=input/arithmetic.html
 
-4c) From your own scripts:
+4d) From your own scripts:
 
 <?php
 require_once 'PHPFIT.php';
@@ -37,15 +43,11 @@ PHPFIT::run(input.html, output.html [, fixturesDirectory]);
 echo file_get_contents(output.html);
 ?>
 
-4d) From Fitnesse! ;)
-
-put this in your wiki pages:
-!define COMMAND_PATTERN {php /path/to/PHPFIT/FitServer.php
-
 
 TODO
 ----
 
+- RowFixture
 - PHPFIT::run(). Allow way to specify the output. eg: to a file, to stdout, etc.
 - Achieve more tests coverage.
 - It doesn't pass the FIT specification tests yet.
