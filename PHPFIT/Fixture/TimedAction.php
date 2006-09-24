@@ -2,7 +2,7 @@
 
 require_once 'PHPFIT/Parse.php';
 
-class PHPFIT_Fixture_ActionTimed extends PHPFIT_Fixture_Action {
+class PHPFIT_Fixture_TimedAction extends PHPFIT_Fixture_Action {
     
     public function doTable($table) {
         parent::doTable($table);

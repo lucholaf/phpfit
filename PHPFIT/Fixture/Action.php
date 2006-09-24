@@ -73,7 +73,6 @@ class PHPFIT_Fixture_Action extends PHPFIT_Fixture {
         $aMethod    = $this->camel( $this->cells->more->text() );
         $aValue     = $this->cells->more->more;
         
-        //echo "<br>$aMethod";
         $adapter    = PHPFIT_TypeAdapter::on( self::$actor, $aMethod, self::$actor, 'method');  
         $this->checkCell( $aValue, $adapter );
         
@@ -90,14 +89,14 @@ class PHPFIT_Fixture_Action extends PHPFIT_Fixture {
     * interpreted by the particular command. The generic action fixture offers 
     * only four commands, but subclasses may extend this set.
     * 
-    * @param PHPFIT_Parse $cells
+    * @param PHPFIT_Parse $cells: the cells of a row
     */
 	public function doCells( $cells ) {
         
 		try {
             $this->cells = $cells;
             
-            $method = $cells->text(); 
+            $method = $cells->text();  // first column of the row
             if( !method_exists( $this, $method ) ) {
                 throw new Exception( 'Action fixture cannot call the request command. Method ' 
                 . get_class( $this ) . '->' . $method . ' does not exist' );
