@@ -12,10 +12,10 @@ class PHPFIT_Fixture_TimedAction extends PHPFIT_Fixture_Action {
     }
     
     public function doCells($cells) {
-        $start  = $this->time();
+        $start  = $this->theTime();
         parent::doCells($cells);
-        $cells->last()->more = $this->td($start);
-        $split = $this->time() - $start;
+        $cells->last()->more = $this->td(date('H:m:s', $start));
+        $split = $this->theTime() - $start;
         if ($split < 1.0) {
             $text = "&nbsp;";
         } else {
@@ -25,8 +25,8 @@ class PHPFIT_Fixture_TimedAction extends PHPFIT_Fixture_Action {
 
     }    
     
-    public function time() {
-        return date('H:m:s');
+    public function theTime() {
+        return time();
     }
     public function td($body) {
         return PHPFIT_Parse::createSimple("td", $this->infoInColor($body), null, null);

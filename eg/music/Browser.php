@@ -64,6 +64,7 @@ class Browser extends PHPFIT_Fixture {
     }
     
     public function pause() {
+        MusicPlayer::pause();
     }
     
     public function remaining() {
