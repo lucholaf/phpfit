@@ -14,10 +14,7 @@ class PHPFIT_Fixture_TimedAction extends PHPFIT_Fixture_Action {
         $start  = $this->theTime();
         parent::doCells($cells);
         
-        
-        return;
-        
-        
+/*        
         $cells->last()->more = $this->td(date('H:m:s', $start));
         $split = $this->theTime() - $start;
         if ($split < 1.0) {
@@ -26,7 +23,7 @@ class PHPFIT_Fixture_TimedAction extends PHPFIT_Fixture_Action {
             $text = $split;
         }
         $cells->last()->more = $this->td($text);
-
+*/
     }    
     
     public function theTime() {

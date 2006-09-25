@@ -134,6 +134,7 @@ class PHPFIT_FitServer {
     }
     
     private function getDocument() {
+        $document = "";
         while (($docSize = $this->socket->read(self::FITNESSE_INTEGER)) != 0) {        
             $document .= $this->socket->read($docSize);
         }
