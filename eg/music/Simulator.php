@@ -14,7 +14,7 @@ class Simulator {
     }
 
     public static function sooner ($soon, $event) {
-        return $event > self::$time && $event < $soon ? $event : $soon;
+        return ($event > self::$time && $event < $soon) ? $event : $soon;
     }
     
     public static function nextEvent($bound) {
@@ -41,10 +41,22 @@ class Simulator {
     public static function delay($seconds) {
         self::advance(self::schedule($seconds));
     }
+
+    public function waitSearchComplete() {
+        self::advance(self::$nextSearchComplete);
+    }
+
+    public function waitPlayStarted() {
+        self::advance(self::$nextPlayStarted);
+    }
+
+    public function waitPlayComplete() {
+        self::advance(self::$nextPlayComplete);
+    }    
     
 }
 
 Simulator::$system = new Simulator();
-Simulator::$time = date('H:m:s');
+Simulator::$time = time();
 
 ?>

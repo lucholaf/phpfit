@@ -16,9 +16,24 @@ class Realtime extends PHPFIT_Fixture_TimedAction {
     }
     
     public function await() {
+        $this->system("wait", $this->cells->more);
     }
     
     public function fail() {
+    }
+
+    public function press() {
+        $this->system->delay(0.9);
+        parent::press();
+    }
+    
+    public function system($prefix, $cell) {
+        $method = $this->camel($prefix . " " . $cell->text());
+        try {
+            $this->system->$method();
+        } catch(Exception $e) {
+            $this->exception($cell, $e);
+        }       
     }
     
 }

@@ -21,7 +21,10 @@ class MusicLibrary {
 		}
 		fclose($fp);
 	}
-	
+
+    public static function searchComplete() {
+        Music::$status = (MusicPlayer::$playing == null) ? "ready" : "playing";
+    }	
 	
 	/**
     * @param Music $m 

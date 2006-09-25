@@ -34,15 +34,26 @@ class MusicPlayer {
         self::$playing = MusicLibrary::$looking;
         Simulator::$nextPlayComplete = Simulator::schedule(self::$playing->seconds);
     }
-
+    
     public static function playComplete() {
         Music::$status = "ready";
         self::$playing = null;
     }
     
-    public static function minutesRemaining() {
-        return 3.666;
+    public static function secondsRemaining() {
+        if (self::$paused != 0) {
+            return self::$paused;
+        } else if (self::$playing != null) {
+            return (Simulator::$nextPlayComplete - Simulator::$time);
+        } else {
+            return 0;
+        }        
     }
+    
+    public static function minutesRemaining() {
+        return intval(self::secondsRemaining() / 0.6 + 0.5) / 100;
+    }
+
     
 }
 
