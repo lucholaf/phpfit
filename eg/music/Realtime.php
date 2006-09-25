@@ -20,12 +20,20 @@ class Realtime extends PHPFIT_Fixture_TimedAction {
     }
     
     public function fail() {
+        $this->system("fail", $this->cells->more);
     }
 
     public function press() {
+        //$this->system->delay(1.2); // FIX THIS!
         $this->system->delay(0.9);
         parent::press();
     }
+
+    public function enter() {
+        $this->system->delay(0.8);
+        parent::enter();
+    }
+
     
     public function system($prefix, $cell) {
         $method = $this->camel($prefix . " " . $cell->text());

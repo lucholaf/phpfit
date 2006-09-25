@@ -21,7 +21,7 @@ class PHPFIT_Fixture_Action extends PHPFIT_Fixture {
     * @var PHPFIT_Fixture
     * @see start()
     */
-	private static $actor = null;
+	public static $actor = null;
 	
     /**
     * Implements start fixture 

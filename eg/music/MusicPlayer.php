@@ -15,7 +15,7 @@ class MusicPlayer {
             Simulator::$nextPlayStarted = Simulator::schedule($seconds);
         } else {
             music::$status = "playing";
-            Simulator::$nextPlayStarted = Simulator::schedule(self::$paused);
+            Simulator::$nextPlayComplete = Simulator::schedule(self::$paused);
             self::$paused = 0;
         } 
     }
@@ -29,6 +29,12 @@ class MusicPlayer {
         }
     }
 
+    public static function stop() {
+        Simulator::$nextPlayStarted = 0;
+        Simulator::$nextPlayComplete = 0;
+        self::playComplete();
+    }
+    
     public static function playStarted() {
         Music::$status = "playing";
         self::$playing = MusicLibrary::$looking;

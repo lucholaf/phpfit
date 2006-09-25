@@ -5,7 +5,7 @@ require_once 'eg/music/Music.php';
 
 
 class Display extends PHPFIT_Fixture_Row {
-
+        
     public function getTargetClass() {
         return  new Music();
     }

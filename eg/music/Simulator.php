@@ -1,5 +1,8 @@
 <?php
 
+require_once 'Dialog.php';
+require_once 'PHPFIT/Fixture/Action.php';
+
 class Simulator {
 
     public static $system;
@@ -10,7 +13,7 @@ class Simulator {
     public static $nextPlayComplete = 0;
 
     public static function schedule($seconds){
-        return self::$time + $seconds;
+        return self::$time + self::round($seconds);
     }
 
     public static function sooner ($soon, $event) {
@@ -39,7 +42,7 @@ class Simulator {
     }
     
     public static function delay($seconds) {
-        self::advance(self::schedule($seconds));
+        self::advance(self::schedule(self::round($seconds)));
     }
 
     public function waitSearchComplete() {
@@ -52,7 +55,16 @@ class Simulator {
 
     public function waitPlayComplete() {
         self::advance(self::$nextPlayComplete);
-    }    
+    }
+    
+    private static function round($seconds) {
+        return $seconds;
+        //return intval($seconds + 0.5);
+    }
+    
+    public static function failLoadJam() {
+        PHPFIT_Fixture_Action::$actor = new Dialog("load jamed", PHPFIT_Fixture_Action::$actor);
+    }
     
 }
 
