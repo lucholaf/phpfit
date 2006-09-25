@@ -72,17 +72,20 @@ class Browser extends PHPFIT_Fixture {
          return MusicPlayer::minutesRemaining();
     }
     
-    //sacar!
-    public function ok() {
+    public function selectedSongs() {
+        return MusicLibrary::displayCount();
     }
     
     public function sameAlbum() {
+        MusicLibrary::findAlbum(MusicLibrary::$looking->album);
     }    
     
     public function sameArtist() {
+        MusicLibrary::findArtist(MusicLibrary::$looking->artist);
     }
     
     public function showAll() {
+        MusicLibrary::findAll();
     }
     
 	public $typeDict = array (
@@ -95,7 +98,8 @@ class Browser extends PHPFIT_Fixture {
     "track()" => "string",	
     "status()" => "string",	
     "remaining()" => "string",	
-    "playing()" => "string",	
+    "playing()" => "string",
+    "selectedSongs()" => "int",	
 	);
 }
 ?>
