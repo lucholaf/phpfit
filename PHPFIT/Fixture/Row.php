@@ -24,9 +24,6 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
     }
     
     protected function match($expected, $computed, $col) {
-        //echo "<br><b>EXPECTED:</b>" . print_r($expected) . "<br>";
-        //echo "<br><b>COMPUTED:</b>" . print_r($computed) . "<br>";
-        //echo "<br><br>";
         $eMap = $this->eSort($expected, $col);
         $cMap = $this->cSort($computed, $col);
         $keys = $this->union(array_keys($eMap), array_keys($cMap));
@@ -40,6 +37,15 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
 
     
     public function checkCell($eList, $cList) {
+        if (count($eList) == 0) {
+            //surplus.addAll(cList);
+            return;
+        }
+        if (count($cList) == 0) {
+            //missing.addAll(eList);
+            return;
+        }
+        
         $parse = array_shift($eList); 
         $obj = array_shift($cList);
         $cell = $parse->parts;
@@ -52,18 +58,7 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
             parent::checkCell($cell, $adapter);
             $cell = $cell->more;
         }
-        //$this->check($eList, $cList);
-        /*
-        for (int i=0; i<columnBindings.length && cell!=null; i++) {
-            TypeAdapter a = columnBindings[i];
-            if (a != null) {
-                a.target = obj;
-            }
-            check(cell, a);
-            cell = cell.more;
-        }
-        check (eList, cList);
-        */
+        $this->checkCell($eList, $cList);
     }
     
     protected function union($map1, $map2) {
@@ -119,13 +114,7 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
     }
     
     protected function bin(&$map, $key, $row) {
-        //var_dump($row). "<br>";
         $map[$key][] = $row;
-        /*if (array_key_exists($key, $map)) {
-            $map[$key][] = $row;
-        } else {
-            $map[$key][] = $row;
-        }*/
     }
 
 
