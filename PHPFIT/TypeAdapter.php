@@ -46,7 +46,7 @@ class PHPFIT_TypeAdapter {
         $type           = $fixture->getType($object, $name, $property);        
 		$adapter          = self::adapterFor( $type );
 		$adapter->init( $fixture, $type );
-		$adapter->target  = $fixture;        
+		$adapter->target  = $object;        
         $adapter->$property = $name;
 
 		return $adapter;
@@ -171,12 +171,15 @@ class PHPFIT_TypeAdapter {
     */
 	public function get() {
 		if ($this->field != null) {
-			return $this->field->get($this->target);
+            $field = $this->field;
+			return $this->target->$field;
 		}
         
 		if ($this->method != null) {
 			return $this->invoke();
 		}
+        
+        return null;
 	}
 
     /**

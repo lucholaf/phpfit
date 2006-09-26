@@ -52,7 +52,7 @@ class Music {
     "genre" => "string",
     "size" => "string",
     "date" => "string",
-    "time()" => "string",
+    "time()" => "double",
     "track()" => "string"
 	);    
 }

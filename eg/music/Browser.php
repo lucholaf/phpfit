@@ -13,11 +13,11 @@ class Browser extends PHPFIT_Fixture {
     */
     
 	public function library($path) {
-		MusicLibrary :: load($path);
+		MusicLibrary::load($path);
 	}
     
 	public function totalSongs() {
-		return count(MusicLibrary :: $library);
+		return count(MusicLibrary::$library);
 	}
     
 	// Select Detail ////////////////////////////

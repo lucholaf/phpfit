@@ -10,7 +10,7 @@ class FrameworkTest extends UnitTestCase {
 		$this->doRun("arithmetic", 38, 9, 0, 2);
 		$this->doRun("compensation", 24, 0, 0, 0);
 		$this->doRun("CalculatorExample", 75, 9, 0, 0);
-		//$this->doRun("MusicExample", 9, 0, 0, 5);
+		$this->doRun("MusicExample", 95, 0, 0, 0);
 	}
 	
 	public function doRun($file, $right, $wrong, $ignores, $exceptions) {
@@ -18,6 +18,9 @@ class FrameworkTest extends UnitTestCase {
 		$tables = PHPFIT_Parse::create(file_get_contents($input, true));
 		$fixture = new PHPFIT_Fixture();
 		$fixture->doTables($tables);
+        
+        //echo $tables->toString();
+        
 		$this->assertEqual($right, $fixture->counts->right);
 		$this->assertEqual($wrong, $fixture->counts->wrong);
 		$this->assertEqual($ignores, $fixture->counts->ignores);

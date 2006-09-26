@@ -37,6 +37,11 @@ class ExampleTest extends UnitTestCase {
 		$this->mustFilename = "examples/output/CalculatorExample.html";
 		$this->runFilename = "examples/input/CalculatorExample.html";
 	}
+    
+    public function testMusicExample() {
+		$this->mustFilename = "examples/output/MusicExample.html";
+		$this->runFilename = "examples/input/MusicExample.html";
+	}
 
 }
 

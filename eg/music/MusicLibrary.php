@@ -12,6 +12,9 @@ class MusicLibrary {
 	
     
 	public static function load($path) {
+        self::$library = null;
+        self::$looking = null;
+        
 		$fp = fopen($path, "r", true);
 		
 		fgets($fp); // skip column headings
