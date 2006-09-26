@@ -15,13 +15,18 @@ class MusicLibrary {
         self::$library = null;
         self::$looking = null;
         
-		$fp = fopen($path, "r", true);
+		$fp = @fopen($path, "r", true);
 		
+        if ($fp === false) {            
+            die("error loading file: " . $path);
+        }
+        
 		fgets($fp); // skip column headings
 		
 		while ($line = fgets($fp)) {
 			self::$library[] = Music::parse($line);
 		}
+        
 		fclose($fp);
 	}
 

@@ -38,7 +38,9 @@ class MusicPlayer {
     public static function playStarted() {
         Music::$status = "playing";
         self::$playing = MusicLibrary::$looking;
-        Simulator::$nextPlayComplete = Simulator::schedule(self::$playing->seconds);
+        if (self::$playing) {
+            Simulator::$nextPlayComplete = Simulator::schedule(self::$playing->seconds);
+        }
     }
     
     public static function playComplete() {

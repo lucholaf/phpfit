@@ -1,6 +1,7 @@
 <?php
 
 require_once 'PHPFIT/Parse.php';
+require_once 'PHPFIT/Fixture/Action.php';
 
 class PHPFIT_Fixture_TimedAction extends PHPFIT_Fixture_Action {
     
