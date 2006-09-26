@@ -47,7 +47,8 @@ echo file_get_contents(output.html);
 TODO
 ----
 
-- RowFixture
+- RowFixture: finish surplus and missing
+- TimedAction: finish "time" and "split" columns
 - PHPFIT::run(). Allow way to specify the output. eg: to a file, to stdout, etc.
 - Achieve more tests coverage.
 - It doesn't pass the FIT specification tests yet.
