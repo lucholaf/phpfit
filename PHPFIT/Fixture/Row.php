@@ -4,8 +4,8 @@ require_once 'PHPFIT/Fixture/Column.php';
 
 abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
     
-    public function getTargetClass() {}
-    public function query() {}
+    public function getTargetClass() {} // must be overridden in your subclass
+    public function query() {} // must be overridden in your subclass
     
     /**
     * Process a table's row
@@ -23,19 +23,29 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
         }
     }
     
+    /**
+    * Travel each column and check each cell
+    *
+    * @param array $expected
+    * @param array $expected
+    * @param integer $col
+    */
     protected function match($expected, $computed, $col) {
-        $eMap = $this->eSort($expected, $col);
-        $cMap = $this->cSort($computed, $col);
-        $keys = $this->union(array_keys($eMap), array_keys($cMap));
+        $eColumn = $this->eSort($expected, $col); // expected column
+        $cColumn = $this->cSort($computed, $col); // computed column
+        $keys = array_keys($eColumn) + array_keys($cColumn); // union
         foreach ($keys as $key) {
-            $eList = $eMap[$key];
-            $cList = $cMap[$key];
+            $eList = $eColumn[$key];
+            $cList = $cColumn[$key];
             $this->checkCell($eList, $cList);
         }
-
     }
 
     
+    /**
+    * @param array $eList
+    * @param array $cList
+    */
     public function checkCell($eList, $cList) {
         if (count($eList) == 0) {
             //surplus.addAll(cList);
@@ -50,7 +60,7 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
         $obj = array_shift($cList);
         $cell = $parse->parts;
         
-        for($i=0; $i < count($this->columnBindings) && $cell != null; $i++) {
+        for($i = 0; $i < count($this->columnBindings) && $cell != null; $i++) {
             $adapter = $this->columnBindings[$i];
             if ($adapter != null) {
                 $adapter->target = $obj;
@@ -61,10 +71,10 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
         $this->checkCell($eList, $cList);
     }
     
-    protected function union($map1, $map2) {
-        return $map1 + $map2;
-    }
-    
+    /**
+    * @param PHPFIT_Parse $rows
+    * @return array
+    */
     protected function buildArrayFromParser($rows) {
         $array = array();
         while ($rows != null) {
@@ -74,6 +84,11 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
         return $array;
     }
     
+    /**
+    * @param array $expected: array of PHPFIT_Parse objects
+    * @param int $col
+    * @return array
+    */
     protected function eSort($expected, $col) {
         $adapter = $this->columnBindings[$col];
         $result = array();
@@ -82,20 +97,24 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
             $cell = $row->parts->at(0);
             try {
                 $key = $adapter->parse($cell->text());
-                $this->bin($result, $key, $row);
+                $result[$key][] = $row;
             } catch (Exception $e) {
-               $this->exception($cell, $e);
-               $rest = $cell->more;
-               while ($rest != null) {
-                   $this->ignore($rest);
-                   $rest = $rest->more;
-               }
+                $this->exception($cell, $e);
+                $rest = $cell->more;
+                while ($rest != null) {
+                    $this->ignore($rest);
+                    $rest = $rest->more;
+                }
             }
         }
-        
         return $result;
     }
 
+    /**
+    * @param array $computed
+    * @param int $col
+    * @return array
+    */
     protected function cSort($computed, $col) {
         $adapter = $this->columnBindings[$col];
         $result = array();
@@ -104,7 +123,7 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
             try {
                 $adapter->target = $row;
                 $key = $adapter->get();
-                $this->bin($result, $key, $row);
+                $result[$key][] = $row;
             } catch(Exception $e) {
                 //surplus!
             }
@@ -112,11 +131,6 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
         return $result;
         
     }
-    
-    protected function bin(&$map, $key, $row) {
-        $map[$key][] = $row;
-    }
-
 
 }
 
