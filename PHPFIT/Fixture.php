@@ -51,21 +51,7 @@ class PHPFIT_Fixture {
         }      
         $this->counts = new PHPFIT_Counts();
     }
-    
-    /**
-    * @param string $content
-    * @return string results
-    */
-    public function doInput( $content ) {
-        $this->parser = PHPFIT_Parse::create( $content );
-        $this->doTables( $this->parser );
-        return $this->counts->toString();
-    }
-    
-    public function toString() {
-        return $this->parser->toString();
-    }
-    
+
     /**
     * Traverse all tables
     * 
@@ -74,6 +60,7 @@ class PHPFIT_Fixture {
     * @param PHPFIT_Parser $tables
     */   
     public function doTables( $tables ) {
+        
         if (!isset($GLOBALS['SIMPLE_SUMMARY'])) {
             $this->summary['run date'] = date( 'F d Y H:i:s.' );
             $this->summary['run elapsed time'] = new PHPFIT_RunTime();

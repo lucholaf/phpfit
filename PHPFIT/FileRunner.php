@@ -11,6 +11,12 @@ class PHPFIT_FileRunner {
     * @var PHPFIT_FileRunner
     */
 	private $fixture;
+
+    /**
+    * running fixture object
+    * @var PHPFIT_Parser
+    */
+	private $tables;
     
 	/**
     * @var string
@@ -59,7 +65,7 @@ class PHPFIT_FileRunner {
         $result = $this->process($fixturesDirectory);
 		
         // save output
-        file_put_contents($out, $this->fixture->toString(), true);
+        file_put_contents($out, $this->tables->toString(), true);
         
         return $result;
 	}
@@ -68,10 +74,12 @@ class PHPFIT_FileRunner {
     * @param string $fixturesDirectory
     * @return string results
     */
-	public function process($fixturesDirectory) 
-    {        
+	public function process($fixturesDirectory) {        
         $this->fixture  = new PHPFIT_Fixture($fixturesDirectory);
-        return $this->fixture->doInput($this->input);      
+        $this->tables = PHPFIT_Parse::create($this->input);
+        $this->fixture->doTables( $this->tables );
+        
+        return $this->fixture->counts->toString();
 	}
     
     /**

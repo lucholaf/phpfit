@@ -127,10 +127,12 @@ class PHPFIT_FitServer {
     * @return string
     */
     private function processDocument($input) {
-        $fixture = new PHPFIT_Fixture();
-        $fixture->doInput($input);
+        $fixture  = new PHPFIT_Fixture();
+        $tables = PHPFIT_Parse::create($input);
+        $fixture->doTables($tables);
+
         $this->counts = $fixture->counts;
-        return $fixture->toString();
+        return $tables->toString();
     }
     
     private function getDocument() {
