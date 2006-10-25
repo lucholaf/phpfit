@@ -38,35 +38,47 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
     * @param integer $col
     */
     protected function match($expected, $computed, $col) {
-        $eColumn = $this->eSort($expected, $col); // expected column
-        $cColumn = $this->cSort($computed, $col); // computed column
-        $keys = array_keys($eColumn) + array_keys($cColumn); // union
-        foreach ($keys as $key) {
-			$eList = null;
-			$cList = null;
-			if (array_key_exists($key, $eColumn))
-            		$eList = $eColumn[$key];
-			
-			if (array_key_exists($key, $cColumn))
-            		$cList = $cColumn[$key];
-			
-			$this->checkCell($eList, $cList);
-
+		if ($col >= count($this->columnBindings)) {
+			$this->checkList($expected, $computed);
+		} else if ($this->columnBindings[$col] == null) {
+			$this->match($expected, $computed, $col+1);
+		} else {
+			$eColumn = $this->eSort($expected, $col); // expected column
+			$cColumn = $this->cSort($computed, $col); // computed column
+			$keys = array_keys($eColumn) + array_keys($cColumn); // union
+			foreach ($keys as $key) {
+				$eList = $cList = null;
+				if (array_key_exists($key, $eColumn))
+					$eList = $eColumn[$key];
+				if (array_key_exists($key, $cColumn))
+					$cList = $cColumn[$key];
+				
+				//$this->checkList($eList, $cList); continue;
+				
+				if (!$eList) {
+					$this->surplus = array_merge($this->surplus, $cList);
+				} else if(!$cList) {
+					$this->missing = array_merge($this->missing, $eList);
+				} else if ((count($eList) == 1) && (count($cList) == 1)) {
+					$this->checkList($eList, $cList);
+				} else {
+					$this->match($eList, $cList, $col+1);
+				}
+			}
         }
     }
-
     
     /**
     * @param array $eList
     * @param array $cList
     */
-    public function checkCell($eList, $cList) {
+    public function checkList($eList, $cList) {
         if (count($eList) == 0) {
-			$this->surplus =  array_merge($this->surplus, $cList);
+			$this->surplus = array_merge($this->surplus, $cList);
             return;
         }
         if (count($cList) == 0) {
-            $this->missing =  array_merge($this->missing, $eList);
+            $this->missing = array_merge($this->missing, $eList);
             return;
         }
         
@@ -74,15 +86,16 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
         $obj = array_shift($cList);
         $cell = $parse->parts;
         
-        for($i = 0; $i < count($this->columnBindings) && $cell != null; $i++) {
-            $adapter = $this->columnBindings[$i];
+		foreach($this->columnBindings as $adapter) {
+			if ($cell == null)
+				break;
             if ($adapter != null) {
                 $adapter->target = $obj;
             }
             parent::checkCell($cell, $adapter);
             $cell = $cell->more;
         }
-        $this->checkCell($eList, $cList);
+        $this->checkList($eList, $cList);
     }
     
     /**
@@ -197,15 +210,14 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
 	protected function buildCells($row) {
 		$root = PHPFIT_Parse::createSimple(null, null, null, null);
 		$next = $root;
-		for($i = 0; $i < count($this->columnBindings); $i++) {
+		foreach ($this->columnBindings as $adapter) {
 			$next = $next->more = PHPFIT_Parse::createSimple('td', '&nbsp;', null, null);
-			$a = $this->columnBindings[$i];
-			if (!$a) {
+			if (!$adapter) {
 				$this->ignore($next);
 			} else {
 				try {
-                    $a->target = $row;
-                    $this->info($next, $a->toString($a->get()));
+                    $adapter->target = $row;
+                    $this->info($next, $adapter->toString($adapter->get()));
                 } catch (Exception $e) {
                     $this->exception($next, $e);
                 }
