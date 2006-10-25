@@ -45,7 +45,8 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
 		} else {
 			$eColumn = $this->eSort($expected, $col); // expected column
 			$cColumn = $this->cSort($computed, $col); // computed column
-			$keys = array_keys($eColumn) + array_keys($cColumn); // union
+			$keys = array_merge(array_keys($eColumn), array_keys($cColumn));
+			$keys = array_unique($keys);
 			foreach ($keys as $key) {
 				$eList = $cList = null;
 				if (array_key_exists($key, $eColumn))
@@ -53,8 +54,9 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
 				if (array_key_exists($key, $cColumn))
 					$cList = $cColumn[$key];
 				
-				//$this->checkList($eList, $cList); continue;
-				
+				$this->checkList($eList, $cList); continue;
+
+/*				
 				if (!$eList) {
 					$this->surplus = array_merge($this->surplus, $cList);
 				} else if(!$cList) {
@@ -64,6 +66,8 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
 				} else {
 					$this->match($eList, $cList, $col+1);
 				}
+*/
+
 			}
         }
     }
@@ -211,7 +215,7 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
 		$root = PHPFIT_Parse::createSimple(null, null, null, null);
 		$next = $root;
 		foreach ($this->columnBindings as $adapter) {
-			$next = $next->more = PHPFIT_Parse::createSimple('td', '&nbsp;', null, null);
+			$next = $next->more = PHPFIT_Parse::createSimple('td', '', null, null);
 			if (!$adapter) {
 				$this->ignore($next);
 			} else {

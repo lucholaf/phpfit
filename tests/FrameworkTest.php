@@ -11,6 +11,7 @@ class FrameworkTest extends UnitTestCase {
 		$this->doRun("compensation", 24, 0, 0, 0);
 		$this->doRun("CalculatorExample", 75, 9, 0, 0);
 		$this->doRun("MusicExample", 95, 0, 0, 0);
+		$this->doRun("MusicExampleWithErrors", 54, 10, 0, 0);
 	}
 	
 	public function doRun($file, $right, $wrong, $ignores, $exceptions) {

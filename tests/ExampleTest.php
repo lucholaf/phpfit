@@ -43,6 +43,12 @@ class ExampleTest extends UnitTestCase {
 		$this->runFilename = "examples/input/MusicExample.html";
 	}
 
+    public function xtestMusicExampleWithErrors() {
+		$this->mustFilename = "examples/output/MusicExampleWithErrors.html";
+		$this->runFilename = "examples/input/MusicExampleWithErrors.html";
+	}
+	
+
 }
 
 //unset($GLOBALS['SIMPLE_SUMMARY']);
