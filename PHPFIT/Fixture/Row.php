@@ -54,9 +54,6 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
 				if (array_key_exists($key, $cColumn))
 					$cList = $cColumn[$key];
 				
-				$this->checkList($eList, $cList); continue;
-
-/*				
 				if (!$eList) {
 					$this->surplus = array_merge($this->surplus, $cList);
 				} else if(!$cList) {
@@ -66,7 +63,6 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
 				} else {
 					$this->match($eList, $cList, $col+1);
 				}
-*/
 
 			}
         }
@@ -125,7 +121,7 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
         $result = array();
         
         foreach ($expected as $row) {
-            $cell = $row->parts->at(0);
+            $cell = $row->parts->at($col);
             try {
                 $key = $adapter->parse($cell->text());
                 $result[$key][] = $row;
