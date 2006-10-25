@@ -49,7 +49,6 @@ class PHPFIT_Parse {
     * @param array $tags
     * @param int $level
     * @param int $offset
-    * @param boolean $simple
     */
     public static function create( $text, $tags = null, $level = 0, $offset = 0) {
         
