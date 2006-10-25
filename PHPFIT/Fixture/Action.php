@@ -1,6 +1,7 @@
 <?php
 
 require_once 'PHPFIT/TypeAdapter.php';
+require_once 'PHPFIT/Fixture.php';
 
 class PHPFIT_Fixture_Action extends PHPFIT_Fixture {
     

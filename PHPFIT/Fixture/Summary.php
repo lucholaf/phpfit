@@ -1,5 +1,8 @@
 <?php
 
+require_once 'PHPFIT/Parse.php';
+require_once 'PHPFIT/Fixture.php';
+
 class PHPFIT_Fixture_Summary extends PHPFIT_Fixture {
     
 	public static $countKey = "counts";

@@ -1,8 +1,8 @@
 <?php
 
-require_once 'PHPFIT.php';
 require_once 'PHPFIT/Exception/FileIO.php';
 require_once 'PHPFIT/Fixture.php';
+require_once 'PHPFIT/Parse.php';
 
 class PHPFIT_FileRunner {
     

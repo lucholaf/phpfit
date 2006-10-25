@@ -1,5 +1,7 @@
 <?php
 
+require_once 'PHPFIT/Fixture.php';
+
 class PHPFIT_Fixture_Primitive extends PHPFIT_Fixture {
 	
     /**
