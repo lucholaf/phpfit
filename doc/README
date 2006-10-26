@@ -47,19 +47,15 @@ echo file_get_contents(output.html);
 TODO
 ----
 
-- RowFixture: finish surplus and missing
 - TimedAction: finish "time" and "split" columns
-- PHPFIT::run(). Allow way to specify the output. eg: to a file, to stdout, etc.
-- Achieve more tests coverage.
-- It doesn't pass the FIT specification tests yet.
-- Now works in Windows! (a phpfit-run.bat would be nice too)
-- Document the code according to the PEAR standard!
+- Pass the FIT specification tests.
+- Finish documenting the code according to the PEAR standard.
+- PHPFIT::run(). Allow a way to specify the output. eg: to a file, to stdout, etc.
 
 AUTHOR
 ------
 
 Luis Floreani <luis.floreani@gmail.com>
-gERD Schaufelberger <gerd@php-tools.net>
 
 
 COPYRIGHT AND LICENCE
