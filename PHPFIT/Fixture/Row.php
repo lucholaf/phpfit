@@ -18,9 +18,14 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
     public function doRows( $rows ) {
         try {
             // bind the first row (heads) to function and properties
-            $this->bind( $rows->parts );            
-            $results = $this->query();            
-            $this->match($this->buildArrayFromParser($rows->more), $results, 0);
+            $this->bind( $rows->parts );
+            $results = $this->query();
+			
+			if (!is_array($results)) {
+				throw new Exception(get_class($this) . "::query() returned an empty list");
+			}
+				
+			$this->match($this->buildArrayFromParser($rows->more), $results, 0);
 			$last = $rows->last();
 			$last->more = $this->buildRows($this->surplus);
 			$this->markParse($last->more, 'surplus');
