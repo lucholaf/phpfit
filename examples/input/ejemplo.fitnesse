@@ -1,0 +1,42 @@
+!define COMMAND_PATTERN {php -c /etc/php5/apache2/ /var/www/phpfit/PHPFIT/FitServer.php}
+
+
+!|eg.Temporada|
+|fecha|ponderacion()|
+|2006-12-21|1.0|
+|2006-12-22|1.0|
+|2006-12-23|1.25|
+|2006-12-24|1.25|
+
+!|eg.Precios|
+|hotel|fecha|precioNoche()|
+|aconcagua|2006-12-22|100|
+|aconcagua|2006-12-23|125|
+|hyatt|2006-12-22|200|
+|hyatt|2006-12-23|250|
+
+
+!|fit.Action|
+|start|eg.hoteles.Compra|
+|press|cargar carrito|
+|check|total items carrito|4|
+
+
+!|fit.Action|
+|check|precio total|0|
+|enter|comprar|0|
+|check|precio total|100|
+|enter|comprar|1|
+|check|precio total|200|
+|enter|comprar|2|
+|check|precio total|450|
+|enter|comprar|3|
+|check|precio total|700|
+
+
+!|eg.hoteles.Resumen|
+|hotel|fecha|precio|
+|aconcagua|2006-12-21|100|
+|aconcagua|2006-12-22|100|
+|hyatt|2006-12-23|250|
+|hyatt|2006-12-24|250|
