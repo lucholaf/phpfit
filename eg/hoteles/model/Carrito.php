@@ -5,35 +5,52 @@ require_once 'PonderadorFecha.php';
 
 class Carrito {
 	
-	private static $items = null;
-
-	public function __construct() {
-		if (!self::$items) {
-			self::$items[] = new Item('aconcagua', '2006-12-21');
-			self::$items[] = new Item('aconcagua', '2006-12-22');
-			self::$items[] = new Item('aconcagua', '2006-12-23');
-			self::$items[] = new Item('aconcagua', '2006-12-24');
-		}
+	private $items = null;
+	private $itemsComprados = null;
+	
+	public function agregarItem($item) {
+		$this->items[] = $item;
 	}
 	
 	public function obtenerItem($index) {
-		return self::$items[$index];
+		return $this->items[$index];
 	}
 	
 	public function totalItems() {
-		return count(self::$items);
+		return count($this->items);
 	}
 	
-	public static function obtenerItems() {
-		if (self::$items)
-			return self::$items;
+	public function obtenerItems() {
+		if ($this->items)
+			return $this->items;
+	}
+	
+	public function obtenerItemsComprados() {
+		if ($this->itemsComprados)
+			return $this->itemsComprados;	
+	}
+	
+	public function comprar($index) {
+		$this->itemsComprados[] = $this->items[$index];
+	}
+	
+	public function precioTotal() {
+		if (!$this->itemsComprados)
+			return 0;
+			
+		$total = 0;
+		foreach ($this->itemsComprados as $item) {
+			$total += $item->getPrecio();
+		}
+		return $total;
 	}
 }
 
 class Item {
-	public $hotel;
-	public $fecha;
-	public $precio;
+	
+	private $hotel;
+	private $fecha;	
+	private $precio = null;
 	
 	public function __construct($hotel = null, $fecha = null, $precio = 0) {
 		$this->hotel = $hotel;
@@ -50,10 +67,22 @@ class Item {
 		$this->precio = $catalogo->obtenerPrecio($this->hotel) * $ponderador->obtenerPonderacion($this->fecha);
 	}
 	
+	public function getPrecio() {
+		return $this->precio;
+	}
+	
+	public function getHotel() {
+		return $this->hotel;
+	}
+	
+	public function getFecha() {
+		return $this->fecha;
+	}
+	
 	public $typeDict = array (
-		"hotel" 	=> "string",
-		"fecha" 	=> "string",
-		"precio" 	=> "int"
+		"getHotel()" 	=> "string",
+		"getFecha()" 	=> "string",
+		"getPrecio()" 	=> "int"
 		);
 }
 

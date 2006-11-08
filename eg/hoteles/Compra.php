@@ -5,10 +5,13 @@ require_once 'eg/hoteles/model/Carrito.php';
 class Compra extends PHPFIT_Fixture {
 
 	private static $carrito;
-	private static $itemsComprados;
 	
 	public function cargarCarrito() {
 		self::$carrito = new Carrito();
+		self::$carrito->agregarItem(new Item('aconcagua', '2006-12-21'));
+		self::$carrito->agregarItem(new Item('aconcagua', '2006-12-22'));
+		self::$carrito->agregarItem(new Item('aconcagua', '2006-12-23'));
+		self::$carrito->agregarItem(new Item('aconcagua', '2006-12-24'));
 	}
 	
 	public function totalItemsCarrito() {
@@ -16,19 +19,11 @@ class Compra extends PHPFIT_Fixture {
 	}
 	
 	public function comprar($index) {
-		$itemNuevo = self::$carrito->obtenerItem($index);
-		self::$itemsComprados[] = $itemNuevo;
+		self::$carrito->comprar($index);
 	}
 	
 	public function precioTotal() {
-		if (!self::$itemsComprados)
-			return 0;
-			
-		$total = 0;
-		foreach (self::$itemsComprados as $item) {
-			$total += $item->precio;
-		}
-		return $total;
+		return self::$carrito->precioTotal();
 	}
 	
 	public static function obtenerItemsCarrito() {
@@ -38,8 +33,9 @@ class Compra extends PHPFIT_Fixture {
 	}
 	
 	public static function obtenerItemsComprados() {
-		if (self::$itemsComprados)
-			return self::$itemsComprados;
+		if (self::$carrito) {
+			return self::$carrito->obtenerItemsComprados();
+		}
 	}
 	
 	public $typeDict = array (

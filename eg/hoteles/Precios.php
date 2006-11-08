@@ -9,7 +9,7 @@ class Precios extends PHPFIT_Fixture_Column {
 	
 	public function precioNoche() {
 		$item = new Item($this->hotel, $this->fecha);
-		return $item->precio;
+		return $item->getPrecio();
 	}	
 
 	public $typeDict = array(
