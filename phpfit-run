@@ -16,5 +16,6 @@ if( count( $argv ) < 3 ) {
 	return 1;
 }
 
-PHPFIT::run($argv[1], $argv[2], $fixturesDirectory);
+echo PHPFIT::run($argv[1], $argv[2], $fixturesDirectory) . "\n";
+
 ?>

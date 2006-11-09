@@ -1,0 +1,5 @@
+v0.51:
+------
+
+- PHPFIT::run() now returns a string with the results instead of printing them to STDERR.
+- PHPFIT::run() now output a more informative error in case a parse exception arise.

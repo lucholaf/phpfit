@@ -107,7 +107,7 @@ class PHPFIT_TypeAdapter {
     * @return true if type matches, false otherwise
     */
 	public static function is_bool( $type ) {
-        if( $type == 'boolean' || $type == 'bool' ) {
+        if( strtolower($type) == 'boolean' || strtolower($type) == 'bool' ) {
             return true;
         }
         return false;
@@ -120,7 +120,7 @@ class PHPFIT_TypeAdapter {
     * @return true if type matches, false otherwise
     */
 	public static function is_int($type) {
-        if( $type == 'integer' || $type == 'int' ) {
+        if( strtolower($type) == 'integer' || strtolower($type) == 'int' ) {
             return true;
         }
         return false;
@@ -133,7 +133,7 @@ class PHPFIT_TypeAdapter {
     * @return true if type matches, false otherwise
     */
 	public static function is_double( $type ) {
-		return $type == 'double';
+		return ( strtolower($type) == 'double' || strtolower($type) == 'float');
 	}
     
     /**
@@ -143,7 +143,7 @@ class PHPFIT_TypeAdapter {
     * @return true if type matches, false otherwise
     */
 	public static function is_string($type) {
-		return $type == 'string';
+		return strtolower($type) == 'string';
 	}
     
 

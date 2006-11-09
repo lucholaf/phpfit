@@ -44,13 +44,36 @@ echo file_get_contents(output.html);
 ?>
 
 
+DATA TYPES
+===========
+
+In your fixtures you must specify the data types of each variable and function return. e.g:
+
+	class YourClass extends PHPFIT_Fixture_Column {
+	...
+	public $typeDict = array(
+    	"x" 		=> "integer",
+		"y" 		=> "integer",
+		"plus()" 	=> "integer"
+	);
+	...
+	}
+	
+here are the possibilities:
+
+- "integer" or "int"
+- "bool" or "boolean"
+- "double" or "float"
+- "string"
+- "ScientificDouble"
+
+
 TODO
 ----
 
 - TimedAction: finish "time" and "split" columns
 - Pass the FIT specification tests.
 - Finish documenting the code according to the PEAR standard.
-- PHPFIT::run(). Allow a way to specify the output. eg: to a file, to stdout, etc.
 
 AUTHOR
 ------

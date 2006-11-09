@@ -47,7 +47,7 @@ class Calculator extends PHPFIT_Fixture_Column {
 	}
     
 	public $typeDict = array(
-    "key" => "string",
+    "key" => "String",
     "volts" => "double",
     "points()" => "boolean",
     "flash()" => "boolean",

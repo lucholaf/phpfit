@@ -341,12 +341,12 @@ class PHPFIT_Fixture {
     * a member variable or return value of a member function is
     * 
     * Type is one of:
-    *  - integer
+	*  - boolean or bool
+    *  - integer or int
+	*  - float or double
     *  - string
     *  - array
-    *  - object
     *  - object:CLASSNAME 
-    *  - callable
     * 
     * @todo As PHP does automatica type conversation, I reckon this can be spared
     * @param string $name of property or method
