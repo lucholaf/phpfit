@@ -145,12 +145,13 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
 		
 		/* e.g: calc price () -> returns calcPrice */
 		if (stripos($name, ' ') !== false) {
-			return substr($this->camel($name), 0, strlen($name) - 4);
+			$camelName = $this->camel($name);
+			return substr($camelName, 0, strlen($camelName) - strlen($suffix));
 		}
 		
 		/* e.g: calcPrice() -> returns calcPrice */
 		if (strstr($name, $suffix) !== false)		
-			return substr($this->camel($name), 0, strlen($name) - 2);
+			return substr($this->camel($name), 0, strlen($name) - strlen($suffix));
 		
 		return false;
 	}
