@@ -127,7 +127,7 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
 				} else if (($methodName = $this->getMethodName($name)) !== false) {
 					$this->columnBindings[$i] = $this->bindMethod($methodName);
 				} else {
-					$this->columnBindings[$i] = $this->bindField($name);
+					$this->columnBindings[$i] = $this->bindField($this->camel($name));
 				}
 			} catch (Exception $e) {
 				$this->exception($heads, $e);
@@ -137,22 +137,19 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
 	}
 	
 	/**
+	* e.g: calcPrice() 	-> returns calcPrice
+	* e.g: calc price () 	-> returns calcPrice
+	*
 	* @param string $name
 	* @return string
 	*/
 	protected function getMethodName($name) {
 		$suffix = "()";
-		
-		/* e.g: calc price () -> returns calcPrice */
-		if (stripos($name, ' ') !== false) {
+				
+		if (strstr($name, $suffix) !== false) {		
 			$camelName = $this->camel($name);
-			return substr($camelName, 0, strlen($camelName) - strlen($suffix));
+			return substr($this->camel($name), 0, strlen($camelName) - strlen($suffix));
 		}
-		
-		/* e.g: calcPrice() -> returns calcPrice */
-		if (strstr($name, $suffix) !== false)		
-			return substr($this->camel($name), 0, strlen($name) - strlen($suffix));
-		
 		return false;
 	}
 	
