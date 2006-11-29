@@ -1,39 +1,48 @@
 !define COMMAND_PATTERN {php -c /etc/php5/apache2/ /var/www/phpfit/PHPFIT/FitServer.php}
 
-!|eg.hoteles.Temporada|
-|fecha|ponderacion()|
-|2006-12-21|1.0|
-|2006-12-22|1.0|
-|2006-12-23|1.25|
-|2006-12-24|1.25|
+!2 Hoteles: Precios por noche
+
+Para las fechas mayores al 22 de Diciembre del 2006 hay una sobrevaluación del 25% del valor de la noche.
+
+Precios por Noche:
+ * Hotel A: '''100'''
+ * Hotel B: '''125'''
 
 !|eg.hoteles.Precios|
-|hotel|fecha|precioNoche()|
-|aconcagua|2006-12-22|100|
-|aconcagua|2006-12-23|125|
-|hyatt|2006-12-22|200|
-|hyatt|2006-12-23|250|
+|nombre hotel|fecha|precio noche ()|
+|hotel A|2006-12-22|100|
+|hotel B|2006-12-22|200|
+|hotel A|2006-12-23|125|
+|hotel B|2006-12-23|250|
+
+!2 Hoteles: Carrito de compras + Compra
+
+Primero el fixture carga un carrito con 4 items:
+ * Hotel A - fecha: 2006-12-21
+ * Hotel A - fecha: 2006-12-22
+ * Hotel A - fecha: 2006-12-23
+ * Hotel A - fecha: 2006-12-24
 
 !|fit.Action|
-|start|eg.hoteles.Compra|
-|press|cargar carrito|
-|check|total items carrito|4|
+|start |eg.hoteles.Compra|
+|press |cargar carrito|
+|check |total items carrito |4|
 
-|eg.hoteles.!-CarritoLista-!|
-|hotel|fecha|precio|
-|aconcagua|2006-12-21|100|
-|aconcagua|2006-12-22|100|
-|aconcagua|2006-12-23|125|
-|aconcagua|2006-12-24|125|
+Listamos los items del carrito
+
+!|eg.hoteles.CarritoLista|
+|get hotel () |get fecha () |
+|hotel A |2006-12-21 |
+|hotel A |2006-12-22 |
+|hotel A |2006-12-23 |
+|hotel A |2006-12-24 |
+
+Luego ejecutamos la compra consecutiva de 2 items y chequeamos el precio total de la compra
 
 !|fit.Action|
-|check|precio total|0|
-|enter|comprar|1|
-|check|precio total|100|
-|enter|comprar|2|
-|check|precio total|225|
+|check |precio total |0|
+|enter |comprar item |2|
+|check |precio total |100|
+|enter |comprar item |3|
+|check |precio total |225|
 
-!|eg.hoteles.!-CompraLista-!|
-|hotel|fecha|precio|
-|aconcagua|2006-12-22|100|
-|aconcagua|2006-12-23|125|

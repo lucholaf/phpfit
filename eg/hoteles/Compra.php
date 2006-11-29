@@ -8,18 +8,18 @@ class Compra extends PHPFIT_Fixture {
 	
 	public function cargarCarrito() {
 		self::$carrito = new Carrito();
-		self::$carrito->agregarItem(new Item('aconcagua', '2006-12-21'));
-		self::$carrito->agregarItem(new Item('aconcagua', '2006-12-22'));
-		self::$carrito->agregarItem(new Item('aconcagua', '2006-12-23'));
-		self::$carrito->agregarItem(new Item('aconcagua', '2006-12-24'));
+		self::$carrito->agregarItem(new Item('hotel A', '2006-12-21'));
+		self::$carrito->agregarItem(new Item('hotel A', '2006-12-22'));
+		self::$carrito->agregarItem(new Item('hotel A', '2006-12-23'));
+		self::$carrito->agregarItem(new Item('hotel A', '2006-12-24'));
 	}
 	
 	public function totalItemsCarrito() {
 		return self::$carrito->totalItems();
 	}
 	
-	public function comprar($index) {
-		self::$carrito->comprar($index);
+	public function comprarItem($index) {
+		self::$carrito->comprar($index-1);
 	}
 	
 	public function precioTotal() {

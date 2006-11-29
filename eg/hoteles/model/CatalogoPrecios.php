@@ -5,8 +5,8 @@ require_once 'PonderadorFecha.php';
 class CatalogoPrecios {
 	
 	private $catalogo = array(
-		'aconcagua' 	=> 100,
-		'hyatt' 		=> 200,
+		'hotel A'	=> 100,
+		'hotel B' 	=> 200,
 		);
 		
 	public function obtenerPrecio($hotel) {
