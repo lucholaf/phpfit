@@ -381,19 +381,21 @@ class PHPFIT_Fixture {
     /**
     * CamelCaseString auxiliary function
     * 
-    * @todo This looks quite fragile - consider using preg_replace
     * @param string $string
     * @return string
     */   
     public static function camel( $string ) {
-        while( ( $pos = stripos($string, ' ' ) ) !== false ) {
-            $characterUpper = strtoupper( $string[$pos+1] );
-            $string[$pos+1] = $characterUpper;
-            $string[$pos] = "&";
+		/* clear extra spaces */
+		$string = preg_replace('/\s\s+/', ' ', $string);
+		
+		while( ( $pos = stripos($string, ' ' ) ) !== false ) {
+            $string[$pos+1] = strtoupper( $string[$pos+1] );
+			$firstPart = substr($string, 0, $pos);
+			$secondPart = substr($string, $pos + 1);
+			$string = $firstPart . $secondPart;
         }
         
-        $string = str_replace('&', '', $string);
-        return $string;
+		return $string;
     }
     
     /**

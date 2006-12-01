@@ -10,7 +10,7 @@ class PonderadorFecha {
 	/**
 	* Factor multiplicativo que afecta la ponderacion
 	*/
-	private $FACTOR = 1.25;
+	private $FACTOR = 1.20;
 	
 	/**
 	* @param Date $fecha
