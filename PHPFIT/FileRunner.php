@@ -51,7 +51,7 @@ class PHPFIT_FileRunner {
         
         // check output file
         if (!self::isWritable($out)) {
-            throw new PHPFIT_Exception_FileIO( 'Output file is not writable (probably a problem of file permissions)', realpath($out) );
+            throw new PHPFIT_Exception_FileIO( 'Output file is not writable (probably a problem of file permissions)', $out);
         }
         
         // summary data
