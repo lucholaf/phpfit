@@ -26,7 +26,7 @@ class WeeklyTimesheet {
 			$extra = $this->standardHours - 40;
 			$tempHours = 40;
 		}
-		return $wage * ($tempHours + $extra * 1.5 + $this->holidayHours * 2);	
+		return (int)($wage * ($tempHours + $extra * 1.5 + $this->holidayHours * 2));	
         
 	}
 	
