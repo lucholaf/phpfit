@@ -1,6 +1,7 @@
-v0.51:
+v0.55:
 ------
 
+- Strict (===) comparison in type adapters
 - PHPFIT::run() now returns a string with the results instead of printing them to STDERR.
 - PHPFIT::run() now output a more informative error in case a parse exception arise.
 - TypeDict now case insensitive and the README file list the possibilities.
