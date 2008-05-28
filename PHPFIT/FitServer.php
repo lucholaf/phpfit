@@ -71,13 +71,22 @@ class PHPFIT_FitServer {
     * @param array $args
     */
     public function run($args) {
-        if (count($args) != 4) {
+        if (count($args) < 4) {
             echo "Usage: php FitServer.php <host> <port> <test_ticket>";
             return -1;
         }
+        
+        $fixturePath = null;
+        if (count($args) == 5) {
+        	$fixturePath = $args[1];
+        	array_shift($args);
+        }
+        
+        array_shift($args);
+        
         try {
-            $this->init($args[1], $args[2], $args[3]);
-            $this->process();
+            $this->init($args[0], $args[1], $args[2]);
+            $this->process($fixturePath);
             $out = $this->finish();
         } catch (Exception $e) {
             echo $e->getMessage();
@@ -86,7 +95,6 @@ class PHPFIT_FitServer {
         
         return $out;
     }
-    
     
     /**
     * @param string $host
@@ -107,8 +115,8 @@ class PHPFIT_FitServer {
         }
     }
     
-    public function process() {        
-        $output = $this->processDocument($this->getDocument());
+    public function process($fixturePath) {        
+        $output = $this->processDocument($fixturePath, $this->getDocument());
         $this->putDocument($output);
         $this->putSummary();                
     }
@@ -126,8 +134,8 @@ class PHPFIT_FitServer {
     * @param string $input
     * @return string
     */
-    private function processDocument($input) {
-        $fixture  = new PHPFIT_Fixture();
+    private function processDocument($fixturePath, $input) {
+        $fixture  = new PHPFIT_Fixture($fixturePath);
         $tables = PHPFIT_Parse::create($input);
         $fixture->doTables($tables);
 

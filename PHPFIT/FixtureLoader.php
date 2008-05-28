@@ -12,7 +12,7 @@ class PHPFIT_FixtureLoader {
     */
     public static function load($fixtureName, $fixturesDirectory) {
         
-        $fixtureInfo = self::getFixtureInfo($fixtureName, $fixturesDirectory);
+        $fixtureInfo = self::getFixtureInfo($fixtureName);
         
         if ($fixtureInfo['fit']) {
             $filename =  $fixtureInfo['filename'];   
@@ -21,7 +21,7 @@ class PHPFIT_FixtureLoader {
         }
         
         if (PHPFIT_Fixture::fc_incpath('is_readable', $filename)) {
-            include_once $filename;
+            require_once $filename;
         } else {
             throw new Exception( 'Could not load Fixture ' . $fixtureInfo['classname'] . ' from ' . $filename);
         }
@@ -32,7 +32,7 @@ class PHPFIT_FixtureLoader {
     * @param string $fixtureName
     * @return array
     */    
-    public static function getFixtureInfo($fixtureName, $fixturesDirectory = null) {       
+    public static function getFixtureInfo($fixtureName) {       
         
         if( strncmp( self::$fitPrefix, $fixtureName, strlen(self::$fitPrefix) ) == 0 ) {            
             $filenamePiece = self::getFitFilenamePiece($fixtureName);
@@ -54,7 +54,7 @@ class PHPFIT_FixtureLoader {
     * @return string
     */      
     private static function getFitFilenamePiece($fixtureName) {
-        $fixtureName = substr( $fixtureName, strlen(self::$fitPrefix) );
+        $fixtureName = substr( $fixtureName, strlen(self::$fitPrefix));
         return self::$fitFixturesDirectory . $fixtureName;
     }
     
@@ -80,7 +80,10 @@ class PHPFIT_FixtureLoader {
     */     
     private static function getCommonClassname($filenamePiece) {
         $pos = strrpos($filenamePiece, '/');
-        return substr($filenamePiece, $pos + 1);
+        if ($pos !== false)
+	        return substr($filenamePiece, $pos+1);
+	    else
+	    	return $filenamePiece;
     }
 }
 
