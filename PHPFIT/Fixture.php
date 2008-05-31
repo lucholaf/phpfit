@@ -404,6 +404,9 @@ class PHPFIT_Fixture {
     * @return return mixed 
     */    
     public static function fc_incpath($function, $file) {
+        if ($function($file))
+	    return $file;
+			
         $paths = explode(PATH_SEPARATOR, get_include_path() . PATH_SEPARATOR);
         
         foreach ($paths as $path) {

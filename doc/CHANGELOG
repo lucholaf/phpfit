@@ -1,3 +1,9 @@
+v0.6:
+-----
+
+- Now supports adding a custom fixture path when using fitnesse (see README)
+- Fix some minor bugs on windows
+
 v0.55:
 ------
 

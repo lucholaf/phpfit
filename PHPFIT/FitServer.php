@@ -178,11 +178,8 @@ class PHPFIT_FitServer {
     }
 }
 
-/* If this is the script executed, run the fitserver */
-if ($_SERVER['SCRIPT_NAME'] == __FILE__ ) {
-    $fitserver = new PHPFIT_FitServer(new PHPFIT_Socket());
-    $out = $fitserver->run($argv);
-    exit($out);
-}
+$fitserver = new PHPFIT_FitServer(new PHPFIT_Socket());
+$out = $fitserver->run($argv);
+exit($out);
 
 ?>
