@@ -39,20 +39,6 @@ class FixtureLoaderTest extends UnitTestCase {
             $this->fail("Exception not expected here: " . $e->getMessage());
         }
     }
-
-    public function xtestFitFixtures() {
-        $fixtureInfo = PHPFIT_FixtureLoader::getFixtureInfo('fit.Action');
-
-        $this->assertEqual('PHPFIT/Fixture/Action.php', $fixtureInfo['filename']);
-        $this->assertEqual('PHPFIT_Fixture_Action', $fixtureInfo['classname']);
-    }
-
-    public function xtestCommonFixtures() {
-        $fixtureInfo = PHPFIT_FixtureLoader::getFixtureInfo('eg.Arith');
-
-        $this->assertEqual('eg/Arith.php', $fixtureInfo['filename']);
-        $this->assertEqual('Arith', $fixtureInfo['classname']);
-    }
 }
 
 ?>
