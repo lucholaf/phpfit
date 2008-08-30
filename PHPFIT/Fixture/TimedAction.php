@@ -4,7 +4,7 @@ require_once 'PHPFIT/Parse.php';
 require_once 'PHPFIT/Fixture/Action.php';
 
 class PHPFIT_Fixture_TimedAction extends PHPFIT_Fixture_Action {
-    
+
     /**
     * @param PHPFIT_Parse $table
     */
@@ -15,13 +15,13 @@ class PHPFIT_Fixture_TimedAction extends PHPFIT_Fixture_Action {
         $table->parts->parts->last()->more = $this->td("split");
 */
     }
-    
+
     /**
     * @param PHPFIT_Parse $cells
     */
     public function doCells($cells) {
         $start  = $this->theTime();
-        parent::doCells($cells);        
+        parent::doCells($cells);
 /*        
         $cells->last()->more = $this->td(date('H:m:s', $start));
         $split = $this->theTime() - $start;
@@ -33,14 +33,14 @@ class PHPFIT_Fixture_TimedAction extends PHPFIT_Fixture_Action {
         $cells->last()->more = $this->td($text);
 */
     }
-    
+
     /**
     * @return int: seconds
     */
     public function theTime() {
         return time();
     }
-    
+
     /**
     * @param string $body
     * @return PHPFIT_Parse

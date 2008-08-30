@@ -3,7 +3,7 @@
 require_once 'PHPFIT/Fixture.php';
 
 class PHPFIT_Fixture_Primitive extends PHPFIT_Fixture {
-	
+
     /**
     * @param mixed $value
     * @return integer
@@ -14,18 +14,18 @@ class PHPFIT_Fixture_Primitive extends PHPFIT_Fixture {
         }
         return intval($value);
     }
-    
-	/**
+
+   /**
     * @param PHPFIT_Parse $cell
     * @param string/int $value
     */
     public function check( $cell, $value ) {
         if( $cell->text() == strval($value)) {
-            $this->right( $cell );            
-        } else {        
+            $this->right( $cell );
+        } else {
             $this->wrong($cell, $value);
         }
-	}
+    }
 }
 
 ?>

@@ -14,8 +14,9 @@ $test->addTestFile('tests/FrameworkTest.php');
 $test->addTestFile('tests/RowFixtureTest.php');
 
 if (TextReporter::inCli()) {
-    exit($test->run(new TextReporter()) ? 0 : 1);
+    $test->run(new TextReporter());
+} else {
+    $test->run(new HtmlReporter());
 }
-$test->run(new HtmlReporter());
 
 ?>
