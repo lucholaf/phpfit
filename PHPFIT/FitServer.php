@@ -1,18 +1,6 @@
 <?php
 
-/*
-http://fitnesse.org/FitNesse.FitServerProtocol
-
-put this in your wiki pages:
-!define COMMAND_PATTERN {php /path/to/PHPFIT/FitServer.php}
-
-TODO: complete the "Transaction Error in the Protocol spec.
-*/
-
-error_reporting(E_ALL);
-
 require_once 'PHPFIT/Fixture.php';
-
 
 /**
 * a socket wrapper
@@ -177,9 +165,5 @@ class PHPFIT_FitServer {
         $this->socket->write($intValue, strlen($intValue));        
     }
 }
-
-$fitserver = new PHPFIT_FitServer(new PHPFIT_Socket());
-$out = $fitserver->run($argv);
-exit($out);
 
 ?>

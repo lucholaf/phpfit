@@ -18,7 +18,7 @@ SYNOPSYS
 4a) From Fitnesse! (http://fitnesse.org/) ;)
 
 put this in your wiki pages:
-!define COMMAND_PATTERN {php /path/to/PHPFIT/FitServer.php [/path/to/fixtures]}
+!define COMMAND_PATTERN {php /path/to/phpfit/phpfit-fitnesse.php [/path/to/fixtures]}
 
 
 4b) From the CLI:
