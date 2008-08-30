@@ -3,7 +3,7 @@
 require_once 'PHPFIT/Fixture/Column.php';
 require_once 'PHPFIT/ScientificDouble.php';
 
-class Calculator extends PHPFIT_Fixture_Column {
+class eg_Calculator extends PHPFIT_Fixture_Column {
     public $volts = 0.0;
     public $key = "";
 

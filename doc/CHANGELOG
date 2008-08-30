@@ -1,3 +1,9 @@
+v0.7:
+-----
+
+- FitServer separated from the running script (phpfit-fitnesse.php)
+- PEAR-style classnames allowed for custom fixtures
+
 v0.6:
 -----
 

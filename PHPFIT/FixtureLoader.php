@@ -1,9 +1,11 @@
 <?php
 
+require_once 'PHPFIT/Fixture.php';
+
 class PHPFIT_FixtureLoader {
 
     private static $fitPrefix = 'fit.';
-    private static $fitFixturesDirectory = 'PHPFIT/Fixture/';
+    private static $fitFixturesDirectory = 'PHPFIT/Fixture';
 
     /**
     * @param string $fixtureName
@@ -11,80 +13,58 @@ class PHPFIT_FixtureLoader {
     * @return PHPFIT_Fixture
     */
     public static function load($fixtureName, $fixturesDirectory) {
-
-        $fixtureInfo = self::getFixtureInfo($fixtureName);
-
-        if ($fixtureInfo['fit']) {
-            $filename =  $fixtureInfo['filename'];
+        if (substr($fixtureName, 0, strlen(self::$fitPrefix)) == self::$fitPrefix) {
+            return self::loadFitFixture($fixtureName);
         } else {
-            $filename = $fixturesDirectory . $fixtureInfo['filename'];
+            return self::loadUserFixture($fixtureName, $fixturesDirectory);
         }
+    }
 
+    private static function loadUserFixture($fixtureName, $fixturesDirectory) {
+        if ($fixturesDirectory != null)
+            $filename = $fixturesDirectory . DIRECTORY_SEPARATOR . str_replace('.', '/', $fixtureName) . '.php';
+        else
+            $filename = str_replace('.', '/', $fixtureName) . '.php';
+
+        self::loadFile($filename);
+    
+        $pos = strrpos($fixtureName, '.');
+        if ($pos !== false)
+            $commonClassname =  substr($fixtureName, $pos + 1);
+        else
+            $commonClassname = $filename;
+            
+        if (class_exists($commonClassname))
+            return new $commonClassname;
+            
+        $pearClassname =  str_replace('.', '_', $fixtureName);
+        
+        if (class_exists($pearClassname))
+            return new $pearClassname;
+            
+        throw new Exception('Class could not be found in file ' . $filename);
+    }
+    
+    private static function loadFitFixture($fixtureName) {
+        $fixtureWithoutPrefix = str_replace('fit.', '', $fixtureName);
+        
+        $filename = self::$fitFixturesDirectory . DIRECTORY_SEPARATOR . str_replace('.', '/', $fixtureWithoutPrefix) . '.php';
+    
+        self::loadFile($filename);
+        
+        $classname = str_replace('/', '_', self::$fitFixturesDirectory) . '_' . $fixtureWithoutPrefix;
+        
+        return new $classname;
+    }
+    
+    private static function loadFile($filename) {
         if (PHPFIT_Fixture::fc_incpath('is_readable', $filename)) {
             require_once $filename;
         } else {
-            throw new Exception( 'Could not load Fixture ' . $fixtureInfo['classname'] . ' from ' . $filename);
+            throw new Exception( 'Could not load file ' . $filename);
         }
-        return new $fixtureInfo['classname'];
     }
 
-    /**
-    * @param string $fixtureName
-    * @return array
-    */
-    public static function getFixtureInfo($fixtureName) {
-
-        if( strncmp( self::$fitPrefix, $fixtureName, strlen(self::$fitPrefix) ) == 0 ) {
-            $filenamePiece = self::getFitFilenamePiece($fixtureName);
-            $classname = self::getFitClassname($filenamePiece);
-            $array['fit'] = true;
-        } else {
-            $filenamePiece = self::getCommonFilenamePiece($fixtureName);
-            $classname = self::getCommonClassname($filenamePiece);
-            $array['fit'] = false;
-        }
-
-        $array['filename'] = $filenamePiece . '.php';
-        $array['classname'] = $classname;
-        return $array;
-    }
-
-    /**
-    * @param string $fixtureName
-    * @return string
-    */
-    private static function getFitFilenamePiece($fixtureName) {
-        $fixtureName = substr( $fixtureName, strlen(self::$fitPrefix));
-        return self::$fitFixturesDirectory . $fixtureName;
-    }
-
-    /**
-    * @param string $fixtureName
-    * @return string
-    */
-    private static function getCommonFilenamePiece($fixtureName) {
-        return str_replace( '.', '/', $fixtureName );
-    }
-
-    /**
-    * @param string $filenamePiece
-    * @return string
-    */
-    private static function getFitClassname($filenamePiece) {
-        return str_replace( '/', '_', $filenamePiece );
-    }
-
-    /**
-    * @param string $filenamePiece
-    * @return string
-    */
-    private static function getCommonClassname($filenamePiece) {
-        $pos = strrpos($filenamePiece, '/');
-        if ($pos !== false)
-        return substr($filenamePiece, $pos+1);
-        else
-        return $filenamePiece;
-    }
 }
 
 ?>
