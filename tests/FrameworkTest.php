@@ -7,7 +7,7 @@ require_once 'PHPFIT/Fixture/Column.php';
 class FrameworkTest extends UnitTestCase {
 
     public function testRuns() {
-        $this->doRun("arithmetic", 40, 7, 0, 2);
+        $this->doRun("arithmetic", 32, 7, 0, 2);
         $this->doRun("compensation", 24, 0, 0, 0);
         $this->doRun("CalculatorExample", 75, 9, 0, 0);
         $this->doRun("MusicExample", 95, 0, 0, 0);

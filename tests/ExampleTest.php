@@ -22,7 +22,7 @@ class ExampleTest extends UnitTestCase {
         $this->assertEqual($is, $must);
     }
 
-    public function XtestArithmeticExample() {
+    public function testArithmeticExample() {
         $this->mustFilename = "examples/output/arithmetic.html";
         $this->runFilename = "examples/input/arithmetic.html";
     }
