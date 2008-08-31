@@ -31,9 +31,9 @@ class PHPFIT_FixtureLoader {
     */
     private static function loadUserFixture($fixtureName, $fixturesDirectory) {
         if ($fixturesDirectory != null)
-            $filename = $fixturesDirectory . DIRECTORY_SEPARATOR . str_replace('.', DIRECTORY_SEPARATOR, $fixtureName) . '.php';
+            $filename = $fixturesDirectory . '/' . str_replace('.', '/', $fixtureName) . '.php';
         else
-            $filename = str_replace('.', DIRECTORY_SEPARATOR, $fixtureName) . '.php';
+            $filename = str_replace('.', '/', $fixtureName) . '.php';
 
         self::loadFile($filename);
     
@@ -64,11 +64,11 @@ class PHPFIT_FixtureLoader {
     private static function loadFitFixture($fixtureName) {
         $fixtureWithoutPrefix = str_replace('fit.', '', $fixtureName);
         
-        $filename = self::$fitFixturesDirectory . DIRECTORY_SEPARATOR . str_replace('.', DIRECTORY_SEPARATOR, $fixtureWithoutPrefix) . '.php';
+        $filename = self::$fitFixturesDirectory . '/' . str_replace('.', '/', $fixtureWithoutPrefix) . '.php';
     
         self::loadFile($filename);
         
-        $classname = str_replace(DIRECTORY_SEPARATOR, '_', self::$fitFixturesDirectory) . '_' . $fixtureWithoutPrefix;
+        $classname = str_replace('/', '_', self::$fitFixturesDirectory) . '_' . $fixtureWithoutPrefix;
         
         if (class_exists($classname))
             return new $classname;
