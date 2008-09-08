@@ -44,12 +44,12 @@ class PHPFIT_FixtureLoader {
             $commonClassname = $filename;
             
         if (class_exists($commonClassname))
-            return new $commonClassname;
+            return new $commonClassname($fixturesDirectory);
             
         $pearClassname =  str_replace('.', '_', $fixtureName);
         
         if (class_exists($pearClassname))
-            return new $pearClassname;
+            return new $pearClassname($fixturesDirectory);
             
         throw new Exception('Class "'. $commonClassname. '" or "' . $pearClassname . '" could not be found in file ' . $filename);
     }
