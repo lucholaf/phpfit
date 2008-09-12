@@ -18,35 +18,77 @@ class PHPFIT_ClassHelper {
     * @todo As PHP does automatica type conversation, I reckon this can be spared
     * @param string|object $classOrObject object to retrieve return type from
     * @param string $name of property or method
-    * @param bool $property: 'method' or 'field'
+    * @param string $property: 'method' or 'field'
     * @return string
     */
-    public static function getType( $classOrObject, $name, $property) {
+    public static function getType($classOrObject, $name, $property) {
 
         if( $property == 'method' ) {
-            if( !method_exists( $classOrObject, $name ) ) {
-                throw new Exception( 'Method does not exist! ' .self::getClassForClassOrObject( $classOrObject ) . '->' . $name );
-                return null;
-            }
-            $name .= '()';
+			return self::getTypeForMethod($classOrObject, $name);
         } else if ($property == 'field'){
-            if( !property_exists( $classOrObject, $name ) ) {
-                throw new Exception( 'Property does not exist! ' .self::getClassForClassOrObject( $classOrObject ) . '->' . $name );
-                return null;
-            }
+			return self::getTypeForField($classOrObject, $name);
         } else {
             throw new Exception( 'getType(): No property Method or Field defined! ');
         }
+    }
 
+	/**
+	 * Delegates to getType(), but the argument here is an array
+	 * <code>
+	 * 	$methodOrField = array(
+	 * 		$classOrObject,
+	 * 		$name,
+	 * 		$property
+	 * 	);
+	 * </code>
+	 * 
+	 * For future use with PHPFITLibrary
+	 * @param array $methodOrField
+	 */
+	public function getTypeForMethodOrField($methodOrField)
+	{
+	    assert(array_keys($methodOrField) == array(0, 1, 2));
+	    return self::getType($methodOrField[0], $methodOrField[1], $methodOrField[2]);
+	}
+
+	/**
+     * @param string|object $classOrObject object to retrieve return type from
+     * @param string $name of method
+     * @return string
+	 */
+	public static function getTypeForMethod($classOrObject, $name)
+	{
+        if(!method_exists($classOrObject, $name)) {
+            throw new Exception('Method does not exist! ' .self::getClassForClassOrObject($classOrObject) . '->' . $name);
+            return null;
+        }
+        $name .= '()';
+        return self::getTypeDictValue($classOrObject, $name);
+	}
+
+	/**
+     * @param string|object $classOrObject object to retrieve return type from
+     * @param string $name of property
+     * @return string
+	 */
+	public static function getTypeForField($classOrObject, $name)
+	{
+        if( !property_exists( $classOrObject, $name ) ) {
+            throw new Exception( 'Property does not exist! ' .self::getClassForClassOrObject( $classOrObject ) . '->' . $name );
+            return null;
+        }
+        return self::getTypeDictValue($classOrObject, $name);
+	}
+
+	protected function getTypeDictValue($classOrObject, $name)
+	{
         $typeDict = self::getTypeDictForClassOrObject($classOrObject);
-
         if( !isset( $typeDict[$name] ) ) {
             throw new Exception( 'Property has no definition in $typeDict! ' . self::getClassForClassOrObject( $classOrObject ) . '->' . $name );
             return null;
         }
-
         return $typeDict[$name];
-    }
+	}
 
     /**
      * Get the $typeDict property for the object or class.

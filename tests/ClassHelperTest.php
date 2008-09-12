@@ -57,6 +57,15 @@ class ClassHelperTest extends UnitTestCase {
             $this->assertEqual(PHPFIT_ClassHelper::getType($object, 'x', 'field'), 'integer', 'getType for property given object' . $class);
         }
     }
+
+    public function testGetTypeForMethodOrField()
+    {
+        foreach ($this->classes as $class) {
+            $object = $this->getInstance($class);
+            $this->assertEqual(PHPFIT_ClassHelper::getTypeForMethodOrField(array($object, 'floating', 'method')), 'double', 'getType for method given object' . $class);
+            $this->assertEqual(PHPFIT_ClassHelper::getTypeForMethodOrField(array($object, 'x', 'field')), 'integer', 'getType for property given object' . $class);
+        }
+    }
 }
 
 ?>

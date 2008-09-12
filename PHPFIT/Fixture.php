@@ -344,7 +344,7 @@ class PHPFIT_Fixture {
     * @todo As PHP does automatica type conversation, I reckon this can be spared
     * @param string|object $classOrObject object to retrieve return type from
     * @param string $name of property or method
-    * @param bool $property: 'method' or 'field'
+    * @param string $property: 'method' or 'field'
     * @return string
     */
     public static function getType($classOrObject, $name, $property) {
