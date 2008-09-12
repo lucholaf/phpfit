@@ -24,13 +24,13 @@ class PHPFIT_ClassHelper {
     public static function getType( $classOrObject, $name, $property) {
 
         if( $property == 'method' ) {
-            if( !self::methodExists( $classOrObject, $name ) ) {
+            if( !method_exists( $classOrObject, $name ) ) {
                 throw new Exception( 'Method does not exist! ' .self::getClassForClassOrObject( $classOrObject ) . '->' . $name );
                 return null;
             }
             $name .= '()';
         } else if ($property == 'field'){
-            if( !self::propertyExists( $classOrObject, $name ) ) {
+            if( !property_exists( $classOrObject, $name ) ) {
                 throw new Exception( 'Property does not exist! ' .self::getClassForClassOrObject( $classOrObject ) . '->' . $name );
                 return null;
             }
@@ -46,32 +46,6 @@ class PHPFIT_ClassHelper {
         }
 
         return $typeDict[$name];
-    }
-
-    /**
-     * @param string|object $classOrObject
-     * @param string $name of method
-     * @return bool
-     */
-    protected static function methodExists($classOrObject, $name)
-    {
-        if (is_object($classOrObject)) {
-            return method_exists( $classOrObject, $name );
-        }
-        return self::getReflectionClassForClassOrObject($classOrObject)->hasMethod($name);
-    }
-
-    /**
-     * @param string|object $classOrObject
-     * @param string $name of property
-     * @return bool
-     */
-    protected static function propertyExists($classOrObject, $name)
-    {
-        if (is_object($classOrObject)) {
-            return property_exists( $classOrObject, $name );
-        }
-        return self::getReflectionClassForClassOrObject($classOrObject)->hasProperty($name);
     }
 
     /**
