@@ -2,9 +2,9 @@
 
 require_once "eg/ArithmeticColumnFixtureBase.php";
 
-class ArithmeticColumnFixture extends ArithmeticColumnFixtureBase {
+class ArithmeticColumnFixtureWithStaticTypeDict extends ArithmeticColumnFixtureBase {
 
-    public $typeDict = array(
+    public static $typeDict = array(
     "x" => "integer",
     "y" => "integer",
     "plus()" => "integer",

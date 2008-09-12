@@ -9,6 +9,7 @@ $test = &new GroupTest('FIT tests');
 $test->addTestFile('tests/ParseTest.php');
 $test->addTestFile('tests/ExampleTest.php');
 $test->addTestFile('tests/FixtureTest.php');
+$test->addTestFile('tests/ClassHelperTest.php');
 $test->addTestFile('tests/FixtureLoaderTest.php');
 $test->addTestFile('tests/FileRunnerTest.php');
 $test->addTestFile('tests/FrameworkTest.php');

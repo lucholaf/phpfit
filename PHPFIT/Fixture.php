@@ -4,6 +4,7 @@ require_once 'PHPFIT/Counts.php';
 require_once 'PHPFIT/ScientificDouble.php';
 require_once 'PHPFIT/RunTime.php';
 require_once 'PHPFIT/Parse.php';
+require_once 'PHPFIT/ClassHelper.php';
 
 class PHPFIT_Fixture {
 
@@ -308,7 +309,7 @@ class PHPFIT_Fixture {
     * @param string $string
     * @return string
     */
-    public function label( $string ) {
+    public static function label( $string ) {
         return ' <span style="color:#c08080;font-style:italic;font-size:small;">' . $string . '</span>';
     }
 
@@ -316,7 +317,7 @@ class PHPFIT_Fixture {
     * @param string $string
     * @return string
     */
-    public function escape($string) {
+    public static function escape($string) {
         $string = str_replace('&', '&amp;', $string);
         $string = str_replace('<', '&lt;', $string);
         $string = str_replace('  ', ' &nbsp;', $string);
@@ -333,42 +334,23 @@ class PHPFIT_Fixture {
     * a member variable or return value of a member function is
     *
     * Type is one of:
-   *  - boolean or bool
+    *  - boolean or bool
     *  - integer or int
-   *  - float or double
+    *  - float or double
     *  - string
     *  - array
     *  - object:CLASSNAME
     *
     * @todo As PHP does automatica type conversation, I reckon this can be spared
+    * @param string|object $classOrObject object to retrieve return type from
     * @param string $name of property or method
     * @param bool $property: 'method' or 'field'
     * @return string
     */
-    public function getType( $object, $name, $property) {
-
-        if( $property == 'method' ) {
-            if( !method_exists( $object, $name ) ) {
-                throw new Exception( 'Method does not exist! ' .get_class( $object ) . '->' . $name );
-                return null;
-            }
-            $name .= '()';
-        } else if ($property == 'field'){
-            if( !property_exists( $object, $name ) ) {
-                throw new Exception( 'Property does not exist! ' .get_class( $object ) . '->' . $name );
-                return null;
-            }
-        } else {
-            throw new Exception( 'getType(): No property Method or Field defined! ');
-        }
-
-        if( !isset( $object->typeDict[$name] ) ) {
-            throw new Exception( 'Property has no definition in $typeDict! ' . get_class( $object ) . '->' . $name );
-            return null;
-        }
-
-        return $object->typeDict[$name];
+    public static function getType($classOrObject, $name, $property) {
+        return PHPFIT_ClassHelper::getType($classOrObject, $name, $property);
     }
+
 
     /**
     * CamelCaseString auxiliary function

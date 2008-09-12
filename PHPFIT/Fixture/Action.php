@@ -7,10 +7,10 @@ class PHPFIT_Fixture_Action extends PHPFIT_Fixture {
 
     /**
     * dictionary of variable types
-    * @var int
+    * @var array
     * @see getType()
     */
-    protected $typeDict = array();
+    protected static $typeDict = array();
 
     /**
     * @var PHPFIT_Parse

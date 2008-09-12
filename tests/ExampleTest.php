@@ -27,6 +27,11 @@ class ExampleTest extends UnitTestCase {
         $this->runFilename = "examples/input/arithmetic.html";
     }
 
+    public function testArithmeticExampleWithStaticTypeDict() {
+        $this->mustFilename = "examples/output/arithmeticWithStaticTypeDict.html";
+        $this->runFilename = "examples/input/arithmeticWithStaticTypeDict.html";
+    }
+
     public function testCompensationExample() {
         $this->mustFilename = "examples/output/compensation.html";
         $this->runFilename = "examples/input/compensation.html";

@@ -4,9 +4,9 @@ class Simulator extends PHPFIT_Fixture_Action {
     
     /**
     * dictionary of variable types
-    * @var int 
+    * @var array 
     */
-    protected $typeDict = array(
+    protected static $typeDict = array(
     'nodes' => 'integer',
     'zip'   => 'integer',
     'coord' => 'string',
