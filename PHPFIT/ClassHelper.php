@@ -45,7 +45,7 @@ class PHPFIT_ClassHelper {
 	 * For future use with PHPFITLibrary
 	 * @param array $methodOrField
 	 */
-	public function getTypeForMethodOrField($methodOrField)
+	public static function getTypeForMethodOrField($methodOrField)
 	{
 	    assert(array_keys($methodOrField) == array(0, 1, 2));
 	    return self::getType($methodOrField[0], $methodOrField[1], $methodOrField[2]);
@@ -80,7 +80,7 @@ class PHPFIT_ClassHelper {
         return self::getTypeDictValue($classOrObject, $name);
 	}
 
-	protected function getTypeDictValue($classOrObject, $name)
+	protected static function getTypeDictValue($classOrObject, $name)
 	{
         $typeDict = self::getTypeDictForClassOrObject($classOrObject);
         if( !isset( $typeDict[$name] ) ) {
