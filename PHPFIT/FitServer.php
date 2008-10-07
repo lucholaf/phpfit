@@ -1,42 +1,10 @@
 <?php
 
 require_once 'PHPFIT/Fixture.php';
+require_once 'PHPFIT/Socket.php';
 
-/**
-* a socket wrapper
-*/
-class PHPFIT_Socket {
-
-    private $socket_resource;
-
-    public function create($domain, $type, $protocol) {
-        $this->socket_resource = socket_create($domain, $type, $protocol);
-        if ($this->socket_resource < 0) {
-            throw new Exception("socket_create() failed: " . socket_strerror($this->socket_resource) . "\n");
-        }
-    }
-
-    public function connect($hostip, $port) {
-        $result = socket_connect($this->socket_resource, $hostip, $port);
-        if ($result < 0) {
-            throw new Exception("socket_connect() failed: " . socket_strerror($this->socket_resource) . "\n");
-        }
-    }
-
-    public function read($len) {
-        return socket_read($this->socket_resource, $len);
-    }
-
-    public function write($data, $len) {
-        return socket_write($this->socket_resource, $data, $len);
-    }
-
-    public function close() {
-        return socket_close($this->socket_resource);
-    }
-}
-
-class PHPFIT_FitServer {
+class PHPFIT_FitServer
+{
 
     /**
     * @var PHPFIT_Counts
@@ -50,7 +18,8 @@ class PHPFIT_FitServer {
 
     const FITNESSE_INTEGER = 10;
 
-    public function __construct($socket) {
+    public function __construct($socket)
+    {
         $this->socket = $socket;
     }
 
@@ -58,7 +27,8 @@ class PHPFIT_FitServer {
     /**
     * @param array $args
     */
-    public function run($args) {
+    public function run($args)
+    {
         if (count($args) < 4) {
             echo "Usage: php FitServer.php <host> <port> <test_ticket>";
             return -1;
@@ -89,7 +59,8 @@ class PHPFIT_FitServer {
     * @param string $port
     * @param string $ticket
     */
-    public function init($host, $port, $ticket) {
+    public function init($host, $port, $ticket)
+    {
         $httpRequest = $this->buildRequest($ticket);
 
         $this->socket->create(AF_INET, SOCK_STREAM, SOL_TCP);
@@ -103,13 +74,15 @@ class PHPFIT_FitServer {
         }
     }
 
-    public function process($fixturePath) {
+    public function process($fixturePath)
+    {
         $output = $this->processDocument($fixturePath, $this->getDocument());
         $this->putDocument($output);
         $this->putSummary();
     }
 
-    public function finish() {
+    public function finish()
+    {
         $this->socket->close();
         return $this->counts->wrong + $this->counts->exceptions;
     }
@@ -122,7 +95,8 @@ class PHPFIT_FitServer {
     * @param string $input
     * @return string
     */
-    private function processDocument($fixturePath, $input) {
+    private function processDocument($fixturePath, $input)
+    {
         $fixture  = new PHPFIT_Fixture($fixturePath);
         $tables = PHPFIT_Parse::create($input);
         $fixture->doTables($tables);
@@ -131,7 +105,8 @@ class PHPFIT_FitServer {
         return $tables->toString();
     }
 
-    private function getDocument() {
+    private function getDocument()
+    {
         $document = "";
         while (($docSize = $this->socket->read(self::FITNESSE_INTEGER)) != 0) {
             $document .= $this->socket->read($docSize);
@@ -142,12 +117,14 @@ class PHPFIT_FitServer {
     /**
     * @param string $output
     */
-    private function putDocument($output) {
+    private function putDocument($output)
+    {
         $this->putInteger(strlen($output));
         $this->socket->write($output, strlen($output));
     }
 
-    private function putSummary() {
+    private function putSummary()
+    {
         $this->putInteger(0);
         $this->putInteger($this->counts->right);
         $this->putInteger($this->counts->wrong);
@@ -160,7 +137,8 @@ class PHPFIT_FitServer {
     *
     * @param integer $value
     */
-    private function putInteger($value) {
+    private function putInteger($value)
+    {
         $intValue = sprintf("%0" . self::FITNESSE_INTEGER . "d", $value);
         $this->socket->write($intValue, strlen($intValue));
     }
