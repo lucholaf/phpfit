@@ -4,6 +4,8 @@
 */
 class PHPFIT_Socket
 {
+	private $connectRetries = 3;
+	private $usleepTime = 2000;
 
     private $socket_resource;
 
@@ -17,7 +19,14 @@ class PHPFIT_Socket
 
     public function connect($hostip, $port)
     {
-        $result = socket_connect($this->socket_resource, $hostip, $port);
+    	$result = @socket_connect($this->socket_resource, $hostip, $port);
+		$tries = 0;
+		// Allow for some retries. This makes the FitServerTest a little more stable.
+		while ($result === false && $tries < $this->connectRetries) {
+        	usleep($this->usleepTime);
+        	$result = @socket_connect($this->socket_resource, $hostip, $port);
+        	$tries++;
+		}
         if (false === $result) {
             throw new Exception("socket_connect() failed: " . $this->getLastSocketError() . "\n");
         }
