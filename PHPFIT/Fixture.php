@@ -10,18 +10,6 @@ require_once 'PHPFIT/HtmlRenderer/Standard.php';
 
 class PHPFIT_Fixture
 {
-
-    /**
-    * make the include folder available for user's fixtures
-    * @var array
-    */
-    protected $backgroundColor  =   array(
-    'passed'    => '#cfffcf',
-    'failed'    => '#ffcfcf',
-    'ignored'   => '#efefef',
-    'error'     => '#ffffcf',
-    );
-
 	protected static $htmlRenderer;
 
     /**
