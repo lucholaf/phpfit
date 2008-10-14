@@ -2,17 +2,35 @@
 
 require_once 'PHPFIT/Fixture.php';
 
-class PHPFIT_FixtureLoader {
+class PHPFIT_FixtureLoader
+{
 
     private static $fitPrefix = 'fit.';
     private static $fitFixturesDirectory = 'PHPFIT/Fixture';
+
+	private static $fixturesDirectory = '';
+
+	/**
+	 * Set the default fixtures directory for loading user fixtures
+	 * 
+	 * @param string $fixturesDirectory
+	 */
+	public static function setFixturesDirectory($fixturesDirectory)
+	{
+	    if (empty($fixturesDirectory)) {
+	        self::$fixturesDirectory = '';
+	    } else {
+	    	self::$fixturesDirectory = rtrim($fixturesDirectory, '/\\') . '/';
+	    }
+	}
 
     /**
     * @param string $fixtureName
     * @param string $fixturesDirectory
     * @return PHPFIT_Fixture
     */
-    public static function load($fixtureName, $fixturesDirectory) {
+    public static function load($fixtureName, $fixturesDirectory)
+    {
         if (substr($fixtureName, 0, strlen(self::$fitPrefix)) == self::$fitPrefix) {
             return self::loadFitFixture($fixtureName); // if $fixtureName starts with "fit."
         } else {
@@ -29,27 +47,29 @@ class PHPFIT_FixtureLoader {
     * @param string $fixtureName
     * @param string $fixturesDirectory
     */
-    private static function loadUserFixture($fixtureName, $fixturesDirectory) {
-        if ($fixturesDirectory != null)
-            $filename = $fixturesDirectory . '/' . str_replace('.', '/', $fixtureName) . '.php';
-        else
-            $filename = str_replace('.', '/', $fixtureName) . '.php';
+    private static function loadUserFixture($fixtureName, $fixturesDirectory)
+    {
+        $filename = str_replace('.', '/', $fixtureName) . '.php';
+        $filename = self::getFixturesDirectory($fixturesDirectory) . $filename;
 
         self::loadFile($filename);
     
         $pos = strrpos($fixtureName, '.');
-        if ($pos !== false)
+        if ($pos !== false) {
             $commonClassname =  substr($fixtureName, $pos + 1);
-        else
+        } else {
             $commonClassname = $filename;
+        }
             
-        if (class_exists($commonClassname))
+        if (class_exists($commonClassname)) {
             return new $commonClassname($fixturesDirectory);
+        }
             
         $pearClassname =  str_replace('.', '_', $fixtureName);
         
-        if (class_exists($pearClassname))
+        if (class_exists($pearClassname)) {
             return new $pearClassname($fixturesDirectory);
+        }
             
         throw new Exception('Class "'. $commonClassname. '" or "' . $pearClassname . '" could not be found in file ' . $filename);
     }
@@ -61,7 +81,8 @@ class PHPFIT_FixtureLoader {
     *
     * @param string $fixtureName
     */
-    private static function loadFitFixture($fixtureName) {
+    private static function loadFitFixture($fixtureName)
+    {
         $fixtureWithoutPrefix = str_replace('fit.', '', $fixtureName);
         
         $filename = self::$fitFixturesDirectory . '/' . str_replace('.', '/', $fixtureWithoutPrefix) . '.php';
@@ -70,13 +91,15 @@ class PHPFIT_FixtureLoader {
         
         $classname = str_replace('/', '_', self::$fitFixturesDirectory) . '_' . $fixtureWithoutPrefix;
         
-        if (class_exists($classname))
+        if (class_exists($classname)) {
             return new $classname;
+        }
         
         throw new Exception('Class "' . $classname . '" could not be found in file ' . $filename);
     }
     
-    private static function loadFile($filename) {
+    private static function loadFile($filename)
+    {
         if (PHPFIT_Fixture::fc_incpath('is_readable', $filename)) {
             require_once $filename;
         } else {
@@ -84,6 +107,21 @@ class PHPFIT_FixtureLoader {
         }
     }
 
-}
+	/**
+	 * Get the fixturesDirectory with trailing slash or empty string.
+	 * 
+	 * If the parameter $fixturesDirectory is not null, return it (beautified)
+	 * Otherwise return self::$fixturesDirectory.
+	 * 
+	 * @param string $fixturesDirectory
+	 * @return string
+	 */
+	protected static function getFixturesDirectory($fixturesDirectory = null)
+	{
+	    if (empty($fixturesDirectory)) {
+	        return self::$fixturesDirectory;
+	    }
+	    return rtrim($fixturesDirectory, '/\\') . '/';
+	}
 
-?>
+}
