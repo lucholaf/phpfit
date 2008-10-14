@@ -2,6 +2,7 @@
 
 require_once 'PHPFIT/Fixture.php';
 require_once 'PHPFIT/Socket.php';
+require_once 'PHPFIT/HtmlRenderer/Fitnesse.php';
 
 class PHPFIT_FitServer
 {
@@ -10,6 +11,7 @@ class PHPFIT_FitServer
     * @var PHPFIT_Counts
     */
     private $counts;
+	private $totalCounts;
 
     /**
     * @var Socket
@@ -29,7 +31,13 @@ class PHPFIT_FitServer
     */
     public function run($args)
     {
-        if (count($args) < 4) {
+		if (in_array('-v', $args)) {
+		    // Ignore verbose output for now
+		    unset($args[array_search('-v', $args)]);
+		    $args = array_values($args);
+		}
+
+        if (count($args) < 4 || count($args) > 5) {
             echo "Usage: php FitServer.php <host> <port> <test_ticket>";
             return -1;
         }
@@ -44,7 +52,12 @@ class PHPFIT_FitServer
 
         try {
             $this->init($args[0], $args[1], $args[2]);
-            $this->process($fixturePath);
+			$this->totalCounts = new PHPFIT_Counts();
+
+            $continue = true;
+            while ($continue) {
+            	$continue = $this->process($fixturePath);
+            }
             $out = $this->finish();
         } catch (Exception $e) {
             echo $e->getMessage();
@@ -74,17 +87,28 @@ class PHPFIT_FitServer
         }
     }
 
+	/**
+	 * Returns true, if there might be more documents following.
+	 *
+	 * @param string $fixturePath
+	 * @return boolean
+	 */
     public function process($fixturePath)
     {
-        $output = $this->processDocument($fixturePath, $this->getDocument());
+		$document = $this->getDocument();
+		if (false === $document) {
+		    return false;
+		}
+        $output = $this->processDocument($fixturePath, $document);
         $this->putDocument($output);
         $this->putSummary();
+        return true;
     }
 
     public function finish()
     {
         $this->socket->close();
-        return $this->counts->wrong + $this->counts->exceptions;
+        return $this->totalCounts->wrong + $this->totalCounts->exceptions;
     }
 
     private function buildRequest($ticket) {
@@ -97,20 +121,31 @@ class PHPFIT_FitServer
     */
     private function processDocument($fixturePath, $input)
     {
+ 		PHPFIT_Fixture::setHtmlRenderer(new PHPFIT_HtmlRenderer_Fitnesse());
         $fixture  = new PHPFIT_Fixture($fixturePath);
-        $tables = PHPFIT_Parse::create($input);
-        $fixture->doTables($tables);
+        try {
+	        $tables = PHPFIT_Parse::create($input);
+	        $fixture->doTables($tables);
+        } catch (PHPFIT_Exception_Parse $e) {
+            $tables = $this->exception($e, $fixture);
+        }
 
         $this->counts = $fixture->counts;
+        $this->totalCounts->tally($fixture->counts);
         return $tables->toString();
     }
 
+	/**
+	 * Returns false, if there is no more document on the socket.
+	 * @return string|boolean
+	 */
     private function getDocument()
     {
-        $document = "";
-        while (($docSize = $this->socket->read(self::FITNESSE_INTEGER)) != 0) {
-            $document .= $this->socket->read($docSize);
-        }
+        $docSize = $this->socket->read(self::FITNESSE_INTEGER);
+		if ($docSize == 0) {
+		    return false;
+		}
+		$document = $this->socket->read($docSize);
         return $document;
     }
 
@@ -142,6 +177,19 @@ class PHPFIT_FitServer
         $intValue = sprintf("%0" . self::FITNESSE_INTEGER . "d", $value);
         $this->socket->write($intValue, strlen($intValue));
     }
+
+	/**
+	 * @param Exception $e
+	 */
+    protected function exception(Exception $e, $fixture)
+    {
+        $message = "Exception occurred!";
+        $tables = PHPFIT_Parse::createSimple("span", $message, null, null);
+        $fixture->exception($tables, $e);
+        $fixture->listener->tableFinished($tables);
+        $fixture->listener->tablesFinished($fixture->counts);
+        return $tables;
+    }
+
 }
 
-?>

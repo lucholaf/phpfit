@@ -6,6 +6,7 @@ require_once 'PHPFIT/RunTime.php';
 require_once 'PHPFIT/Parse.php';
 require_once 'PHPFIT/ClassHelper.php';
 require_once 'PHPFIT/NullFixtureListener.php';
+require_once 'PHPFIT/HtmlRenderer/Standard.php';
 
 class PHPFIT_Fixture
 {
@@ -20,6 +21,8 @@ class PHPFIT_Fixture
     'ignored'   => '#efefef',
     'error'     => '#ffffcf',
     );
+
+	protected static $htmlRenderer;
 
     /**
     * collecting information of this fixture
@@ -380,8 +383,8 @@ class PHPFIT_Fixture
      */
     public function error($cell, $message)
     {
-        $cell->body   = $cell->text() . ': '. $this->escape($message);
-        $cell->addToTag(' bgcolor=" '. $this->backgroundColor['error'] . '\"');
+        $cell->body   = $cell->text() . ': '. self::escape($message);
+        $cell->addToTag(self::getCssProperty('error'));
         $this->counts->exceptions++;
     }
 
@@ -392,7 +395,7 @@ class PHPFIT_Fixture
      */
     public function right($cell)
     {
-        $cell->addToTag(' bgcolor="' . $this->backgroundColor['passed'] . '"');
+        $cell->addToTag(self::getCssProperty('passed'));
         $this->counts->right++;
     }
 
@@ -402,12 +405,12 @@ class PHPFIT_Fixture
      */
     public function wrong($cell, $actual = false)
     {
-        $cell->addToTag(' bgcolor="' .  $this->backgroundColor['failed'] . '"');
-        $cell->body  = $this->escape($cell->text());
+        $cell->addToTag(self::getCssProperty('failed'));
+        $cell->body  = self::escape($cell->text());
         $this->counts->wrong++;
 
         if ($actual !== false) {
-            $cell->addToBody($this->label('expected') . '<hr />' . $this->escape($actual) . $this->label('actual'));
+            $cell->addToBody(self::label('expected') . '<hr />' . self::escape($actual) . self::label('actual'));
         }
     }
 
@@ -429,7 +432,7 @@ class PHPFIT_Fixture
      */
     public function infoInColor($message)
     {
-        return ' <span style="color:#808080;">' . $this->escape($message) . '</span>';
+		return self::getSpan('info', $message);
     }
 
     /**
@@ -437,7 +440,7 @@ class PHPFIT_Fixture
      */
     public function ignore ($cell)
     {
-        $cell->addToTag(' bgcolor="' . $this->backgroundColor['ignored'] . '"');
+        $cell->addToTag(self::getCssProperty('ignored'));
         $this->counts->ignores++;
     }
 
@@ -448,8 +451,17 @@ class PHPFIT_Fixture
      */
     public static function label($string)
     {
-        return ' <span style="color:#c08080;font-style:italic;font-size:small;">' . $string . '</span>';
+		return self::getSpan('label', $string);
     }
+
+    /**
+     * @param string $string
+     * @return string
+     */
+	public static function gray($string)
+	{
+		return self::getSpan('gray', $string);
+	}
 
     /**
      * @param string $string
@@ -457,13 +469,7 @@ class PHPFIT_Fixture
      */
     public static function escape($string)
     {
-        $string = str_replace('&', '&amp;', $string);
-        $string = str_replace('<', '&lt;', $string);
-        $string = str_replace('  ', ' &nbsp;', $string);
-        $string = str_replace('\r\n', '<br />', $string);
-        $string = str_replace('\r', '<br />', $string);
-        $string = str_replace('\n', '<br />', $string);
-        return $string;
+		return self::getHtmlRenderer()->escape($string);
     }
 
     /**
@@ -581,5 +587,44 @@ class PHPFIT_Fixture
     {
         return array_key_exists($name, self::$symbols);
     }
+
+	/**
+	 * @param $type
+	 * @return string
+	 */
+	protected static function getCssProperty($type)
+	{
+	    return self::getHtmlRenderer()->getCssProperty($type);
+	}
+
+	/**
+	 * @param string $type
+	 * @param string $string
+	 * @return string
+	 */
+	protected static function getSpan($type, $string)
+	{
+	    return self::getHtmlRenderer()->getSpan($type, $string);
+	}
+
+	/**
+	 * @return PHPFIT_HtmlRenderer_Base
+	 */
+	public function getHtmlRenderer()
+	{
+	    if (is_null(self::$htmlRenderer)) {
+	        self::$htmlRenderer = new PHPFIT_HtmlRenderer_Standard();
+	    }
+	    return self::$htmlRenderer;
+	}
+
+	/**
+	 * @param PHPFIT_HtmlRenderer_Base $htmlRenderer
+	 * @return void
+	 */
+	public function setHtmlRenderer($htmlRenderer)
+	{
+		self::$htmlRenderer = $htmlRenderer;
+	}
 
 }
