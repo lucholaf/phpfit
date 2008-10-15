@@ -98,7 +98,7 @@ class PHPFIT_FixtureLoader
         throw new Exception('Class "' . $classname . '" could not be found in file ' . $filename);
     }
     
-    private static function loadFile($filename)
+    protected static function loadFile($filename)
     {
         if (PHPFIT_Fixture::fc_incpath('is_readable', $filename)) {
             require_once $filename;

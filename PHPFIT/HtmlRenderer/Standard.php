@@ -35,6 +35,9 @@ class PHPFIT_HtmlRenderer_Standard extends PHPFIT_HtmlRenderer_Base
 		if ($type == 'gray') {
 		    return ' class="fit_grey"';
 		}
+		if ($type == 'stacktrace') {
+		    return ' class="fit_stacktrace"';
+		}
 	}
 
 	protected function hasBackgroundColor($type)

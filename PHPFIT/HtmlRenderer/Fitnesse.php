@@ -11,6 +11,7 @@ class PHPFIT_HtmlRenderer_Fitnesse extends PHPFIT_HtmlRenderer_Base
     	'info'  => 'fit_info',
     	'label' => 'fit_label',
     	'gray' => 'fit_grey',
+    	'stacktrace' => 'fit_stacktrace',
     );
 
 	/**

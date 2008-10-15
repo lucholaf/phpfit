@@ -580,7 +580,7 @@ class PHPFIT_Fixture
 	 * @param $type
 	 * @return string
 	 */
-	protected static function getCssProperty($type)
+	public static function getCssProperty($type)
 	{
 	    return self::getHtmlRenderer()->getCssProperty($type);
 	}
@@ -598,7 +598,7 @@ class PHPFIT_Fixture
 	/**
 	 * @return PHPFIT_HtmlRenderer_Base
 	 */
-	public function getHtmlRenderer()
+	public static function getHtmlRenderer()
 	{
 	    if (is_null(self::$htmlRenderer)) {
 	        self::$htmlRenderer = new PHPFIT_HtmlRenderer_Standard();

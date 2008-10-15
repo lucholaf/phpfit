@@ -3,7 +3,7 @@
 abstract class PHPFIT_HtmlRenderer_Base
 {
 	protected $cssTypes = array('passed', 'failed', 'ignored', 'error',
-		'gray', 'info', 'label');
+		'gray', 'info', 'label', 'stacktrace');
 
 
 	/**
