@@ -200,6 +200,71 @@ class ParseTest extends UnitTestCase {
         }
     }
 
+
+	public function testFindNestedEnd()
+	{
+		$this->assertEqual(0, ParsePublic::findMatchingEndTag("</t>", 0, "t", 0));
+		$this->assertEqual(7, ParsePublic::findMatchingEndTag("<t></t></t>", 0, "t", 0));
+		$this->assertEqual(14, ParsePublic::findMatchingEndTag("<t></t><t></t></t>", 0, "t", 0));
+	}
+  
+	public function testNestedTables()
+	{
+		$nestedTable = "<table><tr><td>embedded</td></tr></table>";
+		$p = PHPFIT_Parse::create("<table><tr><td>" . $nestedTable . "</td></tr>" .
+		"<tr><td>two</td></tr><tr><td>three</td></tr></table>trailer");
+		$sub = $p->at(0, 0, 0)->parts;
+		$this->assertEqual(1, $p->size());
+		$this->assertEqual(3, $p->parts->size());
+		
+		$this->assertEqual(1, $sub->at(0,0,0)->size());
+		$this->assertEqual("embedded", $sub->at(0, 0, 0)->body);
+		$this->assertEqual(1, $sub->size());
+		$this->assertEqual(1, $sub->parts->size());
+		$this->assertEqual(1, $sub->parts->parts->size());
+		
+		$this->assertEqual("two", $p->at(0, 1, 0)->body);
+		$this->assertEqual("three", $p->at(0, 2, 0)->body);
+		$this->assertEqual(1, $p->at(0,1,0)->size());
+		$this->assertEqual(1, $p->at(0,2,0)->size());
+	}
+
+	public function testNestedTables2()
+	{
+		$nestedTable = "<table><tr><td>embedded</td></tr></table>";
+		$nestedTable2 = "<table><tr><td>" . $nestedTable . "</td></tr><tr><td>two</td></tr></table>";
+		$p = PHPFIT_Parse::create("<table><tr><td>one</td></tr><tr><td>" . $nestedTable2 . "</td></tr>" .
+		"<tr><td>three</td></tr></table>trailer");
+		
+		$this->assertEqual(1, $p->size());
+		$this->assertEqual(3, $p->parts->size());
+		
+		$this->assertEqual("one", $p->at(0, 0, 0)->body);
+		$this->assertEqual("three", $p->at(0, 2, 0)->body);
+		$this->assertEqual(1, $p->at(0,0,0)->size());
+		$this->assertEqual(1, $p->at(0,2,0)->size());
+		
+		$sub = $p->at(0, 1, 0)->parts;
+		$this->assertEqual(2, $sub->parts->size());
+		$this->assertEqual(1, $sub->at(0,0,0)->size());
+		$subSub = $sub->at(0,0,0)->parts;
+		
+		$this->assertEqual("embedded", $subSub->at(0, 0, 0)->body);
+		$this->assertEqual(1, $subSub->at(0,0,0)->size());
+		
+		$this->assertEqual("two", $sub->at(0, 1, 0)->body);
+		$this->assertEqual(1, $sub->at(0, 1, 0)->size());
+	}
+
+
 }
 
+// provide public methods for testing
+class ParsePublic extends PHPFIT_Parse
+{
+	public static function findMatchingEndTag($lc, $matchFromHere, $tag, $offset)
+	{
+	    return parent::findMatchingEndTag($lc, $matchFromHere, $tag, $offset);
+	}
+}
 ?>
