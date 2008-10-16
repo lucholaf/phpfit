@@ -1,5 +1,6 @@
 <?php
-class PHPFIT_ClassHelper {
+class PHPFIT_ClassHelper
+{
 
     /**
     * receive member variable's type specification
@@ -21,14 +22,14 @@ class PHPFIT_ClassHelper {
     * @param string $property: 'method' or 'field'
     * @return string
     */
-    public static function getType($classOrObject, $name, $property) {
-
-        if( $property == 'method' ) {
+    public static function getType($classOrObject, $name, $property)
+    {
+        if ($property == 'method') {
 			return self::getTypeForMethod($classOrObject, $name);
-        } else if ($property == 'field'){
+        } elseif ($property == 'field') {
 			return self::getTypeForField($classOrObject, $name);
         } else {
-            throw new Exception( 'getType(): No property Method or Field defined! ');
+            throw new Exception('getType(): No property Method or Field defined!');
         }
     }
 
@@ -47,7 +48,10 @@ class PHPFIT_ClassHelper {
 	 */
 	public static function getTypeForMethodOrField($methodOrField)
 	{
-	    assert(array_keys($methodOrField) == array(0, 1, 2));
+	    if (array_keys($methodOrField) != array(0, 1, 2)) {
+	        throw new Exception('PHPFIT_ClassHelper::getTypeForMethodOrField() must' .
+	        		' be called with a numerically indexed array.');
+	    }
 	    return self::getType($methodOrField[0], $methodOrField[1], $methodOrField[2]);
 	}
 
@@ -58,8 +62,9 @@ class PHPFIT_ClassHelper {
 	 */
 	public static function getTypeForMethod($classOrObject, $name)
 	{
-        if(!method_exists($classOrObject, $name)) {
-            throw new Exception('Method does not exist! ' .self::getClassForClassOrObject($classOrObject) . '->' . $name);
+        if (!method_exists($classOrObject, $name)) {
+            throw new Exception('Method does not exist! ' .
+            	self::getClassForClassOrObject($classOrObject) . '->' . $name);
             return null;
         }
         $name .= '()';
@@ -73,8 +78,9 @@ class PHPFIT_ClassHelper {
 	 */
 	public static function getTypeForField($classOrObject, $name)
 	{
-        if( !property_exists( $classOrObject, $name ) ) {
-            throw new Exception( 'Property does not exist! ' .self::getClassForClassOrObject( $classOrObject ) . '->' . $name );
+        if (!property_exists($classOrObject, $name)) {
+            throw new Exception('Property does not exist! ' .
+            	self::getClassForClassOrObject($classOrObject) . '->' . $name);
             return null;
         }
         return self::getTypeDictValue($classOrObject, $name);
@@ -83,8 +89,9 @@ class PHPFIT_ClassHelper {
 	protected static function getTypeDictValue($classOrObject, $name)
 	{
         $typeDict = self::getTypeDictForClassOrObject($classOrObject);
-        if( !isset( $typeDict[$name] ) ) {
-            throw new Exception( 'Property has no definition in $typeDict! ' . self::getClassForClassOrObject( $classOrObject ) . '->' . $name );
+        if (!isset($typeDict[$name])) {
+            throw new Exception('Property has no definition in $typeDict! ' .
+            	self::getClassForClassOrObject($classOrObject) . '->' . $name);
             return null;
         }
         return $typeDict[$name];
@@ -125,7 +132,9 @@ class PHPFIT_ClassHelper {
         if (is_object($classOrObject)) {
             $classOrObject = get_class($classOrObject);
         }
-        assert(class_exists($classOrObject));
+        if (!class_exists($classOrObject)) {
+            throw new Exception('PHPFIT_ClassHelper::getClassForClassOrObject() unknown class ' . $classOrObject . '.');
+        }
         return $classOrObject;
     }
 
@@ -140,4 +149,3 @@ class PHPFIT_ClassHelper {
     }
 
 }
-?>
