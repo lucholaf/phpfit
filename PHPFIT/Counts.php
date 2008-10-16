@@ -1,6 +1,7 @@
 <?php
 
-class PHPFIT_Counts {
+class PHPFIT_Counts
+{
 
     /**
     * @var int
@@ -14,7 +15,8 @@ class PHPFIT_Counts {
    /**
     * @return string
     */
-    public function toString() {
+    public function toString()
+    {
         return $this->right . " right, " . $this->wrong . " wrong, "
         . $this->ignores . " ignored, " . $this->exceptions . " exceptions";
     }
@@ -23,11 +25,12 @@ class PHPFIT_Counts {
    /**
     * @param PHPFIT_Counts $source
     */
-    public function tally($source) {
+    public function tally($source)
+    {
         $this->right += $source->right;
         $this->wrong += $source->wrong;
         $this->ignores += $source->ignores;
         $this->exceptions += $source->exceptions;
     }
 }
-?>
+

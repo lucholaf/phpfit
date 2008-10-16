@@ -3,7 +3,8 @@
 require_once 'PHPFIT/TypeAdapter.php';
 require_once 'PHPFIT/Fixture.php';
 
-class PHPFIT_Fixture_Action extends PHPFIT_Fixture {
+class PHPFIT_Fixture_Action extends PHPFIT_Fixture
+{
 
     /**
     * dictionary of variable types
@@ -31,9 +32,10 @@ class PHPFIT_Fixture_Action extends PHPFIT_Fixture {
     * aClass. This is similar to navigating to a particular GUI screen.
     *
     */
-    public function start() {
+    public function start()
+    {
         $aClass         = $this->cells->more->text();
-        self::$actor    = $this->loadFixture( $aClass );
+        self::$actor    = $this->loadFixture($aClass);
     }
 
     /**
@@ -43,10 +45,11 @@ class PHPFIT_Fixture_Action extends PHPFIT_Fixture {
     * determined by aMethod.) This is similar to entering values into GUI fields.
     *
     */
-    public function enter() {
-        $aMethod    = $this->camel( $this->cells->more->text() );
+    public function enter()
+    {
+        $aMethod    = $this->camel($this->cells->more->text());
         $anArgument = $this->cells->more->more->text();
-        self::$actor->$aMethod( $anArgument );
+        self::$actor->$aMethod($anArgument);
     }
 
     /**
@@ -56,8 +59,9 @@ class PHPFIT_Fixture_Action extends PHPFIT_Fixture {
     * similar to pressing a GUI button.
     *
     */
-    public function press() {
-        $aMethod    = $this->camel( $this->cells->more->text() );
+    public function press()
+    {
+        $aMethod    = $this->camel($this->cells->more->text());
         self::$actor->$aMethod();
     }
 
@@ -69,13 +73,13 @@ class PHPFIT_Fixture_Action extends PHPFIT_Fixture {
     * values from a GUI screen.
     *
     */
-    public function check() {
-
-        $aMethod    = $this->camel( $this->cells->more->text() );
+    public function check()
+    {
+        $aMethod    = $this->camel($this->cells->more->text());
         $aValue     = $this->cells->more->more;
 
-        $adapter    = PHPFIT_TypeAdapter::on( self::$actor, $aMethod, self::$actor, 'method');
-        $this->checkCell( $aValue, $adapter );
+        $adapter    = PHPFIT_TypeAdapter::on(self::$actor, $aMethod, self::$actor, 'method');
+        $this->checkCell($aValue, $adapter);
 
     }
 
@@ -92,21 +96,22 @@ class PHPFIT_Fixture_Action extends PHPFIT_Fixture {
     *
     * @param PHPFIT_Parse $cells: the cells of a row
     */
-    public function doCells( $cells ) {
+    public function doCells($cells)
+    {
         
         try {
             $this->cells = $cells;
 
             $method = $cells->text();  // first column of the row
-            if( !method_exists( $this, $method ) ) {
+            if (!method_exists($this, $method)) {
                 throw new Exception( 'Action fixture cannot call the request command. Method '
-                    . get_class( $this ) . '->' . $method . ' does not exist' );
+                    . get_class($this) . '->' . $method . ' does not exist' );
             }
             $this->$method();
         }
-        catch( Exception $e ) {
-            $this->exception( $cells, $e );
+        catch (Exception $e) {
+            $this->exception($cells, $e);
         }
     }
 }
-?>
+

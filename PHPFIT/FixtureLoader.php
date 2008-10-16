@@ -71,7 +71,8 @@ class PHPFIT_FixtureLoader
             return new $pearClassname($fixturesDirectory);
         }
             
-        throw new Exception('Class "'. $commonClassname. '" or "' . $pearClassname . '" could not be found in file ' . $filename);
+        throw new Exception('Class "'. $commonClassname. '" or "' . $pearClassname . 
+			'" could not be found in file ' . $filename);
     }
     
     /**

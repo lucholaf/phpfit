@@ -1,12 +1,15 @@
 <?php
 
-class PHPFIT_TypeAdapter_Boolean extends PHPFIT_TypeAdapter {
+class PHPFIT_TypeAdapter_Boolean extends PHPFIT_TypeAdapter
+{
 
-    public function equals($a, $b) {
+    public function equals($a, $b)
+    {
         return $a === $b;
     }
 
-    public function parse($s) {
+    public function parse($s)
+    {
         if ($s == "false") {
             return false;
         } else if ($s == "true") {
@@ -15,8 +18,8 @@ class PHPFIT_TypeAdapter_Boolean extends PHPFIT_TypeAdapter {
         return "not a boolean";
     }
 
-    public function toString() {
-
+    public function toString()
+    {
         $value = $this->get();
 
         if ($value) {
@@ -27,4 +30,3 @@ class PHPFIT_TypeAdapter_Boolean extends PHPFIT_TypeAdapter {
     }
 }
 
-?>

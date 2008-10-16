@@ -1,6 +1,7 @@
 <?PHP
 
-class PHPFIT_Exception_Parse extends Exception {
+class PHPFIT_Exception_Parse extends Exception
+{
 
     /**
     * Exception string offset of parser
@@ -15,7 +16,8 @@ class PHPFIT_Exception_Parse extends Exception {
     * @param string $offset
     * @see Exception
     */
-    public function __construct( $msg, $offset ) {
+    public function __construct($msg, $offset)
+    {
         $this->offset = $offset;
         $this->message = $msg;
         parent::__construct($this->message);
@@ -25,7 +27,8 @@ class PHPFIT_Exception_Parse extends Exception {
     * receive offset
     * @return int parser offset
     */
-    public function getOffset() {
+    public function getOffset()
+    {
         return $this->offset;
     }
 
@@ -33,8 +36,9 @@ class PHPFIT_Exception_Parse extends Exception {
     * output as string
     * @return string of error message including offest
     */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->message .' at ' . $this->offset;
     }
 }
-?>
+

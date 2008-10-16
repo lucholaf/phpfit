@@ -1,6 +1,7 @@
 <?php
 
-class PHPFIT_TypeAdapter {
+class PHPFIT_TypeAdapter
+{
 
     /**
     * @var string
@@ -42,11 +43,12 @@ class PHPFIT_TypeAdapter {
     * @param object $object
     * @param string $property: 'field' or 'method'
     */
-    public static function on(PHPFIT_Fixture $fixture, $name, $object, $property) {
-        $type           = $fixture->getType($object, $name, $property);
-        $adapter          = self::adapterFor( $type );
-        $adapter->init( $fixture, $type );
-        $adapter->target  = $object;
+    public static function on(PHPFIT_Fixture $fixture, $name, $object, $property)
+    {
+        $type               = $fixture->getType($object, $name, $property);
+        $adapter            = self::adapterFor($type);
+        $adapter->init($fixture, $type);
+        $adapter->target    = $object;
         $adapter->$property = $name;
 
         return $adapter;
@@ -58,9 +60,10 @@ class PHPFIT_TypeAdapter {
     * @param string $type
     * @return PHPFIT_TypeAdapter
     */
-    private static function loadAdapter( $name ) {
+    private static function loadAdapter($name)
+    {
         // already loaded
-        if( class_exists( 'PHPFIT_TypeAdapter_' . $name ) ) {
+        if (class_exists('PHPFIT_TypeAdapter_' . $name)) {
             return true;
         }
         return include_once self::$fitTypeAdaptersDirectory . $name . '.php';
@@ -72,28 +75,29 @@ class PHPFIT_TypeAdapter {
     * @param string $type
     * @return PHPFIT_TypeAdapter
     */
-    public static function adapterFor( $type ) {
-        if( self::is_bool( $type ) ) {
-            self::loadAdapter( 'Boolean' );
+    public static function adapterFor($type)
+    {
+        if (self::is_bool($type)) {
+            self::loadAdapter('Boolean');
             return new PHPFIT_TypeAdapter_Boolean();
         }
 
-        if( self::is_int( $type ) ) {
-            self::loadAdapter( 'Integer' );
+        if (self::is_int($type)) {
+            self::loadAdapter('Integer');
             return new PHPFIT_TypeAdapter_Integer();
         }
 
-        if( self::is_double( $type ) ) {
-            self::loadAdapter( 'Double' );
+        if (self::is_double($type)) {
+            self::loadAdapter('Double');
             return new PHPFIT_TypeAdapter_Double();
         }
 
-        if( self::is_string( $type ) ) {
-            self::loadAdapter( 'String' );
+        if (self::is_string($type)) {
+            self::loadAdapter('String');
             return new PHPFIT_TypeAdapter_String();
         }
         if ($type == "ScientificDouble") {
-            self::loadAdapter( 'ScientificDouble' );
+            self::loadAdapter('ScientificDouble');
             return new PHPFIT_TypeAdapter_ScientificDouble();
         }
 
@@ -106,8 +110,9 @@ class PHPFIT_TypeAdapter {
     * @param string $type
     * @return true if type matches, false otherwise
     */
-    public static function is_bool( $type ) {
-        if( strtolower($type) == 'boolean' || strtolower($type) == 'bool' ) {
+    public static function is_bool($type)
+    {
+        if (strtolower($type) == 'boolean' || strtolower($type) == 'bool') {
             return true;
         }
         return false;
@@ -119,8 +124,9 @@ class PHPFIT_TypeAdapter {
     * @param string $type
     * @return true if type matches, false otherwise
     */
-    public static function is_int($type) {
-        if( strtolower($type) == 'integer' || strtolower($type) == 'int' ) {
+    public static function is_int($type)
+    {
+        if (strtolower($type) == 'integer' || strtolower($type) == 'int') {
             return true;
         }
         return false;
@@ -132,8 +138,9 @@ class PHPFIT_TypeAdapter {
     * @param string $type
     * @return true if type matches, false otherwise
     */
-    public static function is_double( $type ) {
-        return ( strtolower($type) == 'double' || strtolower($type) == 'float');
+    public static function is_double($type)
+    {
+        return (strtolower($type) == 'double' || strtolower($type) == 'float');
     }
 
     /**
@@ -142,7 +149,8 @@ class PHPFIT_TypeAdapter {
     * @param string $type
     * @return true if type matches, false otherwise
     */
-    public static function is_string($type) {
+    public static function is_string($type)
+    {
         return strtolower($type) == 'string';
     }
 
@@ -151,7 +159,8 @@ class PHPFIT_TypeAdapter {
     * @param PHPFIT_Fixture $fixture
     * @param string $type
     */
-    public function init( $fixture, $type ) {
+    public function init($fixture, $type)
+    {
         $this->fixture = $fixture;
         $this->type = $type;
     }
@@ -159,7 +168,8 @@ class PHPFIT_TypeAdapter {
     /**
     * @param mixed $value
     */
-    public function set( $value ) {
+    public function set($value)
+    {
         // suggested by Julian Harris
         $object = $this->target;
         $field = $this->field;
@@ -169,7 +179,8 @@ class PHPFIT_TypeAdapter {
     /**
     * @return mixed
     */
-    public function get() {
+    public function get()
+    {
         if ($this->field != null) {
             $field = $this->field;
             return $this->target->$field;
@@ -185,7 +196,8 @@ class PHPFIT_TypeAdapter {
     /**
     * @return mixed return value of a method
     */
-    public function invoke() {
+    public function invoke()
+    {
         $method = $this->method;
         return $this->target->$method();
     }
@@ -194,27 +206,29 @@ class PHPFIT_TypeAdapter {
     * @param mixed $o
     * @return string
     */
-    public function toString() {
+    public function toString()
+    {
 
         $o = $this->get();
 
-        if( $o == null ) {
+        if ($o == null) {
             return 'null';
         }
 
-        if( is_object( $o ) ) {
+        if (is_object($o)) {
             return $o->toString();
         }
 
-        return strval( $o );
+        return strval($o);
     }
 
     /**
     * @param string $text
     * @return true if same, false otherwise
     */
-    public function equal($text) {
-        return $this->equals( $this->parse( $text ), $this->get());
+    public function equal($text)
+    {
+        return $this->equals($this->parse($text), $this->get());
     }
 }
-?>
+

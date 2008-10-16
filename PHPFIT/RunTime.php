@@ -1,6 +1,7 @@
 <?php
 
-class PHPFIT_RunTime {
+class PHPFIT_RunTime
+{
 
     /**
     * start time
@@ -13,16 +14,18 @@ class PHPFIT_RunTime {
     *
     * start timer
     */
-    function __construct() {
-        $this->start = microtime( true );
+    function __construct()
+    {
+        $this->start = microtime(true);
     }
 
     /**
     * receive elapsed time as seconds
     * @return string
     */
-    public function toString() {
-        return microtime( true ) - $this->start . ' seconds';
+    public function toString()
+    {
+        return microtime(true) - $this->start . ' seconds';
     }
 
     /**
@@ -35,22 +38,23 @@ class PHPFIT_RunTime {
     * @param string $name of property
     * @return mixed
     */
-    public function __get( $name ) {
-        switch( $name ) {
+    public function __get($name)
+    {
+        switch($name) {
             case 'start':
-            return $this->start;
-            break;
+	            return $this->start;
+	            break;
 
             case 'elapsed':
-            return microtime( true ) - $this->start;
-            break;
+	            return microtime(true) - $this->start;
+	            break;
 
             default:
-            break;
+	            break;
         }
 
-        throw new Exception( 'Property ' . $name . ' is not defined' );
+        throw new Exception('Property ' . $name . ' is not defined');
         return null;
     }
 }
-?>
+

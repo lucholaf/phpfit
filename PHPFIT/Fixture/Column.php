@@ -3,7 +3,8 @@
 require_once 'PHPFIT/TypeAdapter.php';
 require_once 'PHPFIT/Fixture.php';
 
-class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
+class PHPFIT_Fixture_Column extends PHPFIT_Fixture
+{
     
     /**
     * @var PHPFIT_TypeAdapter
@@ -21,9 +22,10 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
     *
     * @param PHPFIT_Parse $rows
     */
-    public function doRows( $rows ) {
-        $this->bind( $rows->parts ); // bind the first row
-        parent::doRows( $rows->more ); // process the other rows
+    public function doRows($rows)
+    {
+        $this->bind($rows->parts); // bind the first row
+        parent::doRows($rows->more); // process the other rows
     }
 
     /**
@@ -31,16 +33,16 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
     *
     * @param PHPFIT_Parse $row
     */
-    public function doRow( $row ) {
+    public function doRow($row)
+    {
         $this->hasExecuted = false;
         try {
             $this->reset();
-            parent::doRow( $row );
-            if( !$this->hasExecuted ) {
+            parent::doRow($row);
+            if (!$this->hasExecuted) {
                 $this->execute();
             }
-        }
-        catch( Exception $e ) {
+        } catch(Exception $e) {
             $this->exception($row->leaf(), $e);
         }
     }
@@ -55,36 +57,36 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
     *
     * @param PHPFIT_Parse $cell
     */
-    public function doCell( $cell ) {
-        $adapter    = null;
+    public function doCell($cell)
+    {
+        $adapter = null;
 
-        if( isset( $this->columnBindings[$cell->count] ) ) {
-            $adapter    = $this->columnBindings[$cell->count];
+        if (isset($this->columnBindings[$cell->count])) {
+            $adapter = $this->columnBindings[$cell->count];
         }
 
         try {
-            $text   = $cell->text();
+            $text = $cell->text();
 
             // skip the rest if there is no adapter
-            if( $adapter == null ) {
-                $this->ignore( $cell );
+            if ($adapter == null) {
+                $this->ignore($cell);
                 return;
             }
 
             // a column can be a value
-            if( $adapter->field != null ) {
-                $adapter->set( $adapter->parse( $text ) );
+            if ($adapter->field != null) {
+                $adapter->set($adapter->parse($text));
                 return;
             }
 
             // or a column can be method
-            if( $adapter->method != null ) {
-                $this->checkCell( $cell, $adapter );
+            if ($adapter->method != null) {
+                $this->checkCell($cell, $adapter);
                 return;
             }
-        }
-        catch( Exception $e ) {
-            $this->exception( $cell, $e );
+        } catch (Exception $e) {
+            $this->exception($cell, $e);
         }
 
     }
@@ -96,18 +98,18 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
     * @param PHPFIT_TypeAdapter $a
     * @return bool true on success, false otherwise
     */
-    public function checkCell( $cell, $a ) {
-        if( !$this->hasExecuted ) {
+    public function checkCell($cell, $a)
+    {
+        if (!$this->hasExecuted) {
             try {
                 $this->execute();
-            }
-            catch(Exception $e) {
-                $this->exception ($cell, $e);
+            } catch(Exception $e) {
+                $this->exception($cell, $e);
             }
             $this->hasExecuted = true;
         }
 
-        parent::checkCell( $cell, $a );
+        parent::checkCell($cell, $a);
     }
 
 
@@ -116,10 +118,11 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
     *
     * @param PHPFIT_Parse $head
     */
-    protected function bind( $heads ) {
-        $this->columnBindings = array( $heads->size() );
+    protected function bind($heads)
+    {
+        $this->columnBindings = array($heads->size());
 
-        for( $i=0; $heads != null; $heads = $heads->more ) {
+        for ($i = 0; $heads != null; $heads = $heads->more) {
             $name = $heads->text();
             try {
                 if ($name == "") {
@@ -132,7 +135,7 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
             } catch (Exception $e) {
                 $this->exception($heads, $e);
             }
-            $i=$i+1;
+            $i = $i+1;
         }
     }
 
@@ -143,7 +146,8 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
    * @param string $name
    * @return string
    */
-    protected function getMethodName($name) {
+    protected function getMethodName($name)
+    {
         $suffix = "()";
 
         if (strstr($name, $suffix) !== false) {
@@ -157,8 +161,8 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
     * @param String $name
     * @return PHPFIT_TypeAdapter
     */
-
-    protected function bindMethod($name) {
+    protected function bindMethod($name)
+    {
         return PHPFIT_TypeAdapter::on($this, $name, $this->getTargetClass(), 'method');
     }
 
@@ -166,23 +170,25 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture {
     * @param String $name
     * @return PHPFIT_TypeAdapter
     */
-
-    protected function bindField($name) {
+    protected function bindField($name)
+    {
         return PHPFIT_TypeAdapter::on($this, $name, $this->getTargetClass(), 'field');
     }
 
-    protected function getTargetClass() {
+    protected function getTargetClass()
+    {
         return $this;
     }
 
-    public function reset() {
+    public function reset()
+    {
 
     }
 
-    public function execute() {
+    public function execute()
+    {
 
     }
 
 }
 
-?>

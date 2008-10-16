@@ -3,14 +3,16 @@
 require_once 'PHPFIT/Parse.php';
 require_once 'PHPFIT/Fixture.php';
 
-class PHPFIT_Fixture_Summary extends PHPFIT_Fixture {
+class PHPFIT_Fixture_Summary extends PHPFIT_Fixture
+{
 
     public static $countKey = "counts";
     
     /**
     * @param PHPFIT_Parse $table
     */
-    public function doTable($table) {
+    public function doTable($table)
+    {
         $this->summary[self::$countKey] = $this->counts;
         ksort($this->summary);
         $table->parts->more = $this->rows(array_keys($this->summary));
@@ -21,7 +23,8 @@ class PHPFIT_Fixture_Summary extends PHPFIT_Fixture {
     * @param array $keys
     * @return PHPFIT_Parse
     */
-    protected function rows($keys) {
+    protected function rows($keys)
+    {
         if (count($keys) > 0) {
             $key = $keys[0];
             $obj = $this->summary[$key];
@@ -50,7 +53,8 @@ class PHPFIT_Fixture_Summary extends PHPFIT_Fixture {
     * @param PHPFIT_Parse $more
     * @return PHPFIT_Parse
     */
-    protected function tr($parts, $more) {
+    protected function tr($parts, $more)
+    {
         return PHPFIT_Parse::createSimple("tr", null, $parts, $more);
     }
 
@@ -60,7 +64,8 @@ class PHPFIT_Fixture_Summary extends PHPFIT_Fixture {
     * @param PHPFIT_Parse $more
     * @return PHPFIT_Parse
     */
-    protected function td($body, $more) {
+    protected function td($body, $more)
+    {
         return PHPFIT_Parse::createSimple("td", $this->infoInColor($body), null, $more);
     }
 
@@ -68,7 +73,8 @@ class PHPFIT_Fixture_Summary extends PHPFIT_Fixture {
    /**
     * @param PHPFIT_Parse $row
     */
-    protected function mark($row) {
+    protected function mark($row)
+    {
         $official = $this->counts;
         $this->counts = new PHPFIT_Counts();
         $cell = $row->parts->more;
@@ -81,4 +87,3 @@ class PHPFIT_Fixture_Summary extends PHPFIT_Fixture {
     }
 }
 
-?>

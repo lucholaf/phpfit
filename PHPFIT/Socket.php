@@ -7,24 +7,24 @@ class PHPFIT_Socket
 	private $connectRetries = 3;
 	private $usleepTime = 2000;
 
-    private $socket_resource;
+    private $socketResource;
 
     public function create($domain, $type, $protocol)
     {
-        $this->socket_resource = socket_create($domain, $type, $protocol);
-        if ($this->socket_resource < 0) {
+        $this->socketResource = socket_create($domain, $type, $protocol);
+        if ($this->socketResource < 0) {
             throw new Exception("socket_create() failed: " . $this->getLastSocketError() . "\n");
         }
     }
 
     public function connect($hostip, $port)
     {
-    	$result = @socket_connect($this->socket_resource, $hostip, $port);
+    	$result = @socket_connect($this->socketResource, $hostip, $port);
 		$tries = 0;
 		// Allow for some retries. This makes the FitServerTest a little more stable.
 		while ($result === false && $tries < $this->connectRetries) {
         	usleep($this->usleepTime);
-        	$result = @socket_connect($this->socket_resource, $hostip, $port);
+        	$result = @socket_connect($this->socketResource, $hostip, $port);
         	$tries++;
 		}
         if (false === $result) {
@@ -42,12 +42,12 @@ class PHPFIT_Socket
 		if (!$this->hasReadableData()) {
 			throw new Exception('Socket::read() was called, but no readable data was available.');
 		}
-        return socket_read($this->socket_resource, $len);
+        return socket_read($this->socketResource, $len);
     }
 
 	public function hasReadableData()
 	{
-		$read = array($this->socket_resource);
+		$read = array($this->socketResource);
 		$write = null;
 		$except = null;
 		$result = socket_select($read, $write, $except, 1);
@@ -57,13 +57,14 @@ class PHPFIT_Socket
 		return $result > 0;
 	}
 
-    public function write($data, $len) {
-        return socket_write($this->socket_resource, $data, $len);
+    public function write($data, $len)
+    {
+        return socket_write($this->socketResource, $data, $len);
     }
 
     public function close()
     {
-        return socket_close($this->socket_resource);
+        return socket_close($this->socketResource);
     }
 
 	protected function getLastSocketError()

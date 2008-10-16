@@ -2,10 +2,14 @@
 
 require_once 'PHPFIT/Fixture/Column.php';
 
-abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
+abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column
+{
+    abstract public function query(); // must be overridden in your subclass
 
-    public function getTargetClass() {} // must be overridden in your subclass
-    public function query() {} // must be overridden in your subclass
+    public function getTargetClass()
+    {
+		// must be overridden in your subclass        
+    }
     
     public $missing = array();
     public $surplus = array();
@@ -15,10 +19,11 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
     *
     * @param PHPFIT_Parse $rows
     */
-    public function doRows( $rows ) {
+    public function doRows($rows)
+    {
         try {
             // bind the first row (heads) to function and properties
-            $this->bind( $rows->parts );
+            $this->bind($rows->parts);
             $results = $this->query();
 
             if (!is_array($results)) {
@@ -42,10 +47,11 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
     * @param array $expected
     * @param integer $col
     */
-    protected function match($expected, $computed, $col) {
+    protected function match($expected, $computed, $col)
+    {
         if ($col >= count($this->columnBindings)) {
             $this->checkList($expected, $computed);
-        } else if ($this->columnBindings[$col] == null) {
+        } elseif ($this->columnBindings[$col] == null) {
             $this->match($expected, $computed, $col+1);
         } else {
             $eColumn = $this->eSort($expected, $col); // expected column
@@ -61,7 +67,7 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
 
                 if (!$eList) {
                     $this->surplus = array_merge($this->surplus, $cList);
-                } else if(!$cList) {
+                } elseif (!$cList) {
                     $this->missing = array_merge($this->missing, $eList);
                 } else if ((count($eList) == 1) && (count($cList) == 1)) {
                     $this->checkList($eList, $cList);
@@ -77,7 +83,8 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
     * @param array $eList
     * @param array $cList
     */
-    public function checkList($eList, $cList) {
+    public function checkList($eList, $cList)
+    {
         if (count($eList) == 0) {
             $this->surplus = array_merge($this->surplus, $cList);
             return;
@@ -91,7 +98,7 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
         $obj = array_shift($cList);
         $cell = $parse->parts;
 
-        foreach($this->columnBindings as $adapter) {
+        foreach ($this->columnBindings as $adapter) {
             if ($cell == null)
             break;
             if ($adapter != null) {
@@ -107,7 +114,8 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
     * @param PHPFIT_Parse $rows
     * @return array
     */
-    protected function buildArrayFromParser($rows) {
+    protected function buildArrayFromParser($rows)
+    {
         $array = array();
         while ($rows != null) {
             $array[] = $rows;
@@ -121,7 +129,8 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
     * @param int $col
     * @return array
     */
-    protected function eSort($expected, $col) {
+    protected function eSort($expected, $col)
+    {
         $adapter = $this->columnBindings[$col];
         $result = array();
 
@@ -147,7 +156,8 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
     * @param int $col
     * @return array
     */
-    protected function cSort($computed, $col) {
+    protected function cSort($computed, $col)
+    {
         $adapter = $this->columnBindings[$col];
         $result = array();
 
@@ -168,7 +178,8 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
    * @param array $rows
    * @param string $message
    */
-    protected function markArray($rows, $message) {
+    protected function markArray($rows, $message)
+    {
         if ($rows == null)
         return;
 
@@ -183,7 +194,8 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
    * @param PHPFIT_Parse $rows
    * @param string $message
    */
-    protected function markParse($rows, $message) {
+    protected function markParse($rows, $message)
+    {
         if ($rows == null)
         return;
 
@@ -199,7 +211,8 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
    * @param array $rows
    * @return PHPFIT_Parse
    */
-    protected function buildRows($rows) {
+    protected function buildRows($rows)
+    {
         $root = PHPFIT_Parse::createSimple(null, null, null, null);
         $next = $root;
         foreach ($rows as $row) {
@@ -212,7 +225,8 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
    * @param array $row
    * @return PHPFIT_Parse
    */
-    protected function buildCells($row) {
+    protected function buildCells($row)
+    {
         $root = PHPFIT_Parse::createSimple(null, null, null, null);
         $next = $root;
         foreach ($this->columnBindings as $adapter) {
@@ -233,5 +247,3 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column {
 
 }
 
-
-?>

@@ -2,12 +2,14 @@
 
 require_once 'PHPFIT/Comparable.php';
 
-class PHPFIT_ScientificDouble implements PHPFIT_Comparable {
+class PHPFIT_ScientificDouble implements PHPFIT_Comparable
+{
 
     protected $value = 0.0;
     protected $precisionValue = 0.0;
 
-    function __construct($value) {
+    function __construct($value)
+    {
         $this->value = $value;
     }
 
@@ -15,14 +17,16 @@ class PHPFIT_ScientificDouble implements PHPFIT_Comparable {
     * @param mixed $other
     * @return boolean
     */
-    function equals($other) {
+    function equals($other)
+    {
         return $this->compareTo($other) == 0;
     }
 
    /**
     * look at interface Comparable
     */
-    public function compareTo($other) {
+    public function compareTo($other)
+    {
         $other = floatval($other);
         $diff = $this->value - $other;
         if ($diff < -$this->precisionValue) return -1;
@@ -34,7 +38,8 @@ class PHPFIT_ScientificDouble implements PHPFIT_Comparable {
     * @param string $s
     * @return PHPFIT_ScientificDouble
     */
-    public static function valueOf($s) {
+    public static function valueOf($s)
+    {
         $result = new PHPFIT_ScientificDouble(floatval($s));
         $result->precisionValue = self::precision($s);
         return $result;
@@ -44,7 +49,8 @@ class PHPFIT_ScientificDouble implements PHPFIT_Comparable {
     * @param string $s
     * @return double
     */
-    public static function precision($s) {
+    public static function precision($s)
+    {
         $value = floatval($s);
         $bound = floatval(self::tweak($s));
         return abs($bound - $value);
@@ -55,7 +61,8 @@ class PHPFIT_ScientificDouble implements PHPFIT_Comparable {
     * @param string $s
     * @return string
     */
-    public static function tweak($s) {
+    public static function tweak($s)
+    {
         $pos = strpos(strtolower($s), 'e');
 
         if ($pos !== false) {
@@ -73,8 +80,9 @@ class PHPFIT_ScientificDouble implements PHPFIT_Comparable {
    /**
     * @return string
     */
-    public function toString() {
-        return strval( $this->value );
+    public function toString()
+    {
+        return strval($this->value);
     }
 }
-?>
+

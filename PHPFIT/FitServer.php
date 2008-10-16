@@ -111,7 +111,8 @@ class PHPFIT_FitServer
         return $this->totalCounts->wrong + $this->totalCounts->exceptions;
     }
 
-    private function buildRequest($ticket) {
+    private function buildRequest($ticket)
+    {
         return "GET /?responder=socketCatcher&ticket=" . $ticket . " HTTP/1.1\r\n\r\n";
     }
 

@@ -3,12 +3,14 @@
 require_once 'PHPFIT/Parse.php';
 require_once 'PHPFIT/Fixture/Action.php';
 
-class PHPFIT_Fixture_TimedAction extends PHPFIT_Fixture_Action {
+class PHPFIT_Fixture_TimedAction extends PHPFIT_Fixture_Action
+{
 
     /**
     * @param PHPFIT_Parse $table
     */
-    public function doTable($table) {
+    public function doTable($table)
+    {
         parent::doTable($table);
 /*        
         $table->parts->parts->last()->more = $this->td("time");
@@ -19,7 +21,8 @@ class PHPFIT_Fixture_TimedAction extends PHPFIT_Fixture_Action {
     /**
     * @param PHPFIT_Parse $cells
     */
-    public function doCells($cells) {
+    public function doCells($cells)
+    {
         $start  = $this->theTime();
         parent::doCells($cells);
 /*        
@@ -37,7 +40,8 @@ class PHPFIT_Fixture_TimedAction extends PHPFIT_Fixture_Action {
     /**
     * @return int: seconds
     */
-    public function theTime() {
+    public function theTime()
+    {
         return time();
     }
 
@@ -45,9 +49,9 @@ class PHPFIT_Fixture_TimedAction extends PHPFIT_Fixture_Action {
     * @param string $body
     * @return PHPFIT_Parse
     */
-    public function td($body) {
+    public function td($body)
+    {
         return PHPFIT_Parse::createSimple("td", $this->infoInColor($body), null, null);
     }
 }
 
-?>

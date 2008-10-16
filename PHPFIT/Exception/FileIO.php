@@ -1,6 +1,7 @@
 <?PHP
 
-class PHPFIT_Exception_FileIO extends Exception {
+class PHPFIT_Exception_FileIO extends Exception
+{
     
     /**
     * Exception with filename
@@ -15,7 +16,8 @@ class PHPFIT_Exception_FileIO extends Exception {
     * @param string $fiename
     * @see Exception
     */
-    function __construct( $msg, $filename ) {
+    function __construct($msg, $filename)
+    {
         $this->message = $msg;
         $this->filename = $filename;
     }
@@ -25,9 +27,8 @@ class PHPFIT_Exception_FileIO extends Exception {
     *
     * @return string name of the file
     */
-    function getFilename() {
+    function getFilename()
+    {
         return $this->filename;
     }
 }
-
-?>
