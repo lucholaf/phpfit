@@ -31,7 +31,7 @@ class PHPFIT_Fixture
     /**
     * @var string
     */
-    private $fixturesDirectory = null;
+    protected $fixturesDirectory = null;
 
 	/**
 	 * array of strings

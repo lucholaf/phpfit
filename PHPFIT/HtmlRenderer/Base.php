@@ -19,7 +19,16 @@ abstract class PHPFIT_HtmlRenderer_Base
 	 */
 	public function getSpan($type, $string)
 	{
-		return sprintf(' <span%s>%s</span>', $this->getCssProperty($type), self::escape($string));
+		return sprintf(' %s%s</span>', $this->getSpanStart($type), self::escape($string));
+	}
+
+	/**
+	 * @param string $type
+	 * @return string
+	 */
+	public function getSpanStart($type)
+	{
+	    return sprintf('<span%s>', $this->getCssProperty($type));
 	}
 
 	/**
