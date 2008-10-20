@@ -78,7 +78,7 @@ class PHPFIT_Fixture
     public function doTables($tables)
     {
         if (!isset($GLOBALS['SIMPLE_SUMMARY'])) {
-            $this->summary['run date'] = date('F d Y H:i:s.');
+            $this->summary['run date'] = self::getDateString() . '.';
             $this->summary['run elapsed time'] = new PHPFIT_RunTime();
         }
 
@@ -613,6 +613,20 @@ class PHPFIT_Fixture
 	public static function setHtmlRenderer($htmlRenderer)
 	{
 		self::$htmlRenderer = $htmlRenderer;
+	}
+
+	/**
+	 * @param integer $timestamp
+	 * @return string
+	 */
+	public static function getDateString($timestamp = null)
+	{
+		// Maybe change this to gmdate()?
+	    if (is_null($timestamp)) {
+	        return @date('F d Y H:i:s');
+	    } else {
+	    	return @date('F d Y H:i:s', $timestamp);
+	    }
 	}
 
 }
