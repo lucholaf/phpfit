@@ -610,7 +610,7 @@ class PHPFIT_Fixture
 	 * @param PHPFIT_HtmlRenderer_Base $htmlRenderer
 	 * @return void
 	 */
-	public function setHtmlRenderer($htmlRenderer)
+	public static function setHtmlRenderer($htmlRenderer)
 	{
 		self::$htmlRenderer = $htmlRenderer;
 	}
