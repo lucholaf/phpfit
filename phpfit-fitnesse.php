@@ -11,6 +11,7 @@ If you use a custom fixture path, put this in your wiki pages:
 
 TODO: complete the "Transaction Error in the Protocol spec.
 */
+error_reporting(E_ALL | E_STRICT);
 
 set_include_path(dirname(__FILE__) . PATH_SEPARATOR . get_include_path());
 require_once 'PHPFIT/FitServer.php';
