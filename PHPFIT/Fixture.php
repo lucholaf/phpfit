@@ -514,8 +514,9 @@ class PHPFIT_Fixture
      */
     public static function fc_incpath($function, $file)
     {
-        if ($function($file))
-        return $file;
+        if ($function($file)) {
+        	return $file;
+        }
 
         $paths = explode(PATH_SEPARATOR, get_include_path() . PATH_SEPARATOR);
 

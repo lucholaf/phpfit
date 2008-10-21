@@ -58,8 +58,9 @@ class PHPFIT_ClassHelper
 	 */
 	public static function getNormalizedType($type)
 	{
-	    if (array_key_exists($type, self::$types)) {
-	        return self::$types[$type];
+	    $checktype = strtolower($type);
+	    if (array_key_exists($checktype, self::$types)) {
+	        return self::$types[$checktype];
 	    }
 	    return $type;
 	}
@@ -211,7 +212,8 @@ class PHPFIT_ClassHelper
         	$typeDict = self::getStaticTypeDictForClass($classOrObject);
         }
         // Recursive merging of typeDict entries
-        return array_merge(self::getTypeDictForClassOrObject(self::getParentClassForClassOrObject($classOrObject)), $typeDict);
+        $parent = self::getParentClassForClassOrObject($classOrObject);
+        return array_merge(self::getTypeDictForClassOrObject($parent), $typeDict);
     }
 
 	/**
