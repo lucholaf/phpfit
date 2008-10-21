@@ -1,6 +1,6 @@
 <?php
 
-class PHPFIT_TypeAdapter
+abstract class PHPFIT_TypeAdapter
 {
 
     /**
@@ -100,8 +100,7 @@ class PHPFIT_TypeAdapter
             self::loadAdapter('ScientificDouble');
             return new PHPFIT_TypeAdapter_ScientificDouble();
         }
-
-        return new PHPFIT_TypeAdapter();
+		throw new Exception("No type adapter available for $type");
     }
 
     /**
