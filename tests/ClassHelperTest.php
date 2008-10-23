@@ -14,6 +14,23 @@ class ClassHelperTest extends UnitTestCase {
     
     protected $objects = array();
 
+	protected static $types = array(
+		'SomeClass' => 'SomeClass',
+		'boolean'   => 'boolean',
+		'bool'      => 'boolean',
+		'integer'   => 'integer',
+		'int'       => 'integer',
+		'short'     => 'integer',
+		'float'     => 'double',
+		'double'    => 'double',
+		'character' => 'string',
+		'string'    => 'string',
+		'array'     => 'array',
+		'void'      => 'void',
+		'null'      => 'void',
+	);
+
+
     /**
      * Lazy object instantiation
      */
@@ -40,6 +57,14 @@ class ClassHelperTest extends UnitTestCase {
             $this->assertIsA($object, $class, 'Self test of getInstance');
         }
     }
+
+	public function testNormalizedType()
+	{
+		$this->assertEqual('Blub', PHPFIT_ClassHelper::getNormalizedType('Blub'));		
+		foreach (self::$types as $type => $normtype) {
+		    $this->assertEqual($normtype, PHPFIT_ClassHelper::getNormalizedType($type));
+		}
+	}
 
     public function testGetClassForClassOrObject()
     {
