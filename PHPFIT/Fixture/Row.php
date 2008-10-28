@@ -196,8 +196,9 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column
    */
     protected function markParse($rows, $message)
     {
-        if ($rows == null)
-        return;
+        if ($rows == null) {
+        	return;
+        }
 
         $annotation = $this->label($message);
         while ($rows) {
@@ -236,7 +237,7 @@ abstract class PHPFIT_Fixture_Row extends PHPFIT_Fixture_Column
             } else {
                 try {
                     $adapter->target = $row;
-                    $this->info($next, $adapter->toString($adapter->get()));
+                    $next->body = self::gray(self::escape($adapter->toString($adapter->get())));
                 } catch (Exception $e) {
                     $this->exception($next, $e);
                 }

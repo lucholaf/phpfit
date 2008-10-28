@@ -394,7 +394,6 @@ class PHPFIT_Fixture
     public function wrong($cell, $actual = false)
     {
         $cell->addToTag(self::getCssProperty('failed'));
-        $cell->body  = self::escape($cell->text());
         $this->counts->wrong++;
 
         if ($actual !== false) {
