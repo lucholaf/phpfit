@@ -59,12 +59,23 @@ class PHPFIT_ClassHelper
 	public static function getNormalizedType($type)
 	{
 	    $checktype = strtolower($type);
-	    if (array_key_exists($checktype, self::$types)) {
+	    if (self::isBaseType($checktype)) {
 	        return self::$types[$checktype];
 	    }
 	    return $type;
 	}
 
+	/**
+	 * @param string
+	 * @return string
+	 */
+	public static function isBaseType($type)
+	{
+	    if (!is_string($type)) {
+	        throw new Exception('Checking type for non-string');
+	    }
+	    return array_key_exists($type, self::$types);
+	}
 
 	/**
 	 * Delegates to getType(), but the argument here is an array
