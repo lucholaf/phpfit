@@ -128,7 +128,7 @@ class ClassHelperTest extends UnitTestCase {
 	public function testMissingPropertyException()
 	{
 	    $class = $this->classes[3];
-	    $this->assertEquals('boolean', PHPFIT_ClassHelper::getTypeForField($class, 'existingProperty'));
+	    $this->assertEqual('boolean', PHPFIT_ClassHelper::getTypeForField($class, 'existingProperty'));
 	    try {
 	        $type = PHPFIT_ClassHelper::getTypeForField($class, 'missingProperty');
 	    } catch (PHPFIT_Exception_ClassHelper_MissingProperty $e) {
@@ -140,7 +140,7 @@ class ClassHelperTest extends UnitTestCase {
 	public function testMissingMethodException()
 	{
 	    $class = $this->classes[3];
-	    $this->assertEquals('boolean', PHPFIT_ClassHelper::getTypeForMethod($class, 'existingMethod'));
+	    $this->assertEqual('boolean', PHPFIT_ClassHelper::getTypeForMethod($class, 'existingMethod'));
 	    try {
 	        $type = PHPFIT_ClassHelper::getTypeForMethod($class, 'missingMethod');
 	    } catch (PHPFIT_Exception_ClassHelper_MissingMethod $e) {
