@@ -1,4 +1,8 @@
 <?php
+require_once 'PHPFIT/Exception/ClassHelper/MissingMethod.php';
+require_once 'PHPFIT/Exception/ClassHelper/MissingProperty.php';
+require_once 'PHPFIT/Exception/ClassHelper/MissingTypeDictEntry.php';
+
 class PHPFIT_ClassHelper
 {
 	/**
@@ -48,7 +52,7 @@ class PHPFIT_ClassHelper
         } elseif ($property == 'field') {
 			return self::getTypeForField($classOrObject, $name);
         } else {
-            throw new Exception('getType(): No property Method or Field defined!');
+            throw new PHPFIT_Exception_ClassHelper('getType(): No property Method or Field defined!');
         }
     }
 
@@ -72,7 +76,7 @@ class PHPFIT_ClassHelper
 	public static function isBaseType($type)
 	{
 	    if (!is_string($type)) {
-	        throw new Exception('Checking type for non-string');
+	        throw new PHPFIT_Exception_ClassHelper('Checking type for non-string');
 	    }
 	    return array_key_exists($type, self::$types);
 	}
@@ -93,7 +97,7 @@ class PHPFIT_ClassHelper
 	public static function getTypeForMethodOrField($methodOrField)
 	{
 	    if (array_keys($methodOrField) != array(0, 1, 2)) {
-	        throw new Exception('PHPFIT_ClassHelper::getTypeForMethodOrField() must' .
+	        throw new PHPFIT_Exception_ClassHelper('getTypeForMethodOrField() must' .
 	        		' be called with a numerically indexed array.');
 	    }
 	    return self::getType($methodOrField[0], $methodOrField[1], $methodOrField[2]);
@@ -145,8 +149,7 @@ class PHPFIT_ClassHelper
 			$type = self::getArrayValue($type, 'return');
         }
 		if (is_null($type)) {
-            throw new Exception('Property or method has no definition in $typeDict! ' .
-            	self::getClassForClassOrObject($classOrObject) . '->' . $name);
+			throw new PHPFIT_Exception_ClassHelper_MissingTypeDictEntry(self::getClassForClassOrObject($classOrObject), $name);
 		}
         return $type;
 	}
@@ -262,7 +265,7 @@ class PHPFIT_ClassHelper
             $classOrObject = get_class($classOrObject);
         }
         if (!class_exists($classOrObject)) {
-            throw new Exception('PHPFIT_ClassHelper::getClassForClassOrObject() unknown class ' . $classOrObject . '.');
+            throw new PHPFIT_Exception_ClassHelper('getClassForClassOrObject() unknown class ' . $classOrObject . '.');
         }
         return $classOrObject;
     }
@@ -284,9 +287,7 @@ class PHPFIT_ClassHelper
 	protected static function checkMethodExists($classOrObject, $name)
 	{
         if (!method_exists($classOrObject, $name)) {
-            throw new Exception('Method does not exist! ' .
-            	self::getClassForClassOrObject($classOrObject) . '->' . $name);
-            return null;
+			throw new PHPFIT_Exception_ClassHelper_MissingMethod(self::getClassForClassOrObject($classOrObject), $name);
         }
 	}
 
@@ -297,8 +298,7 @@ class PHPFIT_ClassHelper
 	protected static function checkPropertyExists($classOrObject, $name)
 	{
         if (!property_exists($classOrObject, $name)) {
-            throw new Exception('Property does not exist! ' .
-            	self::getClassForClassOrObject($classOrObject) . '->' . $name);
+			throw new PHPFIT_Exception_ClassHelper_MissingProperty(self::getClassForClassOrObject($classOrObject), $name);
         }
 	}	
 }

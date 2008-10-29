@@ -125,6 +125,47 @@ class ClassHelperTest extends UnitTestCase {
         $this->assertGetArgTypesOk($object);
 	}
 
+	public function testMissingPropertyException()
+	{
+	    $class = $this->classes[3];
+	    $this->assertEquals('boolean', PHPFIT_ClassHelper::getTypeForField($class, 'existingProperty'));
+	    try {
+	        $type = PHPFIT_ClassHelper::getTypeForField($class, 'missingProperty');
+	    } catch (PHPFIT_Exception_ClassHelper_MissingProperty $e) {
+	    } catch (Exception $e) {
+	        $this->fail('Wrong Exception;');
+	    }
+	}
+
+	public function testMissingMethodException()
+	{
+	    $class = $this->classes[3];
+	    $this->assertEquals('boolean', PHPFIT_ClassHelper::getTypeForMethod($class, 'existingMethod'));
+	    try {
+	        $type = PHPFIT_ClassHelper::getTypeForMethod($class, 'missingMethod');
+	    } catch (PHPFIT_Exception_ClassHelper_MissingMethod $e) {
+	    } catch (Exception $e) {
+	        $this->fail('Wrong Exception;');
+	    }
+	}
+
+	public function testMissingTypeDictEntryException()
+	{
+	    $class = $this->classes[3];
+	    try {
+	        $type = PHPFIT_ClassHelper::getTypeForField($class, 'existingPropertyWithoutTypeDictEntry');
+	    } catch (PHPFIT_Exception_ClassHelper_MissingTypeDictEntry $e) {
+	    } catch (Exception $e) {
+	        $this->fail('Wrong Exception;');
+	    }
+	    try {
+	        $type = PHPFIT_ClassHelper::getTypeForMethod($class, 'existingMethodWithoutTypeDictEntry');
+	    } catch (PHPFIT_Exception_ClassHelper_MissingTypeDictEntry $e) {
+	    } catch (Exception $e) {
+	        $this->fail('Wrong Exception;');
+	    }
+	}
+
 	protected function assertGetArgTypesOk($classOrObject)
 	{
         $this->assertEqual(PHPFIT_ClassHelper::getArgTypesForMethod($classOrObject, 'methodWithArgType'), array('string', 'integer'));
@@ -148,8 +189,13 @@ class ClassHelperTest_TypeDict
 {
     public static $typeDict = array(
     	'plus()' => 'integer',
-    	'divide()' => 'integer', 
+    	'divide()' => 'integer',
+    	'existingProperty' => 'bool',
+    	'existingMethod()' => 'bool',
     );
+
+	public $existingProperty;
+	public $existingPropertyWithoutTypeDictEntry;
     
     public function plus()
     {
@@ -158,6 +204,14 @@ class ClassHelperTest_TypeDict
     public function divide()
     {
     }
+
+	public function existingMethod()
+	{
+	}
+
+	public function existingMethodWithoutTypeDictEntry()
+	{
+	}
 }
 
 class ClassHelperTest_InheritedTypeDict extends ClassHelperTest_TypeDict
