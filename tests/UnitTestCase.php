@@ -6,14 +6,24 @@ require_once 'PHPUnit/Framework.php';
  */
 class UnitTestCase extends PHPUnit_Framework_TestCase
 {
+	public static function assertEquals()
+	{
+	    throw new Exception('assertEquals() called! For SimpleTest compliance use assertEqual().');
+	}
+
+	public static function assertType()
+	{
+	    throw new Exception('assertType() called! For SimpleTest compliance use assertIsA().');
+	}
+
     protected function assertIsA($object, $class, $message = '')
     {
-        $this->assertType($class, $object, $message);
+        parent::assertType($class, $object, $message);
     }
 
 	protected function assertEqual($a, $b, $message = '')
 	{
-	    $this->assertEquals($a, $b, $message);
+	    parent::assertEquals($a, $b, $message);
 	}
 
 	protected function pass($message = '')
