@@ -1,4 +1,4 @@
-<?PHP
+<?php
 
 class PHPFIT_Exception_FileIO extends Exception
 {

@@ -1,7 +1,8 @@
 <?php
 require_once 'PHPFIT/Exception/ClassHelper.php';
 
-class PHPFIT_Exception_ClassHelper_MissingProperty extends PHPFIT_Exception_ClassHelper
+class PHPFIT_Exception_ClassHelper_MissingProperty
+		extends PHPFIT_Exception_ClassHelper
 {
 	/**
 	 * @param string $class
@@ -10,6 +11,8 @@ class PHPFIT_Exception_ClassHelper_MissingProperty extends PHPFIT_Exception_Clas
 	 */
 	public function __construct($class, $property)
 	{
-	    parent::__construct(sprintf('Property does not exist! %s::%s', $class, $property));
+	    $message = sprintf('Property does not exist! ' .
+	    		'%s::%s', $class, $property);
+	    parent::__construct($message);
 	}
 }
