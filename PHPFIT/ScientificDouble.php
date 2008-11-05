@@ -4,11 +4,14 @@ require_once 'PHPFIT/Comparable.php';
 
 class PHPFIT_ScientificDouble implements PHPFIT_Comparable
 {
+	public static $typeDict = array(
+		'parse()' => array('args' => 'string', 'return' => 'PHPFIT_ScientificDouble'), 
+	);
 
     protected $value = 0.0;
     protected $precisionValue = 0.0;
 
-    function __construct($value)
+    public function __construct($value)
     {
         $this->value = $value;
     }
@@ -17,7 +20,7 @@ class PHPFIT_ScientificDouble implements PHPFIT_Comparable
     * @param mixed $other
     * @return boolean
     */
-    function equals($other)
+    public function equals($other)
     {
         return $this->compareTo($other) == 0;
     }
@@ -27,6 +30,9 @@ class PHPFIT_ScientificDouble implements PHPFIT_Comparable
     */
     public function compareTo($other)
     {
+		if ($other instanceof PHPFIT_ScientificDouble) {
+		    $other = $other->doubleValue();
+		}
         $other = floatval($other);
         $diff = $this->value - $other;
         if ($diff < -$this->precisionValue) return -1;
@@ -44,6 +50,15 @@ class PHPFIT_ScientificDouble implements PHPFIT_Comparable
         $result->precisionValue = self::precision($s);
         return $result;
     }
+
+	/**
+	 * @param string $s
+	 * @return PHPFIT_ScientificDouble
+	 */
+	public static function parse($s)
+	{
+	    return self::valueOf($s);
+	}
 
    /**
     * @param string $s
@@ -76,6 +91,22 @@ class PHPFIT_ScientificDouble implements PHPFIT_Comparable
         }
         return $s . ".5";
     }
+
+	/**
+	 * @return float
+	 */
+	public function doubleValue()
+	{
+		return $this->value;
+	}
+
+	/**
+	 * @return float
+	 */
+	public function floatValue()
+	{
+		return $this->doubleValue();
+	}
 
    /**
     * @return string
