@@ -45,12 +45,12 @@ class PHPFIT_ClassHelper
     * @param string $property: 'method' or 'field'
     * @return string
     */
-    public static function getType($classOrObject, $name, $property)
+    public static function getType($classOrObject, $name, $property, $allowPrivateAccess = false)
     {
         if ($property == 'method') {
 			return self::getTypeForMethod($classOrObject, $name);
         } elseif ($property == 'field') {
-			return self::getTypeForField($classOrObject, $name);
+			return self::getTypeForField($classOrObject, $name, $allowPrivateAccess);
         } else {
             throw new PHPFIT_Exception_ClassHelper('getType(): No property Method or Field defined!');
         }
@@ -120,9 +120,9 @@ class PHPFIT_ClassHelper
      * @param string $name of property
      * @return string
 	 */
-	public static function getTypeForField($classOrObject, $name)
+	public static function getTypeForField($classOrObject, $name, $allowPrivateProperty = false)
 	{
-		self::checkPropertyExists($classOrObject, $name);
+		self::checkPropertyExists($classOrObject, $name, $allowPrivateProperty);
         return self::getNormalizedType(self::getTypeDictValue($classOrObject, $name));
 	}
 
@@ -295,9 +295,14 @@ class PHPFIT_ClassHelper
 	 * @return void
 	 * @throws Exception
 	 */
-	protected static function checkPropertyExists($classOrObject, $name)
+	protected static function checkPropertyExists($classOrObject, $name, $allowPrivateProperty = false)
 	{
-        if (!property_exists($classOrObject, $name)) {
+		$property = null;
+        if ($allowPrivateProperty) {
+            $reflectionClass = self::getReflectionClassForClassOrObject($classOrObject);
+            $property = $reflectionClass->getProperty($name);
+        }
+        if (is_null($property) && !property_exists($classOrObject, $name)) {
 			throw new PHPFIT_Exception_ClassHelper_MissingProperty(self::getClassForClassOrObject($classOrObject), $name);
         }
 	}	
