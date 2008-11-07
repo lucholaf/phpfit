@@ -1,6 +1,7 @@
 <?php
 
 require_once 'PHPFIT/Fixture.php';
+require_once 'PHPFIT/Exception/LoadFixture.php';
 
 class PHPFIT_FixtureLoader
 {
@@ -24,12 +25,23 @@ class PHPFIT_FixtureLoader
 	    }
 	}
 
+	/**
+	 * Add a directory to the path
+	 */
+	public static function addFixturesDirectory($fixturesDirectory)
+	{
+	    if (empty($fixturesDirectory)) {
+	        return;
+	    }
+    	self::$fixturesDirectory .= PATH_SEPARATOR . rtrim($fixturesDirectory, '/\\') . '/';
+	}
+
     /**
     * @param string $fixtureName
     * @param string $fixturesDirectory
     * @return PHPFIT_Fixture
     */
-    public static function load($fixtureName, $fixturesDirectory)
+    public static function load($fixtureName, $fixturesDirectory = '')
     {
         if (substr($fixtureName, 0, strlen(self::$fitPrefix)) == self::$fitPrefix) {
             return self::loadFitFixture($fixtureName); // if $fixtureName starts with "fit."
@@ -50,9 +62,8 @@ class PHPFIT_FixtureLoader
     private static function loadUserFixture($fixtureName, $fixturesDirectory)
     {
         $filename = str_replace('.', '/', $fixtureName) . '.php';
-        $filename = self::getFixturesDirectory($fixturesDirectory) . $filename;
 
-        self::loadFile($filename);
+		self::loadFixtureFile($filename, $fixturesDirectory);
     
         $pos = strrpos($fixtureName, '.');
         if ($pos !== false) {
@@ -98,31 +109,61 @@ class PHPFIT_FixtureLoader
         
         throw new Exception('Class "' . $classname . '" could not be found in file ' . $filename);
     }
+
+	/**
+	 * @param string $filename
+	 * @param string $fixturesDirectory
+	 * @return void
+	 * @throws Exception
+	 */
+	protected static function loadFixtureFile($filename, $fixturesDirectory)
+	{
+		foreach (self::getFixturesDirectories($fixturesDirectory) as $dir) {
+		    if (self::canLoadFile($dir . $filename)) {
+		        self::loadFile($dir . $filename);
+		        return;
+		    }
+		}
+		throw new PHPFIT_Exception_LoadFixture($filename);
+	}
     
+	/**
+	 * @param string $filename
+	 * @return void
+	 * @throws Exception
+	 */
     protected static function loadFile($filename)
     {
-        if (PHPFIT_Fixture::fc_incpath('is_readable', $filename)) {
-            require_once $filename;
-        } else {
-            throw new Exception( 'Could not load file ' . $filename);
+        if (!self::canLoadFile($filename)) {
+			throw new PHPFIT_Exception_LoadFixture($filename);
         }
+        require_once $filename;
     }
 
 	/**
-	 * Get the fixturesDirectory with trailing slash or empty string.
+	 * @param string $filename
+	 * @return boolean
+	 */
+	protected static function canLoadFile($filename)
+	{
+	    return PHPFIT_Fixture::fc_incpath('is_readable', $filename);
+	}
+
+	/**
+	 * Get an array of fixturesDirectories with trailing slash or empty string.
 	 * 
-	 * If the parameter $fixturesDirectory is not null, return it (beautified)
-	 * Otherwise return self::$fixturesDirectory.
+	 * If the parameter $fixturesDirectory is not null, return it (beautified) and cast to array
+	 * Otherwise return exploded version of self::$fixturesDirectory.
 	 * 
 	 * @param string $fixturesDirectory
 	 * @return string
 	 */
-	protected static function getFixturesDirectory($fixturesDirectory = null)
+	protected static function getFixturesDirectories($fixturesDirectory = null)
 	{
 	    if (empty($fixturesDirectory)) {
-	        return self::$fixturesDirectory;
+	        return explode(PATH_SEPARATOR, self::$fixturesDirectory);
 	    }
-	    return rtrim($fixturesDirectory, '/\\') . '/';
+	    return (array) (rtrim($fixturesDirectory, '/\\') . '/');
 	}
 
 }
