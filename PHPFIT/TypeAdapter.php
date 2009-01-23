@@ -209,24 +209,30 @@ abstract class PHPFIT_TypeAdapter
     }
 
     /**
-     * @param mixed $o
      * @return string
      */
     public function toString()
     {
-
         $o = $this->get();
+		return $this->valueToString($o);
+    }
 
-        if ($o == null) {
+    /**
+     * @param mixed $value
+     * @return string
+     */
+	public function valueToString($value)
+	{
+        if ($value == null) {
             return 'null';
         }
 
-        if (is_object($o)) {
-            return $o->toString();
+        if (is_object($value)) {
+            return $value->toString();
         }
 
-        return strval($o);
-    }
+        return strval($value);
+	}
 
     /**
      * @param string $text
@@ -234,7 +240,17 @@ abstract class PHPFIT_TypeAdapter
      */
     public function equal($text)
     {
-        return $this->equals($this->parse($text), $this->get());
+        return $this->valueEquals($this->get(), $text);
+    }
+    
+    /**
+     * @param mixed $value
+     * @param string $text
+     * @return true if same, false otherwise
+     */
+    public function valueEquals($value, $text)
+    {
+        return $this->equals($this->parse($text), $value);
     }
 }
 

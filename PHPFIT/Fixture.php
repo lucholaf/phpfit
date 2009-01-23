@@ -334,16 +334,17 @@ class PHPFIT_Fixture
         } else if (strncmp($text, 'error', 5) == 0) {
             try {
                 $result = $adapter->invoke();
-                $this->wrong($cell, $adapter->toString());
+                $this->wrong($cell, $adapter->valueToString($result));
             } catch (Exception $e) {
                 $this->right($cell);
             }
         } else {
             try {
-                if ($adapter->equal($text)) {
+                $value = $adapter->get();
+                if ($adapter->valueEquals($value, $text)) {
                     $this->right($cell);
                 } else {
-                    $this->wrong($cell, $adapter->toString());
+                    $this->wrong($cell, $adapter->valueToString($value));
                 }
             } catch(Exception $e) {
                 $this->exception($cell, $e);
