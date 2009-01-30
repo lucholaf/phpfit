@@ -223,7 +223,7 @@ abstract class PHPFIT_TypeAdapter
      */
 	public function valueToString($value)
 	{
-        if ($value == null) {
+        if (is_null($value)) {
             return 'null';
         }
 
