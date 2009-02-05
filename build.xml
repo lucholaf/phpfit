@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PHPFIT" default="build" basedir=".">
+    <property name="log" location="log"/>
+
+    <target name="build" depends="simpletest,phpunit,phpcs">
+    </target>
+
+	<target name="phpcs"> 
+		<exec executable="phpcs" dir="" output="${log}/checkstyle.xml">
+			<arg line="--report=checkstyle --standard=ZEND PHPFIT"/>
+		</exec> 
+	</target> 
+	<target name="phpunit">
+		<exec executable="phpunit" dir="" failonerror="true">
+			<arg line="--log-xml ${log}/PHPFIT_phpunit.xml
+				AllTestPhpUnit tests/AllTestPhpUnit.php" />
+		</exec>
+	</target> 
+    <target name="simpletest">
+        <exec executable="php" dir="" failonerror="true">
+            <arg line="tests/AllTest.php" />
+        </exec>
+    </target> 
+</project>
