@@ -4,7 +4,10 @@
 */
 class PHPFIT_Socket
 {
+    const CHUNK_SIZE = 10;
+
 	private $connectRetries = 3;
+    private $readRetries = 20;
 	private $usleepTime = 2000;
 
     private $socketResource;
@@ -34,15 +37,37 @@ class PHPFIT_Socket
 
     public function read($len)
     {
-		// First check, if there is any data available.
-		// Without this check socket_read might hang and not even return "".
-		// This happened with the FitServerTest JUnit tests, because
-		// PHPFIT_FitServer::getDocument() tried to keep reading, even if there
-		// was only one document and the TestServer did not close the socket.
-		if (!$this->hasReadableData()) {
-			throw new Exception('Socket::read() was called, but no readable data was available.');
-		}
-        return socket_read($this->socketResource, $len);
+		$this->ensureReadableData();
+        return $this->readInChunks($len);
+    }
+
+    private function readInChunks($len)
+    {
+        $message  = '';
+        while ($len > self::CHUNK_SIZE) {
+            $len -= self::CHUNK_SIZE;
+            $message .= socket_read($this->socketResource, self::CHUNK_SIZE);
+        }
+        return $message . socket_read($this->socketResource, $len);
+    }
+
+    private function ensureReadableData()
+    {
+        // Without this check socket_read might hang and not even return "".
+        // This happened with the FitServerTest JUnit tests, because
+        // PHPFIT_FitServer::getDocument() tried to keep reading, even if there
+        // was only one document and the TestServer did not close the socket.
+        $i = 0;
+        while(!$this->hasReadableData()) {
+            if ($i > $this->_numberOfRetries) {
+                $this->raiseError(
+                    "Socket::read() was called, " .
+                    "but no readable data was available."
+                );
+            }
+            usleep(10000);
+            $i++;
+        }
     }
 
 	public function hasReadableData()
