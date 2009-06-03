@@ -64,7 +64,6 @@ class PHPFIT_Parse
 
         $startTag   = stripos($text, '<' . $tags[$level]);
         $endTag     = stripos($text, '>', $startTag) + 1;
-//        $startEnd   = stripos($text, '</' . $tags[$level], $endTag);
         $startEnd   = self::findMatchingEndTag($text, $endTag, $tags[$level], $offset);
         $endEnd     = stripos($text, '>', $startEnd) + 1;
         $startMore  = stripos($text, '<'.$tags[$level], $endEnd);
@@ -270,16 +269,11 @@ class PHPFIT_Parse
     */
     public static function condenseWhitespace($s)
     {
-        $nonBreakingSpace = chr(160);
-
         $s = preg_replace('|\s+|s', ' ', $s);
-        $s = ereg_replace($nonBreakingSpace, ' ', $s);
         $s = ereg_replace('&nbsp;', ' ', $s);
-
         $s = trim($s, "\t\n\r\ ");
         return $s;
     }
-
 
    /**
     * @param string $s

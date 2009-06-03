@@ -166,10 +166,12 @@ class ParseTest extends UnitTestCase {
         try{
             $this->assertEqual("a b", PHPFIT_Parse::condenseWhitespace(" a  b  "));
             $this->assertEqual("a b", PHPFIT_Parse::condenseWhitespace(" a  \n\tb  "));
+            $this->assertEqual("", PHPFIT_Parse::condenseWhitespace(""));
             $this->assertEqual("", PHPFIT_Parse::condenseWhitespace(" "));
             $this->assertEqual("", PHPFIT_Parse::condenseWhitespace("  "));
             $this->assertEqual("", PHPFIT_Parse::condenseWhitespace("   "));
-            $this->assertEqual("", PHPFIT_Parse::condenseWhitespace(chr(160)));
+            $this->assertEqual("à", PHPFIT_Parse::condenseWhitespace("à"));
+            $this->assertEqual("à b", PHPFIT_Parse::condenseWhitespace(" à  b  "));
         }
         catch( Exception $e ) {
             die( $e->getMessage() );
