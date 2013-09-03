@@ -323,14 +323,14 @@ class PHPFIT_Fixture
     {
         $text = $cell->text();
 
-        if ($text == '') {
+        if ($adapter == null) {
+            $this->ignore($cell);
+		} else if ($text == '') { 
             try {
-                $this->info($cell, $adapter->toString());
+                $this->info($cell, $adapter->toString());  //MetaClass: crashes if adapter is null
             } catch(Exception $e) {
                 $this->info($cell, 'error');
             }
-        } else if ($adapter == null) {
-            $this->ignore($cell);
         } else if (strncmp($text, 'error', 5) == 0) {
             try {
                 $result = $adapter->invoke();

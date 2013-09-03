@@ -235,10 +235,10 @@ class PHPFIT_Parse
     public static function unescapeSmartQuotes($s)
     {
         /* NOT SURE */
-        $s = ereg_replace('<93>', '"', $s);
-        $s = ereg_replace('<94>', '"', $s);
-        $s = ereg_replace('<91>', "'", $s);
-        $s = ereg_replace('<92>', "'", $s);
+        $s = str_replace('<93>', '"', $s);
+        $s = str_replace('<94>', '"', $s);
+        $s = str_replace('<91>', "'", $s);
+        $s = str_replace('<92>', "'", $s);
 
       /* NO SUPPORT FOR UNICODE IN PHP! :( */
         /*
@@ -270,7 +270,7 @@ class PHPFIT_Parse
     public static function condenseWhitespace($s)
     {
         $s = preg_replace('|\s+|s', ' ', $s);
-        $s = ereg_replace('&nbsp;', ' ', $s);
+        $s = str_replace('&nbsp;', ' ', $s);
         $s = trim($s, "\t\n\r\ ");
         return $s;
     }

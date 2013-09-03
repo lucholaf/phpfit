@@ -27,7 +27,7 @@ class Music {
     
 	public static function parse($string) {
 		$m = new Music();
-		$t = split("\t", $string);
+		$t = explode("\t", $string); //Modified by MetaClass, split is depricated as of PHP 5.3.0
 		
 		$m->title = $t[0];
 		$m->artist = $t[1];
