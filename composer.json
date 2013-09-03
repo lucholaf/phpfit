@@ -1,0 +1,17 @@
+{
+    "name": "metaclass-nl/phpfit",
+    "type": "library",
+    "description": "PHP5 port of the FIT acceptance test framework",
+    "keywords": ["testing", "acceptance", "table", "DSL", "Fit"],
+    "homepage": "http://developer.berlios.de/projects/phpfit/",
+    "license": "GPL",
+    "authors": [
+        {"name": "Ward Cunningham", "homepage": "http://c2.com" },
+        {"name": "Luis Floreani", "homepage": "https://github.com/lucholaf" }
+         
+    ],
+    "require": {
+        "php": ">=5.1.0"
+    },
+      "include-path": [""]
+}

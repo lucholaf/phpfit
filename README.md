@@ -43,6 +43,10 @@ PHPFIT::run(input.html, output.html [, fixturesDirectory]);
 echo file_get_contents(output.html);
 ?>
 
+*Alternative: With Composer and Fit Shelf:*    
+  See Readme.md of the [fit-skeleton package](https://github.com/metaclass-nl/fit-skeleton).
+  (Supports Mixed Data Typing, You don't have to specify type info) 
+  
 
 DATA TYPES
 ===========
