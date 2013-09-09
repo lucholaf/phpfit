@@ -17,6 +17,6 @@
 		"psr-0": {
 			"PHPFIT_": "PHPFIT/"
 		}
-	}
+	},
     "include-path": [""]
 }
