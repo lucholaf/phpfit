@@ -134,6 +134,7 @@ class PHPFIT_Fixture_Column extends PHPFIT_Fixture
                 }
             } catch (Exception $e) {
                 $this->exception($heads, $e);
+                $this->columnBindings[$i] = null;
             }
             $i = $i+1;
         }
