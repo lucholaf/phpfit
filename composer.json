@@ -13,5 +13,9 @@
     "require": {
         "php": ">=5.1.0"
     },
-      "include-path": [""]
+	"autoload": {
+	"psr-0": {
+		"PHPFIT_": "PHPFIT/"
+	}
+    "include-path": [""]
 }
