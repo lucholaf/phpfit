@@ -17,7 +17,7 @@
 		"psr-0": {
 			"PHPFIT_": "PHPFIT/"
 		},
-		"classmap": "PHPFIT.php"
+		"classmap": ["PHPFIT.php"]
 	},
     "include-path": [""]
 }
