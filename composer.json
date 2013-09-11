@@ -15,7 +15,7 @@
     },
 	"autoload": {
 		"psr-0": {
-			"PHPFIT_": ""
+			"PHPFIT_": "PHPFIT/"
 		},
 		"classmap": ["PHPFIT.php"]
 	},
