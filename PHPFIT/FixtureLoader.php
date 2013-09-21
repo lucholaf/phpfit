@@ -61,6 +61,12 @@ class PHPFIT_FixtureLoader
     */
     private static function loadUserFixture($fixtureName, $fixturesDirectory)
     {
+        //try name spaced auto loading (triggered by class_exists)
+        $fullyQualifiedClassname = str_replace('.', '\\', $fixtureName);
+        if (class_exists($fullyQualifiedClassname)) {
+            return new $fullyQualifiedClassname($fixturesDirectory);
+        }
+        
         $filename = str_replace('.', '/', $fixtureName) . '.php';
 
 		self::loadFixtureFile($filename, $fixturesDirectory);

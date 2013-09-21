@@ -1,5 +1,9 @@
 in https://github.com/metaclass-nl/phpfit
 
+- added support for autoloading name spaced fixture classes (requires external classloader like the one from Composer)
+
+---
+
 - added gitignore for eclipse project files and folders
 
 - adapted to PHP 5.3.0
